@@ -12,28 +12,36 @@ val players = Array(
 
 //throw dice
 var currentplayer = players(0)
-var dice1 = Random.nextInt(6) + 1
-var dice2 = Random.nextInt(6) + 1
+val dice1 = Random.nextInt(6) + 1
+val dice2 = Random.nextInt(6) + 1
 val dicecount = dice1+dice2
 var pasch = 0
 if (dice1 == dice2){
   pasch = pasch + 1
   if (pasch == 3) {
     currentplayer = currentplayer.copy(position = -1)
+    pasch = 0
   }
 } else {
   pasch = 0
 }
 
 //move Player
-var pos = (currentplayer.position+dicecount)%42
-if (currentplayer.position+dicecount == 42){
-  currentplayer = currentplayer.copy(money = currentplayer.money+400)
-} else if (currentplayer.position+dicecount > 42){
-  currentplayer = currentplayer.copy(money = currentplayer.money+200)
+if (currentplayer.position != -1){
+  var pos = (currentplayer.position+dicecount)%39
+  if (currentplayer.position+dicecount == 39){
+    currentplayer = currentplayer.copy(money = currentplayer.money+400)
+  } else if (currentplayer.position+dicecount > 39){
+    currentplayer = currentplayer.copy(money = currentplayer.money+200)
+  }
+  currentplayer = currentplayer.copy(position = pos)
+} else {
+  //throwdice
+  if (pasch == 1){
+    currentplayer = currentplayer.copy(position = 10+dicecount)
+    pasch = 0
+  }
 }
-currentplayer = currentplayer.copy(position = pos)
-
 //addmoney
 
 
