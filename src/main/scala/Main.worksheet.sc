@@ -1,4 +1,4 @@
-
+import scala.util.Random
 
 // Create Players
 case class Player(color: String, money: Int, position: Int)
@@ -10,7 +10,31 @@ val players = Array(
   Player("Purple", 10000, 0)
 )
 
-//position = (pos+dicecount)%42
+//throw dice
+var currentplayer = players(0)
+var dice1 = Random.nextInt(6) + 1
+var dice2 = Random.nextInt(6) + 1
+val dicecount = dice1+dice2
+var pasch = 0
+if (dice1 == dice2){
+  pasch = pasch + 1
+  if (pasch == 3) {
+    currentplayer = currentplayer.copy(position = -1)
+  }
+} else {
+  pasch = 0
+}
+
+//move Player
+var pos = (currentplayer.position+dicecount)%42
+if (currentplayer.position+dicecount == 42){
+  currentplayer = currentplayer.copy(money = currentplayer.money+400)
+} else if (currentplayer.position+dicecount > 42){
+  currentplayer = currentplayer.copy(money = currentplayer.money+200)
+}
+currentplayer = currentplayer.copy(position = pos)
+
+//addmoney
 
 
 //Property Mother class
