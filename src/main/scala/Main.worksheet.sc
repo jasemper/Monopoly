@@ -10,7 +10,7 @@ val players = Array(
   Player("Purple", 10000, 0)
 )
 
-position = (pos+dicecount)%42
+//position = (pos+dicecount)%42
 
 
 //Property Mother class
