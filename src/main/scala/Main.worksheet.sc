@@ -98,7 +98,7 @@ val Streets: Array[Street] = Array(
 )
 
 // Array containing all Monopoly railroads
-val Railroads: Array[Railroad] = Array(
+val Trains: Array[Railroad] = Array(
   Railroad("Reading Railroad", ""),
   Railroad("Pennsylvania Railroad", ""),
   Railroad("B&O Railroad", ""),
@@ -118,7 +118,14 @@ def ownsFullSet(player: Player, color: String): Boolean = {
 }
 
 def giveOwner(player: Player, fieldnr: Int): Unit = {
-  Streets(fieldnr) = Streets(fieldnr).copy(owner = player.color)
+  val streetnrs = Array(0,3,6,8,9,11,13,14,16,18,19,21,23,24,26,27,29,31,32,34,37,39)
+  val trainnrs = Array(5,15,25,35)
+  if (streetnrs contains fieldnr) {
+    Streets(fieldnr) = Streets(fieldnr).copy(owner = player.color)
+  } else if (trainnrs contains fieldnr) {
+    Trains((fieldnr-5)/10) = Trains((fieldnr-5)/10).copy(owner = player.color)
+  }
+
 }
 
 
