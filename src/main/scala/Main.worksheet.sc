@@ -121,10 +121,11 @@ def giveOwner(player: Player, fieldnr: Int): Unit = {
   val streetnrs = Array(0,3,6,8,9,11,13,14,16,18,19,21,23,24,26,27,29,31,32,34,37,39)
   val trainnrs = Array(5,15,25,35)
   if (streetnrs contains fieldnr) {
-    Streets(fieldnr) = Streets(fieldnr).copy(owner = player.color)
+    Streets(streetnrs.indexOf(fieldnr)) = Streets(streetnrs.indexOf(fieldnr)).copy(owner = player.color)
   } else if (trainnrs contains fieldnr) {
     Trains((fieldnr-5)/10) = Trains((fieldnr-5)/10).copy(owner = player.color)
-  }
+  } else if (fieldnr == 12 || fieldnr == 28)
+    Utilities(fieldnr/10-1) = Utilities(fieldnr/10-1).copy(owner = player.color)
 
 }
 
