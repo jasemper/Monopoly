@@ -9,6 +9,9 @@ val players = Array(
   Player("Orange", 10000, 0),
   Player("Purple", 10000, 0)
 )
+for (i <- 0 to 4){
+  print(players(i))
+}
 
 //throw dice
 var currentplayer = players(0)
@@ -121,4 +124,4 @@ Streets.find(_.name == "Boardwalk").foreach(_.owner = Some(testPlayer))
 
 println(s"${testPlayer.color} owns full Dark Blue set: ${ownsFullSet(testPlayer, "Dark Blue")}")
 
-val x = Char.MaxValue.toInt
+val vrt = Char.MaxValue.toInt
