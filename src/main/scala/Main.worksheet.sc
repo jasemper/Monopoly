@@ -124,9 +124,23 @@ def giveOwner(player: Player, fieldnr: Int): Unit = {
     Streets(streetnrs.indexOf(fieldnr)) = Streets(streetnrs.indexOf(fieldnr)).copy(owner = player.color)
   } else if (trainnrs contains fieldnr) {
     Trains((fieldnr-5)/10) = Trains((fieldnr-5)/10).copy(owner = player.color)
-  } else if (fieldnr == 12 || fieldnr == 28)
+  } else if (fieldnr == 12 || fieldnr == 28) {
     Utilities(fieldnr/10-1) = Utilities(fieldnr/10-1).copy(owner = player.color)
+  }
+}
 
+def getOwner(fieldnr: Int): String = {
+  val streetnrs = Array(0,3,6,8,9,11,13,14,16,18,19,21,23,24,26,27,29,31,32,34,37,39)
+  val trainnrs = Array(5,15,25,35)
+  if (streetnrs contains fieldnr) {
+    Streets(streetnrs.indexOf(fieldnr)).owner
+  } else if (trainnrs contains fieldnr) {
+    Trains((fieldnr-5)/10).owner
+  } else if (fieldnr == 12 || fieldnr == 28) {
+    Utilities(fieldnr/10-1).owner
+  } else {
+    "NFS" //Not for sale
+  }
 }
 
 
@@ -134,8 +148,9 @@ def giveOwner(player: Player, fieldnr: Int): Unit = {
 // Example usage
 val testPlayer = players(0) // Blue Player
 
-giveOwner(testPlayer, 20)
-giveOwner(testPlayer, 21)
+giveOwner(testPlayer, 39)
+giveOwner(testPlayer, 37)
+print(Streets(11))
 
 println(s"${testPlayer.color} owns full Dark Blue set: ${ownsFullSet(testPlayer, "Dark Blue")}")
 
