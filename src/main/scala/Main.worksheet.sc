@@ -9,40 +9,43 @@ val players = Array(
   Player("Orange", 10000, 0),
   Player("Purple", 10000, 0)
 )
-for (i <- 0 to 4){
+for (i <- 0 until 5){
   print(players(i))
 }
 
-//throw dice
-var currentplayer = players(0)
+case class Counter(number: Int)
+val variables = Array(
+  Counter(0), // Counter of Päsche
+  Counter(0) //Counter for active Player
+)
+//throw dice // currentplayer = players(variables(1).number)
 val dice1 = Random.nextInt(6) + 1
 val dice2 = Random.nextInt(6) + 1
 val dicecount = dice1+dice2
-var pasch = 0
 if (dice1 == dice2){
-  pasch = pasch + 1
-  if (pasch == 3) {
-    currentplayer = currentplayer.copy(position = -1)
-    pasch = 0
+  variables(0) = variables(0).copy(number = variables(0).number+1)
+  if (variables(0).number == 3) {
+    players(variables(1).number) = players(variables(1).number).copy(position = -1)
+    variables(0) = variables(0).copy(number = 0)
   }
 } else {
-  pasch = 0
+  variables(0) = variables(0).copy(number = 0)
 }
 
 //move Player
-if (currentplayer.position != -1){
-  var pos = (currentplayer.position+dicecount)%39
-  if (currentplayer.position+dicecount == 39){
-    currentplayer = currentplayer.copy(money = currentplayer.money+400)
-  } else if (currentplayer.position+dicecount > 39){
-    currentplayer = currentplayer.copy(money = currentplayer.money+200)
+if (players(variables(1).number).position != -1){
+  var pos = (players(variables(1).number).position+dicecount)%39
+  if (players(variables(1).number).position+dicecount == 39){
+    players(variables(1).number) = players(variables(1).number).copy(money = players(variables(1).number).money+400)
+  } else if (players(variables(1).number).position+dicecount > 39){
+    players(variables(1).number) = players(variables(1).number).copy(money = players(variables(1).number).money+200)
   }
-  currentplayer = currentplayer.copy(position = pos)
+  players(variables(1).number) = players(variables(1).number).copy(position = pos)
 } else {
   //throwdice
-  if (pasch == 1){
-    currentplayer = currentplayer.copy(position = 10+dicecount)
-    pasch = 0
+  if (variables(0).number == 1){
+    players(variables(1).number) = players(variables(1).number).copy(position = 10+dicecount)
+    variables(0) = variables(0).copy(number = 0)
   }
 }
 //addmoney
@@ -51,61 +54,61 @@ if (currentplayer.position != -1){
 //Property Mother class
 sealed trait Property {
   def name: String
-  def owner: Option[Player]
+  def owner: String
 }
 
 // Create Streets building on Property
-case class Street(name: String, var owner: Option[Player], var buildings: Int, var hotels: Int, colorGroup: String) extends Property
+case class Street(name: String, owner: String, buildings: Int, hotels: Int, colorGroup: String) extends Property
 // Create Railroads building on Property
-case class Railroad(name: String, var owner: Option[Player]) extends Property
+case class Railroad(name: String, owner: String) extends Property
 // Create Utilities building on Property
-case class Utility(name: String, var owner: Option[Player]) extends Property
+case class Utility(name: String, owner: String) extends Property
 
 // Array containing all Monopoly streets with color groups
 val Streets: Array[Street] = Array(
-  Street("Mediterranean Avenue", None, 0, 0, "Brown"),
-  Street("Baltic Avenue", None, 0, 0, "Brown"),
+  Street("Mediterranean Avenue", "", 0, 0, "Brown"), // 0
+  Street("Baltic Avenue", "", 0, 0, "Brown"),
 
-  Street("Oriental Avenue", None, 0, 0, "Light Blue"),
-  Street("Vermont Avenue", None, 0, 0, "Light Blue"),
-  Street("Connecticut Avenue", None, 0, 0, "Light Blue"),
+  Street("Oriental Avenue", "", 0, 0, "Light Blue"), //2
+  Street("Vermont Avenue", "", 0, 0, "Light Blue"),
+  Street("Connecticut Avenue", "", 0, 0, "Light Blue"),
 
-  Street("St. Charles Place", None, 0, 0, "Pink"),
-  Street("States Avenue", None, 0, 0, "Pink"),
-  Street("Virginia Avenue", None, 0, 0, "Pink"),
+  Street("St. Charles Place", "", 0, 0, "Pink"), // 5
+  Street("States Avenue", "", 0, 0, "Pink"),
+  Street("Virginia Avenue", "", 0, 0, "Pink"),
 
-  Street("St. James Place", None, 0, 0, "Orange"),
-  Street("Tennessee Avenue", None, 0, 0, "Orange"),
-  Street("New York Avenue", None, 0, 0, "Orange"),
+  Street("St. James Place", "", 0, 0, "Orange"), // 8
+  Street("Tennessee Avenue", "", 0, 0, "Orange"),
+  Street("New York Avenue", "", 0, 0, "Orange"),
 
-  Street("Kentucky Avenue", None, 0, 0, "Red"),
-  Street("Indiana Avenue", None, 0, 0, "Red"),
-  Street("Illinois Avenue", None, 0, 0, "Red"),
+  Street("Kentucky Avenue", "", 0, 0, "Red"), // 11
+  Street("Indiana Avenue", "", 0, 0, "Red"),
+  Street("Illinois Avenue", "", 0, 0, "Red"),
 
-  Street("Atlantic Avenue", None, 0, 0, "Yellow"),
-  Street("Ventnor Avenue", None, 0, 0, "Yellow"),
-  Street("Marvin Gardens", None, 0, 0, "Yellow"),
+  Street("Atlantic Avenue", "", 0, 0, "Yellow"), // 14
+  Street("Ventnor Avenue", "", 0, 0, "Yellow"),
+  Street("Marvin Gardens", "", 0, 0, "Yellow"),
 
-  Street("Pacific Avenue", None, 0, 0, "Green"),
-  Street("North Carolina Avenue", None, 0, 0, "Green"),
-  Street("Pennsylvania Avenue", None, 0, 0, "Green"),
+  Street("Pacific Avenue", "", 0, 0, "Green"), // 17
+  Street("North Carolina Avenue", "", 0, 0, "Green"),
+  Street("Pennsylvania Avenue", "", 0, 0, "Green"),
 
-  Street("Park Place", None, 0, 0, "Dark Blue"),
-  Street("Boardwalk", None, 0, 0, "Dark Blue")
+  Street("Park Place", "", 0, 0, "Dark Blue"), //20
+  Street("Boardwalk", "", 0, 0, "Dark Blue")
 )
 
 // Array containing all Monopoly railroads
 val Railroads: Array[Railroad] = Array(
-  Railroad("Reading Railroad", None),
-  Railroad("Pennsylvania Railroad", None),
-  Railroad("B&O Railroad", None),
-  Railroad("Short Line", None)
+  Railroad("Reading Railroad", ""),
+  Railroad("Pennsylvania Railroad", ""),
+  Railroad("B&O Railroad", ""),
+  Railroad("Short Line", "")
 )
 
 // Array containing all Monopoly utilities
 val Utilities: Array[Utility] = Array(
-  Utility("Electric Company", None),
-  Utility("Water Works", None)
+  Utility("Electric Company", ""),
+  Utility("Water Works", "")
 )
 
 // Function to check if a player owns all streets of a color group
@@ -114,13 +117,17 @@ def ownsFullSet(player: Player, color: String): Boolean = {
   streetsInGroup.forall(_.owner.contains(player))
 }
 
+def giveOwner(player: Player, fieldnr: Int): Unit = {
+  Streets(fieldnr) = Streets(fieldnr).copy(owner = player.color)
+}
+
 
 // ---------------- TESTING--------------------------
 // Example usage
 val testPlayer = players(0) // Blue Player
 
-Streets.find(_.name == "Park Place").foreach(_.owner = Some(testPlayer))
-Streets.find(_.name == "Boardwalk").foreach(_.owner = Some(testPlayer))
+giveOwner(testPlayer, 20)
+giveOwner(testPlayer, 21)
 
 println(s"${testPlayer.color} owns full Dark Blue set: ${ownsFullSet(testPlayer, "Dark Blue")}")
 
