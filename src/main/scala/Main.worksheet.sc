@@ -3,11 +3,7 @@ import scala.util.Random
 case class Player(color: String, money: Int, position: Int)
 val players = Array(
   Player("Blue", 10000, 0),
-<<<<<<< HEAD
   Player("Green", 10000, 0),
-=======
-  Player("Red", 10000, 0),
->>>>>>> 0cd77cae2510c7db0a331bcb8a2fca642522ee6c
   Player("Yellow", 10000, 0),
   Player("Orange", 10000, 0),
   Player("Purple", 10000, 0)
