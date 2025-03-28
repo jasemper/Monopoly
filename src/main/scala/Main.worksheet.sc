@@ -154,8 +154,6 @@ def giveOwner(player: Player, fieldnr: Int): Unit = {
     Trains((fieldnr-5)/10) = Trains((fieldnr-5)/10).copy(owner = player.color)
   } else if (fieldnr == 12 || fieldnr == 28) {
     Utilities(fieldnr/10-1) = Utilities(fieldnr/10-1).copy(owner = player.color)
-  }else {
-    "NFS" //Not for sale
   }
 }
 
