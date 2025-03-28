@@ -1,3 +1,4 @@
+package de.htwg.monopoly
 import scala.util.Random
 
 case class Player(color: String, money: Int, position: Int)

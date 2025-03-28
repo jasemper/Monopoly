@@ -1,3 +1,4 @@
+package de.htwg.monopoly
 @main def hello(): Unit =
   def text(): Unit = {
     print("  __      __                           ____           _             \n")
