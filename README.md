@@ -1,3 +1,4 @@
+## BEFORE PUSHING, PULL
 ## Monopoly written in Scala 3
 
 ## Classes
