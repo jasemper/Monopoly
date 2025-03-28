@@ -1,4 +1,3 @@
-package de.htwg.monopoly
   val fields = Array(
     "start", "brown", "extra", "brown", "pay 200", "train", "light blue", "extra", "light blue", "light blue",
     "visitor", "pink", "power facility", "pink", "pink", "train", "orange", "extra", "orange", "orange",
