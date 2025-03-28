@@ -1,6 +1,5 @@
 import scala.util.Random
 
-// Create Players
 case class Player(color: String, money: Int, position: Int)
 val players = Array(
   Player("Blue", 10000, 0),
@@ -19,20 +18,15 @@ val variables = Array(
   Counter(0) //Counter for active Player
 )
 
-//Property Mother class
 sealed trait Property {
   def name: String
   def owner: String
 }
 
-// Create Streets building on Property
 case class Street(name: String, owner: String, buildings: Int, hotels: Int, colorGroup: String) extends Property
-// Create Railroads building on Property
 case class Railroad(name: String, owner: String) extends Property
-// Create Utilities building on Property
 case class Utility(name: String, owner: String) extends Property
 
-// Array containing all Monopoly streets with color groups
 val Streets: Array[Street] = Array(
   Street("Mediterranean Avenue", "", 0, 0, "Brown"), // 0
   Street("Baltic Avenue", "", 0, 0, "Brown"),
@@ -65,7 +59,6 @@ val Streets: Array[Street] = Array(
   Street("Boardwalk", "", 0, 0, "Dark Blue")
 )
 
-// Array containing all Monopoly railroads
 val Trains: Array[Railroad] = Array(
   Railroad("Reading Railroad", ""),
   Railroad("Pennsylvania Railroad", ""),
@@ -73,53 +66,50 @@ val Trains: Array[Railroad] = Array(
   Railroad("Short Line", "")
 )
 
-// Array containing all Monopoly utilities
 val Utilities: Array[Utility] = Array(
   Utility("Electric Company", ""),
   Utility("Water Works", "")
 )
 
 //throw dice // currentplayer = players(variables(1).number)
-val dice1 = Random.nextInt(6) + 1
-val dice2 = Random.nextInt(6) + 1
-val dicecount = dice1+dice2
-if (dice1 == dice2){
-  variables(0) = variables(0).copy(number = variables(0).number+1)
-  if (variables(0).number == 3) {
-    players(variables(1).number) = players(variables(1).number).copy(position = -1)
-    variables(0) = variables(0).copy(number = 0)
-  }
-} else {
-  variables(0) = variables(0).copy(number = 0)
-}
+
 
 //move Player
 if (players(variables(1).number).position != -1){
-  var pos = (players(variables(1).number).position+dicecount)%39
-  if (players(variables(1).number).position+dicecount == 39){
+  var pos = (players(variables(1).number).position+5)%39
+  if (players(variables(1).number).position+5 == 39){
     players(variables(1).number) = players(variables(1).number).copy(money = players(variables(1).number).money+400)
-  } else if (players(variables(1).number).position+dicecount > 39){
+  } else if (players(variables(1).number).position+5 > 39){
     players(variables(1).number) = players(variables(1).number).copy(money = players(variables(1).number).money+200)
   }
   players(variables(1).number) = players(variables(1).number).copy(position = pos)
 } else {
   //throwdice
   if (variables(0).number == 1){
-    players(variables(1).number) = players(variables(1).number).copy(position = 10+dicecount)
+    players(variables(1).number) = players(variables(1).number).copy(position = 10+5)
     variables(0) = variables(0).copy(number = 0)
   }
 }
 
-// Function to roll dice and take action
 def rollDice(): Unit ={
-
+  val dice1 = Random.nextInt(6) + 1
+  val dice2 = Random.nextInt(6) + 1
+  val dicecount = dice1+dice2
+  if (dice1 == dice2){
+    variables(0) = variables(0).copy(number = variables(0).number+1)
+    if (variables(0).number == 3) {
+      movePlayer(-1)
+      variables(0) = variables(0).copy(number = 0)
+    }
+  } else {
+    variables(0) = variables(0).copy(number = 0)
+  }
 } 
-// Function to add (or remove with negative amount) money from a player 
+
 def addmoney(player: String, muula: Int): Unit = {
-  
+  //Use negative amounts to remove money
 }
 
-// Function to move the active player to a certain field
 def movePlayer(tofield: Int): Unit = {
   if (tofield == 0){
     addmoney(players(variables(1).number).color, 400)
@@ -129,7 +119,6 @@ def movePlayer(tofield: Int): Unit = {
   players(variables(1).number) = players(variables(1).number).copy(position = tofield)
 }
 
-// Function to get the owner of any given property
 def getOwner(fieldnr: Int): String = {
   val streetnrs = Array(0,3,6,8,9,11,13,14,16,18,19,21,23,24,26,27,29,31,32,34,37,39)
   val trainnrs = Array(5,15,25,35)
@@ -144,7 +133,6 @@ def getOwner(fieldnr: Int): String = {
   }
 }
 
-// Function to add an owner to any Property
 def giveOwner(player: Player, fieldnr: Int): Unit = {
   val streetnrs = Array(0,3,6,8,9,11,13,14,16,18,19,21,23,24,26,27,29,31,32,34,37,39)
   val trainnrs = Array(5,15,25,35)
@@ -157,7 +145,6 @@ def giveOwner(player: Player, fieldnr: Int): Unit = {
   }
 }
 
-// Function to check if a player owns all streets of a color group
 def ownsFullSet(player: Player, color: String): Boolean = {
   val streetsInGroup = Streets.filter(_.colorGroup == color)
   streetsInGroup.forall(_.owner.contains(player))

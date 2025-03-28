@@ -9,32 +9,10 @@
     print("                                                            / /     \n")
     print("                                                           /_/      \n")
   }
-  println("Hello world!")
   //MonoPoly text
   text()
   //Monopoly field
   println(monofield + "\n \n")
-  def chess(): Unit = {
-    //Chess field
-    //P Pawn
-    //R Rook
-    //K Knight
-    //B Bishop
-    //Q Queen
-    //M King
-    for (i<-0 until 8) {
-      for (j<-0 until 8){
-        if ((i+j) %2 == 0){
-          print(shaded)
-        } else {
-          print(" ")
-        }
-      }
-      print("\n")
-    }
-  }
-
-def msg = "I am a chess board compiled by Scala 3. :)"
 def shaded = "\u2593"
 def monofield= """┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
 │         │         │         │         │         │         │         │         │         │         │         │
