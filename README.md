@@ -1,9 +1,10 @@
+## BEFORE PUSHING, PULL
 ## Monopoly written in Scala 3
 
 ## Classes
 
 ### Main.scala
-prints a Monopoly laying field to console
+prints a Monopoly-playingfield to console
 ### field.worksheet.sc
 Nothing important yet. will be more important, when game logic is transferred to the visual console output
 ### main.worksheet.sc
