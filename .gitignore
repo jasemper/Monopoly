@@ -27,8 +27,21 @@ local.sbt
 .bloop/
 .metals/
 metals.sbt
+project/metals.sbt
 
 # IDEA
 .idea
 .idea_modules
 /.worksheet/
+
+# scala 3
+.tasty
+
+# coursier
+null/
+
+# other?
+.history
+.scala_dependencies
+.cache-main
+
