@@ -5,7 +5,7 @@ val players = Array(
   Player("Blue", 10000, 0),
   Player("Green", 10000, 0),
   Player("Yellow", 10000, 0),
-  Player("Pink", 10000, 0),
+  Player("orange", 10000, 0),
   Player("Purple", 10000, 0)
 )
 for (i <- 0 until 5){
