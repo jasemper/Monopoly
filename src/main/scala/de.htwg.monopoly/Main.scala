@@ -1,76 +1,24 @@
 package de.htwg.monopoly
-@main def hello(): Unit =
-  def text(): Unit = {
-    print("  __      __                           ____           _             \n")
-    print(" |  \\    /  |                         |  _ \\         | |            \n")
-    print(" |   \\  /   |   ___    _____    ___   | |_| |  ___   | |   _    _   \n")
-    print(" | |\\ \\/ /| |  / _ \\  |  _  \\  / _ \\  |  __/  / _ \\  | |  \\ \\  / /  \n")
-    print(" | | \\__/ | | | |_| | | | | | | |_| | | |    | |_| | | |_  \\ \\/ /   \n")
-    print(" |_|      |_|  \\___/  |_| |_|  \\___/  |_|     \\___/  \\__|   \\  /    \n")
-    print("                                                            / /     \n")
-    print("                                                           /_/      \n")
+
+object Main extends App {
+
+  val players: Vector[Player] = Vector(
+    Player("Blue"),
+    Player("Green"),
+    Player("Yellow"),
+    Player("Orange"),
+    Player("Purple")
+  )
+
+  // Move the active player (e.g., player 0) forward 5 positions
+  def movePlayer(players: Vector[Player], index: Int, spaces: Int): Vector[Player] = {
+    val player = players(index)
+    val newPosition = (player.position + spaces) % 40
+    val passedGo = (player.position + spaces) >= 40
+    val newMoney = if (passedGo) player.money + 200 else player.money
+    players.updated(index, player.copy(position = newPosition, money = newMoney))
   }
-  //MonoPoly text
-  text()
-  //Monopoly field
-  println(monofield + "\n \n")
-def shaded = "\u2593"
-def monofield= """┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-│         │         │         │         │         │         │         │         │         │         │         │
-│         │         │         │         │         │         │         │         │         │         │         │
-│         │         │         │         │         │         │         │         │         │         │         │
-│  START  │  BROWN  │  Draw   │  BROWN  │ pay 200 │  TRAIN  │  BLUE   │  Draw   │  BLUE   │  BLUE   │  Visit  │
-├─────────┼─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┼─────────┤
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│ PURPLE  │                                                                                         │  PINK   │
-├─────────┤                                                                                         ├─────────┤
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│ pay 100 │                                                                                         │  Power  │
-├─────────┤                                                                                         ├─────────┤
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│ PURPLE  │                                                                                         │  PINK   │
-├─────────┤                                                                                         ├─────────┤
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│  Extra  │                                                                                         │  PINK   │
-├─────────┤                                                                                         ├─────────┤
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│  TRAIN  │                                                                                         │  TRAIN  │
-├─────────┤                                                                                         ├─────────┤
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│  GREEN  │                                                                                         │ ORANGE  │
-├─────────┤                                                                                         ├─────────┤
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│  Extra  │                                                                                         │  Extra  │
-├─────────┤                                                                                         ├─────────┤
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│  GREEN  │                                                                                         │ ORANGE  │
-├─────────┤                                                                                         ├─────────┤
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│         │                                                                                         │         │
-│  GREEN  │                                                                                         │ ORANGE  │
-├─────────┼─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┼─────────┤
-│         │         │         │         │         │         │         │         │         │         │         │
-│         │         │         │         │         │         │         │         │         │         │         │
-│         │         │         │         │         │         │         │         │         │         │         │
-│ To Jail │ YELLOW  │  Power  │ YELLOW  │ YELLOW  │  TRAIN  │   RED   │   RED   │  Extra  │   RED   │  Free   │
-└─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┘"""
-// special ascii by https://www.christianlehmann.eu/sonderzeichen/?open=linien
 
-
+  val updatedPlayers = movePlayer(players, 0, 5)
+  println(updatedPlayers(0)) // See the new state of the moved player
+}
