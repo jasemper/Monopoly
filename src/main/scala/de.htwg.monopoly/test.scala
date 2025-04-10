@@ -1,5 +1,5 @@
 package de.htwg.monopoly
-@main def hello(): Unit =
+//@main def hello(): Unit =
   def text(): Unit = {
     print("  __      __                           ____           _             \n")
     print(" |  \\    /  |                         |  _ \\         | |            \n")
@@ -11,9 +11,9 @@ package de.htwg.monopoly
     print("                                                           /_/      \n")
   }
   //MonoPoly text
-  text()
+  //text()
   //Monopoly field
-  println(monofield + "\n \n")
+  //println(monofield + "\n \n")
 def shaded = "\u2593"
 def monofield= """┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
 │         │         │         │         │         │         │         │         │         │         │         │
