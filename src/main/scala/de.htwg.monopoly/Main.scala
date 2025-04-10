@@ -2,9 +2,6 @@ package de.htwg.monopoly
 
 object Main extends App {
 
-  val BoardSize = 40
-  val GoMuula = 200
-
   val players: Vector[Player] = Vector(
     Player("Blue"),
     Player("Green"),
@@ -83,10 +80,10 @@ object Main extends App {
 
   def movePlayer(players: Vector[Player], index: Int, spaces: Int): Vector[Player] = {
     val player = players(index)
-    val newPosition = (player.position + spaces) % BoardSize
-    val passedGo = (player.position + spaces) >= BoardSize
+    val newPosition = (player.position + spaces) % 40
+    val passedGo = (player.position + spaces) >= 40
 
-    val withBonus = if (passedGo) addMoney(players, index, GoMuula) else players
+    val withBonus = if (passedGo) addMoney(players, index, 200) else players
     withBonus.updated(index, withBonus(index).copy(position = newPosition))
   }
 
