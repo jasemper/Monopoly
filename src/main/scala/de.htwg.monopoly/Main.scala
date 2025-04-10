@@ -81,10 +81,18 @@ object Main extends App {
   def movePlayer(players: Vector[Player], index: Int, spaces: Int): Vector[Player] = {
     val player = players(index)
     val newPosition = (player.position + spaces) % 40
-    val passedGo = (player.position + spaces) >= 40
+    val passedGo = (player.position + spaces) > 40
+    val onGO = (player.position + spaces) == 40
 
-    val withBonus = if (passedGo) addMoney(players, index, 200) else players
-    withBonus.updated(index, withBonus(index).copy(position = newPosition))
+    val updatedPlayers = if (onGO) {
+      addMoney(players, index, 400)
+    } else if (passedGo) {
+      addMoney(players, index, 200)
+    } else {
+      players
+    }
+    updatedPlayers.updated(index, updatedPlayers(index).copy(position = newPosition))
+
   }
 
   def giveOwner(player: Player, fieldnr: Int): Unit = {

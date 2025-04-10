@@ -21,9 +21,23 @@ class MonopolyTester extends AnyWordSpec {
 
     "update position and money when passing Go" in {
       val player = Player("Blue")
-      val updatedPlayers = Main.movePlayer(Vector(player), 0, 40)  // Move to 40, which is "Go"
-      updatedPlayers(0).position should be(0)  // Back to Go
+      val updatedPlayers = Main.movePlayer(Vector(player), 0, 42)  // Move to 2, after doing a full run
+      updatedPlayers(0).position should be(2)
       updatedPlayers(0).money should be(10200)  // Bonus of 200
+    }
+
+    "update position and money when landing on Go" in {
+      val player = Player("Blue")
+      val updatedPlayers = Main.movePlayer(Vector(player), 0, 40)  // Move to Go, after doing a full run
+      updatedPlayers(0).position should be(0)
+      updatedPlayers(0).money should be(10400)  // Bonus of 400
+    }
+
+    "don't get money when just moving" in {
+      val player = Player("Blue")
+      val updatedPlayers = Main.movePlayer(Vector(player), 0, 7)  // Move to 7
+      updatedPlayers(0).position should be(7)
+      updatedPlayers(0).money should be(10000)  // Bonus of 200
     }
   }
 }
