@@ -2,6 +2,9 @@ package de.htwg.monopoly
 
 object Main extends App {
 
+  val BoardSize = 40
+  val GoMuula = 200
+
   val players: Vector[Player] = Vector(
     Player("Blue"),
     Player("Green"),
@@ -72,20 +75,51 @@ object Main extends App {
   )
 
 
-  def addMoney(players: Vector[Player], index: Int, amount: Int): Vector[Player] = {
+  def addMoney(players: Vector[Player], index: Int, muula: Int): Vector[Player] = {
     val player = players(index)
-    val updatedPlayer = player.copy(money = player.money + amount)
+    val updatedPlayer = player.copy(money = player.money + muula)
     players.updated(index, updatedPlayer)
   }
 
   def movePlayer(players: Vector[Player], index: Int, spaces: Int): Vector[Player] = {
     val player = players(index)
-    val newPosition = (player.position + spaces) % 40
-    val passedGo = (player.position + spaces) >= 40
+    val newPosition = (player.position + spaces) % BoardSize
+    val passedGo = (player.position + spaces) >= BoardSize
 
-    val withBonus = if (passedGo) addMoney(players, index, 200) else players
+    val withBonus = if (passedGo) addMoney(players, index, GoMuula) else players
     withBonus.updated(index, withBonus(index).copy(position = newPosition))
   }
+
+  def giveOwner(player: Player, fieldnr: Int): Unit = {
+    // Define the street, railroad, and utility field numbers
+    val streetnrs = Array(0, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39)
+    val trainnrs = Array(5, 15, 25, 35)
+
+    // Handling Street ownership
+    if (streetnrs contains fieldnr) {
+      val streetIndex = streetnrs.indexOf(fieldnr)
+      Streets(streetIndex) = Streets(streetIndex).copy(owner = Some(player.color))
+    } 
+    // Handling Railroad ownership
+    else if (trainnrs contains fieldnr) {
+      val trainIndex = (fieldnr - 5) / 10
+      Trains(trainIndex) = Trains(trainIndex).copy(owner = Some(player.color))
+    } 
+    // Handling Utility ownership
+    else if (fieldnr == 12 || fieldnr == 28) {
+      val utilityIndex = fieldnr / 10 - 1
+      Utilities(utilityIndex) = Utilities(utilityIndex).copy(owner = Some(player.color))
+    }
+  }
+
+
+
+  //Testing the code with print statements -- Testing the code with print statements -- Testing the code with print statements
+
+  val player = Player("Blue")
+  giveOwner(player, 0) // Should assign ownership of "Mediterranean Avenue" to "Blue"
+  println(Streets(0))  // Should show that Mediterranean Avenue's owner is now "Blue"
+
 
   val updatedPlayers = movePlayer(players, 0, 5)
   println(updatedPlayers(0)) // Output updated player after move
