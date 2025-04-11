@@ -34,7 +34,6 @@ case class Utility(
 
 case class Event(description: String, effect: EventEffect)
 
-
 case object GoToJail extends EventEffect
 case class MoveTo(position: Int) extends EventEffect
 case class Earn(amount: Int) extends EventEffect

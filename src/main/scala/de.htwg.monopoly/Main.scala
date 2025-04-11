@@ -98,21 +98,17 @@ object Main {
   }
 
   def giveOwner(player: Player, fieldnr: Int): Unit = {
-    // Define the street, railroad, and utility field numbers
     val streetnrs = Array(1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39)
     val trainnrs = Array(5, 15, 25, 35)
 
-    // Handling Street ownership
     if (streetnrs contains fieldnr) {
       val streetIndex = streetnrs.indexOf(fieldnr)
       Streets(streetIndex) = Streets(streetIndex).copy(owner = Some(player.color))
     } 
-    // Handling Railroad ownership
     else if (trainnrs contains fieldnr) {
       val trainIndex = (fieldnr - 5) / 10
       Trains(trainIndex) = Trains(trainIndex).copy(owner = Some(player.color))
     } 
-    // Handling Utility ownership
     else if (fieldnr == 12 || fieldnr == 28) {
       val utilityIndex = fieldnr / 10 - 1
       print("U index: " + utilityIndex)
