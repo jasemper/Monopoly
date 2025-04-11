@@ -1,8 +1,6 @@
 ## BEFORE PUSHING, PULL
 ## Monopoly written in Scala 3
 
-## TOC
-
 ## Files in main
 
 ### Main.scala
