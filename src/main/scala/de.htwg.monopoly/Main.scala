@@ -97,7 +97,7 @@ object Main extends App {
 
   def giveOwner(player: Player, fieldnr: Int): Unit = {
     // Define the street, railroad, and utility field numbers
-    val streetnrs = Array(0, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39)
+    val streetnrs = Array(1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39)
     val trainnrs = Array(5, 15, 25, 35)
 
     // Handling Street ownership
@@ -113,19 +113,8 @@ object Main extends App {
     // Handling Utility ownership
     else if (fieldnr == 12 || fieldnr == 28) {
       val utilityIndex = fieldnr / 10 - 1
+      print("U index: " + utilityIndex)
       Utilities(utilityIndex) = Utilities(utilityIndex).copy(owner = Some(player.color))
     }
   }
-
-
-
-  //Testing the code with print statements -- Testing the code with print statements -- Testing the code with print statements
-
-  val player = Player("Blue")
-  giveOwner(player, 0) // Should assign ownership of "Mediterranean Avenue" to "Blue"
-  println(Streets(0))  // Should show that Mediterranean Avenue's owner is now "Blue"
-
-
-  val updatedPlayers = movePlayer(players, 0, 5)
-  println(updatedPlayers(0)) // Output updated player after move
 }
