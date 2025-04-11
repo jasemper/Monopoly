@@ -73,10 +73,10 @@ class MonopolyTester extends AnyWordSpec {
   
   "A Street" should {
     "be creatable with a name and colorGroup" in {
-      val street = Street("Test Street", Some("Red"), 1, 0, "Red")
-      street.name shouldBe "Test Street"
-      street.owner shouldBe Some("Red")
-      street.colorGroup shouldBe "Red"
+      val str = Street("Test Street", Some("Red"), 1, 0, "Red")
+      str.name shouldBe "Test Street"
+      str.owner shouldBe Some("Red")
+      str.colorGroup shouldBe "Red"
     }
   }
 

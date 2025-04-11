@@ -16,9 +16,7 @@ object Main {
     Player("Purple")
   )
 
-  //TODO: Change from Array to Vector or similar
-
-  val Streets: Array[Street] = Array(
+  val Streets: Vector[Street] = Vector(
     Street("Mediterranean Avenue", None, 0, 0, "Brown"), // 0
     Street("Baltic Avenue", None, 0, 0, "Brown"),
 
@@ -50,25 +48,19 @@ object Main {
     Street("Boardwalk", None, 0, 0, "Dark Blue")
   )
 
-  //TODO: Change from Array to Vector or similar
-
-  val Trains: Array[Railroad] = Array(
+  val Trains: Vector[Railroad] = Vector(
     Railroad("Reading Railroad", None),
     Railroad("Pennsylvania Railroad", None),
     Railroad("B&O Railroad", None),
     Railroad("Short Line", None)
   )
 
-  //TODO: Change from Array to Vector or similar
-
-  val Utilities: Array[Utility] = Array(
+  val Utilities: Vector[Utility] = Vector(
     Utility("Electric Company", None),
     Utility("Water Works", None)
   )
 
-  //TODO: Change from Array to Vector or similar
-
-  val Events: Array[Event] = Array(
+  val Events: Vector[Event] = Vector(
     Event("Advance to Go (Collect $200)", MoveTo(0)),
     Event("Go to Jail. Do not pass Go, do not collect $200", GoToJail),
     Event("Advance to Illinois Avenue", MoveTo(13)),
@@ -105,7 +97,7 @@ object Main {
     } else {
       players
     }
-    updatedPlayers.updated(index, updatedPlayers(index).copy(position = newPosition))
+    players.updated(index, updatedPlayers(index).copy(position = newPosition))
 
   }
 
@@ -115,16 +107,16 @@ object Main {
 
     if (streetnrs contains fieldnr) {
       val streetIndex = streetnrs.indexOf(fieldnr)
-      Streets(streetIndex) = Streets(streetIndex).copy(owner = Some(player.color))
+      Streets.updated(streetIndex, Streets(streetIndex).copy(owner = Some(player.color)))
     } 
     else if (trainnrs contains fieldnr) {
       val trainIndex = (fieldnr - 5) / 10
-      Trains(trainIndex) = Trains(trainIndex).copy(owner = Some(player.color))
+      Trains.updated(trainIndex, Trains(trainIndex).copy(owner = Some(player.color)))
     } 
     else if (fieldnr == 12 || fieldnr == 28) {
       val utilityIndex = fieldnr / 10 - 1
       print("U index: " + utilityIndex)
-      Utilities(utilityIndex) = Utilities(utilityIndex).copy(owner = Some(player.color))
+      Utilities.updated(utilityIndex, Utilities(utilityIndex).copy(owner = Some(player.color)))
     }
   }
 
