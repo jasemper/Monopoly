@@ -16,6 +16,8 @@ object Main {
     Player("Purple")
   )
 
+  //TODO: Change from Array to Vector or similar
+
   val Streets: Array[Street] = Array(
     Street("Mediterranean Avenue", None, 0, 0, "Brown"), // 0
     Street("Baltic Avenue", None, 0, 0, "Brown"),
@@ -48,6 +50,8 @@ object Main {
     Street("Boardwalk", None, 0, 0, "Dark Blue")
   )
 
+  //TODO: Change from Array to Vector or similar
+
   val Trains: Array[Railroad] = Array(
     Railroad("Reading Railroad", None),
     Railroad("Pennsylvania Railroad", None),
@@ -55,10 +59,14 @@ object Main {
     Railroad("Short Line", None)
   )
 
+  //TODO: Change from Array to Vector or similar
+
   val Utilities: Array[Utility] = Array(
     Utility("Electric Company", None),
     Utility("Water Works", None)
   )
+
+  //TODO: Change from Array to Vector or similar
 
   val Events: Array[Event] = Array(
     Event("Advance to Go (Collect $200)", MoveTo(0)),
@@ -119,4 +127,8 @@ object Main {
       Utilities(utilityIndex) = Utilities(utilityIndex).copy(owner = Some(player.color))
     }
   }
+
+  //TODO: implement getOwner from worksheet
+  //TODO: implement ownsStreet from worksheet
+  //TODO: implement drawCard + Events
 }
