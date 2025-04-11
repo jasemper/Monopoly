@@ -1,7 +1,9 @@
 package de.htwg.monopoly
 
-object Main extends App {
-
+object Main {
+  @main def hello(): Unit = {
+    print("    Hello Players.\n  Wanna play a game?\n")
+  }
   val players: Vector[Player] = Vector(
     Player("Blue"),
     Player("Green"),
