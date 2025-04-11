@@ -2,8 +2,12 @@ package de.htwg.monopoly
 
 object Main {
   @main def hello(): Unit = {
-    print("    Hello Players.\n  Wanna play a game?\n")
+    print(helloMessage())
   }
+  def helloMessage(): String = {
+    "    Hello Players.\n  Wanna play a game?\n"
+  }
+
   val players: Vector[Player] = Vector(
     Player("Blue"),
     Player("Green"),

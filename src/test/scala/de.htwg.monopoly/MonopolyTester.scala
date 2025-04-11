@@ -2,9 +2,20 @@ package de.htwg.monopoly
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
-import de.htwg.monopoly.Main.players
+import de.htwg.monopoly.Main
+import java.io.{ByteArrayOutputStream, PrintStream}
 
 class MonopolyTester extends AnyWordSpec {
+
+  "hello" should {
+    "print the correct greeting message to stdout" in {
+      val out = new ByteArrayOutputStream()
+      Console.withOut(new PrintStream(out)) {
+        Main.hello()
+      }
+      out.toString shouldBe "    Hello Players.\n  Wanna play a game?\n"
+    }
+  }
 
   "A Player" should {
 
@@ -57,6 +68,31 @@ class MonopolyTester extends AnyWordSpec {
       val player = Player("Blue")
       Main.giveOwner(player, 12)
       Main.Utilities(0).owner should be(Some("Blue"))
+    }
+  }
+  
+  "A Street" should {
+    "be creatable with a name and colorGroup" in {
+      val street = Street("Test Street", Some("Red"), 1, 0, "Red")
+      street.name shouldBe "Test Street"
+      street.owner shouldBe Some("Red")
+      street.colorGroup shouldBe "Red"
+    }
+  }
+
+  "A Railroad" should {
+    "be creatable with a name" in {
+      val rr = Railroad("Test Railroad", Some("Player"))
+      rr.name shouldBe "Test Railroad"
+      rr.owner shouldBe Some("Player")
+    }
+  }
+
+  "A Utility" should {
+    "be creatable with a name" in {
+      val util = Utility("Test Utility", Some("Player"))
+      util.name shouldBe "Test Utility"
+      util.owner shouldBe Some("Player")
     }
   }
 }
