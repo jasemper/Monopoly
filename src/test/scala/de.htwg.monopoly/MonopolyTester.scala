@@ -30,6 +30,13 @@ class MonopolyTester extends AnyWordSpec {
       updatedPlayers(0)._2 should be(9500)
     }
 
+    "gain and then lose money, keeping updates in the same variable" in {
+      var players = Vector(Player("Blue"))  // use `var` for mutability
+      players = Main.addMoney(players, 0, 500)   // now players(0) has 10500
+      players = Main.addMoney(players, 0, -500)  // now players(0) back to 10000
+      players(0).money should be(10000)
+    }
+
     "move correctly" in {
       val player = Player("Blue")
       val updatedPlayers = Main.movePlayer(Vector(player), 0, 5)
@@ -70,7 +77,7 @@ class MonopolyTester extends AnyWordSpec {
       Main.Utilities(0).owner should be(Some("Blue"))
     }
   }
-  
+   
   "A Street" should {
     "be creatable with a name and colorGroup" in {
       val str = Street("Test Street", Some("Red"), 1, 0, "Red")

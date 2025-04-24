@@ -77,6 +77,49 @@ object Main {
     Event("Pay school fees of $150", Pay(150))
   )
 
+  val board: Vector[(Int, String)] = Vector(
+    0 -> "Go",
+    1 -> Streets(0).name,
+    2 -> "Community Chest",
+    3 -> Streets(1).name,
+    4 -> "Income Tax",
+    5 -> Trains(0).name,
+    6 -> Streets(2).name,
+    7 -> "Chance",
+    8 -> Streets(3).name,
+    9 -> Streets(4).name,
+    10 -> "Jail / Just Visiting",
+    11 -> Streets(5).name,
+    12 -> Utilities(0).name,
+    13 -> Streets(6).name,
+    14 -> Streets(7).name,
+    15 -> Trains(1).name,
+    16 -> Streets(8).name,
+    17 -> "Community Chest",
+    18 -> Streets(9).name,
+    19 -> Streets(10).name,
+    20 -> "Free Parking",
+    21 -> Streets(11).name,
+    22 -> "Chance",
+    23 -> Streets(12).name,
+    24 -> Streets(13).name,
+    25 -> Trains(2).name,
+    26 -> Streets(14).name,
+    27 -> Streets(15).name,
+    28 -> Utilities(1).name,
+    29 -> Streets(16).name,
+    30 -> "Go To Jail",
+    31 -> Streets(17).name,
+    32 -> Streets(18).name,
+    33 -> "Community Chest",
+    34 -> Streets(19).name,
+    35 -> Trains(3).name,
+    36 -> "Chance",
+    37 -> Streets(20).name,
+    38 -> "Luxury Tax",
+    39 -> Streets(21).name
+  )
+
 
   def addMoney(players: Vector[Player], index: Int, muula: Int): Vector[Player] = {
     val player = players(index)
@@ -97,28 +140,71 @@ object Main {
     } else {
       players
     }
-    players.updated(index, updatedPlayers(index).copy(position = newPosition))
-
+    updatedPlayers.updated(index, updatedPlayers(index).copy(position = newPosition))
   }
 
-  def giveOwner(player: Player, fieldnr: Int): Unit = {
+  def giveOwner(player: Player, fieldnr: Int): (Vector[Street], Vector[Railroad], Vector[Utility]) = {
     val streetnrs = Array(1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39)
     val trainnrs = Array(5, 15, 25, 35)
 
+    val updatedStreets = 
     if (streetnrs contains fieldnr) {
       val streetIndex = streetnrs.indexOf(fieldnr)
       Streets.updated(streetIndex, Streets(streetIndex).copy(owner = Some(player.color)))
-    } 
-    else if (trainnrs contains fieldnr) {
+    } else Streets
+
+    val updatedTrains = 
+    if (trainnrs contains fieldnr) {
       val trainIndex = (fieldnr - 5) / 10
       Trains.updated(trainIndex, Trains(trainIndex).copy(owner = Some(player.color)))
-    } 
-    else if (fieldnr == 12 || fieldnr == 28) {
+    } else Trains
+
+    val updatedUtilities = 
+    if (fieldnr == 12 || fieldnr == 28) {
       val utilityIndex = fieldnr / 10 - 1
-      print("U index: " + utilityIndex)
       Utilities.updated(utilityIndex, Utilities(utilityIndex).copy(owner = Some(player.color)))
+    } else Utilities
+
+    (updatedStreets, updatedTrains, updatedUtilities)
+  }
+
+  def showCurrentState(): Unit = {
+    // Print player names and their current money
+    println("Players' Current Status:")
+    for (player <- players) {
+      println(s"Player ${player.color}: ${player.money} dollars")
+    }
+
+    println("\nGame Board Status:")
+
+    for ((fieldNr, fieldName) <- board) {
+      println(s"Field $fieldNr: $fieldName")
+
+      // Try to find a matching Street, Railroad, or Utility
+      val maybeStreet = Streets.find(_.name == fieldName)
+      val maybeTrain = Trains.find(_.name == fieldName)
+      val maybeUtility = Utilities.find(_.name == fieldName)
+
+      // If it's a property (Street, Railroad, or Utility), show owner
+      (maybeStreet orElse maybeTrain orElse maybeUtility).foreach { prop =>
+        println(s"  Owner: ${prop.owner.getOrElse("No owner")}")
+      }
+
+      // If it's a street, show buildings and hotels
+      maybeStreet.foreach { street =>
+        println(s"  Houses: ${street.buildings}")
+        println(s"  Hotels: ${street.hotels}")
+      }
+
+      // Show players standing here
+      val playersOnField = players.filter(_.position == fieldNr).map(_.color)
+      val playersString = if (playersOnField.isEmpty) "No one" else playersOnField.mkString(", ")
+      println(s"  Players standing here: $playersString")
+      println("-" * 40)
     }
   }
+
+  showCurrentState()
 
   //TODO: implement getOwner from worksheet
   //TODO: implement ownsStreet from worksheet
