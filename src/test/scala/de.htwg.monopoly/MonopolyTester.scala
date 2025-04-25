@@ -124,16 +124,4 @@ class MonopolyTester extends AnyWordSpec {
       util.owner shouldBe Some("Player")
     }
   }
-
-  "A console input" should {
-    "be able to exit the programm" in {
-
-    }
-    "be able to do nothing on wrong inputs" in {
-
-    }
-    "be able to call a function on right inputs" in {
-      
-    }
-  }
 }
