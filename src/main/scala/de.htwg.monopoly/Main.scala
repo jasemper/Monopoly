@@ -1,7 +1,5 @@
 package de.htwg.monopoly
 
-import scala.io.StdIn.readLine
-
 object Main {
   @main def startGame(): Unit = {
     inputPoC()
