@@ -9,7 +9,7 @@ object Main {
     "    Hello Players.\n  Wanna play a game?\n"
   }
 
-  val players: Vector[Player] = Vector(
+  val Players: Vector[Player] = Vector(
     Player("Blue"),
     Player("Green"),
     Player("Yellow"),
@@ -171,7 +171,7 @@ object Main {
 
   def showCurrentState(): Unit = {
     println("Current Player Status:")
-    for (player <- players) {
+    for (player <- Players) {
       println(s"Player ${player.color}: ${player.money} dollars")
     }
 
@@ -193,14 +193,21 @@ object Main {
         println(s"  Hotels: ${street.hotels}")
       }
 
-      val playersOnField = players.filter(_.position == fieldNr).map(_.color)
+      val playersOnField = Players.filter(_.position == fieldNr).map(_.color)
       val playersString = if (playersOnField.isEmpty) "No one" else playersOnField.mkString(", ")
       println(s"  Players standing here: $playersString")
       println("-" * 40)
     }
   }
 
-  showCurrentState()
+  def statusReport(players: Vector[Player], Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]):  Unit = {
+    println("Current Player status:")
+    for (player <- players) {
+      println(f"Player ${player.color}%8s: ${player.money}%6d dollars at ${player.position}%2d")
+    }
+  }
+
+  //showCurrentState()
 
   //TODO: implement getOwner from worksheet
   //TODO: implement ownsStreet from worksheet
