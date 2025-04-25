@@ -143,6 +143,14 @@ object Main {
     updatedPlayers.updated(index, updatedPlayers(index).copy(position = newPosition))
   }
 
+  def getWinner(Players: Vector[Player]): String = {
+  val remaining = Players.filter(_.money > 0)
+  remaining match {
+    case Vector(single) => single.color
+    case _ => ""
+  }
+}
+
   def giveOwner(player: Player, fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]): (Vector[Street], Vector[Railroad], Vector[Utility]) = {
     val streetnrs = Array(1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39)
     val trainnrs = Array(5, 15, 25, 35)

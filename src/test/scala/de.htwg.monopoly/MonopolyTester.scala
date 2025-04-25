@@ -4,6 +4,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 import de.htwg.monopoly.Main
 import java.io.{ByteArrayOutputStream, PrintStream}
+import de.htwg.monopoly.Main.getWinner
 
 class MonopolyTester extends AnyWordSpec {
 
@@ -34,10 +35,10 @@ class MonopolyTester extends AnyWordSpec {
       updatedPlayers(0)._2 should be(9500)
     }
     "gain and then lose money, keeping updates in the same variable" in {
-      var players = Vector(Player("Blue"))
-      players = Main.addMoney(players, 0, 500)
-      players = Main.addMoney(players, 0, -500)
-      players(0).money should be(10000)
+      var player = Vector(Player("Blue"))
+      player = Main.addMoney(player, 0, 500)
+      player = Main.addMoney(player, 0, -500)
+      player(0).money should be(10000)
     }
 
     "move correctly" in {
@@ -79,6 +80,22 @@ class MonopolyTester extends AnyWordSpec {
       val (_, _, updatedUtility) = Main.giveOwner(player, 12, Main.InitStreets, Main.InitTrains, Main.InitUtilities)
       updatedUtility(0).owner should be(Some("Blue"))
     }
+
+    "win if they're the only one with money" in {
+      var updatedPlayers = Main.InitPlayers.map {
+        case player if player.color != "Blue" => player.copy(money = 0)
+        case player => player
+      }
+      getWinner(updatedPlayers) shouldBe "Blue"
+    }
+    "not win if they're not the only one with money" in {
+      var updatedPlayers = Main.InitPlayers.map {
+        case player if player.color == "Green" => player.copy(money = 0)
+        case player => player
+      }
+      getWinner(updatedPlayers) shouldBe ""
+    }
+
     "be returned as owner" in {
       val player = Player("Blue")
       val (updatedStreets, _, _) = Main.giveOwner(player, 14, Main.InitStreets, Main.InitTrains, Main.InitUtilities)
