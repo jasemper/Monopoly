@@ -220,7 +220,7 @@ object Main {
     var trains = InitTrains
     var utilities = InitUtilities
     val player = Player("BetaTester")
-
+    statusReport(InitPlayers, streets, trains, utilities)
     var input = ""
     while ({
       print("Enter property number to buy (or 'exit' to quit): ")
