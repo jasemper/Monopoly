@@ -4,6 +4,9 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 import de.htwg.monopoly.Main
 import java.io.{ByteArrayOutputStream, PrintStream}
+import de.htwg.monopoly.Main.getOwner
+import de.htwg.monopoly.Main.Trains
+import de.htwg.monopoly.Main.Utilities
 
 class MonopolyTester extends AnyWordSpec {
 
@@ -78,6 +81,16 @@ class MonopolyTester extends AnyWordSpec {
       val player = Player("Blue")
       val (_, _, updatedUtility) = Main.giveOwner(player, 12)
       updatedUtility(0).owner should be(Some("Blue"))
+    }
+    "be returned as owner" in {
+      val player = Player("Blue")
+      val (updatedStreets, _, _) = Main.giveOwner(player, 14)
+      Main.getOwner(14, updatedStreets, Trains, Utilities) shouldBe "Blue"
+    }
+    "be empty on wrongful getOwner" in {
+      val player = Player("Blue")
+      val (updatedStreets, _, _) = Main.giveOwner(player, 17)
+      Main.getOwner(17, updatedStreets, Trains, Utilities) shouldBe ""
     }
   }
    
