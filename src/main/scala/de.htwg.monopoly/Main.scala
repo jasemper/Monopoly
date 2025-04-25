@@ -169,21 +169,31 @@ object Main {
     (updatedStreets, updatedTrains, updatedUtilities)
   }
 
-  def statusReport(players: Vector[Player], Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]):  Unit = {
+  def getOwner(fieldNr: Int, LocalStreets: Vector[Street], LocalTrains: Vector[Railroad], LocalUtilities: Vector[Utility]): String = {
+  if (fieldNr < 0 || fieldNr >= board.length) return ""
+
+  val fieldName = board(fieldNr)._2
+
+  LocalStreets.find(_.name == fieldName).flatMap(_.owner)
+    .orElse(LocalTrains.find(_.name == fieldName).flatMap(_.owner))
+    .orElse(LocalUtilities.find(_.name == fieldName).flatMap(_.owner))
+    .getOrElse("")
+}
+  def statusReport(Players: Vector[Player], LocalStreets: Vector[Street], LocalTrains: Vector[Railroad], LocalUtilities: Vector[Utility]):  Unit = {
     println("Current Player Status:\n| Name    | Money | Pos | Jail |")
-    for (player <- players) {
+    for (player <- Players) {
       //println(f"Player ${player.color}%8s: ${player.money}%6d dollars at ${player.position}%2d")
       printf("| %-8s|%6d |  %2d | %5s|\n", player.color, player.money, player.position, player.inJail)
     }
     println("\nCurrent Game Board Status:\n| Nr | Field                 | Owner   | House | Hotel | Players on field")
     for ((fieldNr, fieldName) <- board) {
 
-      val maybeStreet = Streets.find(_.name == fieldName)
-      val maybeTrain = Trains.find(_.name == fieldName)
-      val maybeUtility = Utilities.find(_.name == fieldName)
+      val maybeStreet = LocalStreets.find(_.name == fieldName)
+      val maybeTrain = LocalTrains.find(_.name == fieldName)
+      val maybeUtility = LocalUtilities.find(_.name == fieldName)
 
       //(maybeStreet orElse maybeTrain orElse maybeUtility).foreach { prop =>  println(s"  Owner: ${prop.owner.getOrElse("No owner")}") }
-
+      val owner = getOwner(fieldNr, LocalStreets, LocalTrains, LocalUtilities) 
       maybeStreet.foreach { street =>
         val houses = street.buildings
         val hotels = street.hotels
@@ -191,10 +201,13 @@ object Main {
 
       val playersOnField = Players.filter(_.position == fieldNr).map(_.color)
       val playersString = if (playersOnField.isEmpty) "" else playersOnField.mkString(", ")
-      printf("| %2d | %-22s| %-8s|   %1d   |   %1d   | %-7s\n", fieldNr, fieldName, "Owner", 2, 5, playersString)
+      printf("| %2d | %-22s| %-8s|   %1d   |   %1d   | %-7s\n", fieldNr, fieldName, owner, 2, 5, playersString)
     }
   }
-  statusReport(Players, Streets, Trains, Utilities)
+
+  val player = Player("Blue")
+  val (updatedStreets, _, _) = Main.giveOwner(player, 14)
+  statusReport(Players, updatedStreets, Trains, Utilities)
   //showCurrentState()
 
   //TODO: implement getOwner from worksheet
