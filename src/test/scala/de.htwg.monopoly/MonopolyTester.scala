@@ -18,12 +18,11 @@ class MonopolyTester extends AnyWordSpec {
       }
       out.toString.contains("error") shouldBe false
       out.toString.contains("Blue:   9500") shouldBe true
-      out.toString.contains("Virginia Avenue") shouldBe true
+      out.toString.contains("Virginia Avenue %23d Blue") shouldBe true
     }
   }
 
   "A Player" should {
-
     "get money when called with positive" in {
       val player = Player("Blue")
       val updatedPlayers = Main.addMoney(Vector(player), 0, 500)
@@ -34,7 +33,6 @@ class MonopolyTester extends AnyWordSpec {
       val updatedPlayers = Main.addMoney(Vector(player), 0, -500)
       updatedPlayers(0)._2 should be(9500)
     }
-
     "gain and then lose money, keeping updates in the same variable" in {
       var players = Vector(Player("Blue"))
       players = Main.addMoney(players, 0, 500)

@@ -122,24 +122,24 @@ object Main {
   )
 
 
-  def addMoney(players: Vector[Player], index: Int, muula: Int): Vector[Player] = {
-    val player = players(index)
-    val updatedPlayer = player.copy(money = player.money + muula)
-    players.updated(index, updatedPlayer)
+  def addMoney(Players: Vector[Player], index: Int, muula: Int): Vector[Player] = {
+    val player = Players(index)
+    val updatedPlayers = player.copy(money = player.money + muula)
+    Players.updated(index, updatedPlayers)
   }
 
-  def movePlayer(players: Vector[Player], index: Int, spaces: Int): Vector[Player] = {
-    val player = players(index)
+  def movePlayer(Players: Vector[Player], index: Int, spaces: Int): Vector[Player] = {
+    val player = Players(index)
     val newPosition = (player.position + spaces) % 40
     val passedGo = (player.position + spaces) > 40
     val onGO = (player.position + spaces) == 40
 
     val updatedPlayers = if (onGO) {
-      addMoney(players, index, 400)
+      addMoney(Players, index, 400)
     } else if (passedGo) {
-      addMoney(players, index, 200)
+      addMoney(Players, index, 200)
     } else {
-      players
+      Players
     }
     updatedPlayers.updated(index, updatedPlayers(index).copy(position = newPosition))
   }
@@ -169,44 +169,32 @@ object Main {
     (updatedStreets, updatedTrains, updatedUtilities)
   }
 
-  def showCurrentState(): Unit = {
-    println("Current Player Status:")
-    for (player <- Players) {
-      println(s"Player ${player.color}: ${player.money} dollars")
+  def statusReport(players: Vector[Player], Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]):  Unit = {
+    println("Current Player Status:\n| Name    | Money | Pos | Jail |")
+    for (player <- players) {
+      //println(f"Player ${player.color}%8s: ${player.money}%6d dollars at ${player.position}%2d")
+      printf("| %-8s|%6d |  %2d | %5s|\n", player.color, player.money, player.position, player.inJail)
     }
-
-    println("\nGame Board Status:")
-
+    println("\nCurrent Game Board Status:\n| Nr | Field                 | Owner   | House | Hotel | Players on field")
     for ((fieldNr, fieldName) <- board) {
-      println(s"Field $fieldNr: $fieldName")
 
       val maybeStreet = Streets.find(_.name == fieldName)
       val maybeTrain = Trains.find(_.name == fieldName)
       val maybeUtility = Utilities.find(_.name == fieldName)
 
-      (maybeStreet orElse maybeTrain orElse maybeUtility).foreach { prop =>
-        println(s"  Owner: ${prop.owner.getOrElse("No owner")}")
-      }
+      //(maybeStreet orElse maybeTrain orElse maybeUtility).foreach { prop =>  println(s"  Owner: ${prop.owner.getOrElse("No owner")}") }
 
       maybeStreet.foreach { street =>
-        println(s"  Houses: ${street.buildings}")
-        println(s"  Hotels: ${street.hotels}")
+        val houses = street.buildings
+        val hotels = street.hotels
       }
 
       val playersOnField = Players.filter(_.position == fieldNr).map(_.color)
-      val playersString = if (playersOnField.isEmpty) "No one" else playersOnField.mkString(", ")
-      println(s"  Players standing here: $playersString")
-      println("-" * 40)
+      val playersString = if (playersOnField.isEmpty) "" else playersOnField.mkString(", ")
+      printf("| %2d | %-22s| %-8s|   %1d   |   %1d   | %-7s\n", fieldNr, fieldName, "Owner", 2, 5, playersString)
     }
   }
-
-  def statusReport(players: Vector[Player], Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]):  Unit = {
-    println("Current Player status:")
-    for (player <- players) {
-      println(f"Player ${player.color}%8s: ${player.money}%6d dollars at ${player.position}%2d")
-    }
-  }
-
+  statusReport(Players, Streets, Trains, Utilities)
   //showCurrentState()
 
   //TODO: implement getOwner from worksheet
