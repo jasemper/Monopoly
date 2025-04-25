@@ -1,15 +1,14 @@
 package de.htwg.monopoly
 
+import scala.io.StdIn.readLine
+
 object Main {
-  @main def hello(): Unit = {
-    //print(helloMessage())
-    helloMessage()
-  }
-  def helloMessage(): String = {
-    "    Hello Players.\n  Wanna play a game?\n"
+  @main def startGame(): Unit = {
+    inputPoC()
   }
 
-  val Players: Vector[Player] = Vector(
+
+  val InitPlayers: Vector[Player] = Vector(
     Player("Blue"),
     Player("Green"),
     Player("Yellow"),
@@ -17,7 +16,7 @@ object Main {
     Player("Purple")
   )
 
-  val Streets: Vector[Street] = Vector(
+  val InitStreets: Vector[Street] = Vector(
     Street("Mediterranean Avenue", None, 0, 0, "Brown"), // 0
     Street("Baltic Avenue", None, 0, 0, "Brown"),
 
@@ -49,14 +48,14 @@ object Main {
     Street("Boardwalk", None, 0, 0, "Dark Blue")
   )
 
-  val Trains: Vector[Railroad] = Vector(
+  val InitTrains: Vector[Railroad] = Vector(
     Railroad("Reading Railroad", None),
     Railroad("Pennsylvania Railroad", None),
     Railroad("B&O Railroad", None),
     Railroad("Short Line", None)
   )
 
-  val Utilities: Vector[Utility] = Vector(
+  val InitUtilities: Vector[Utility] = Vector(
     Utility("Electric Company", None),
     Utility("Water Works", None)
   )
@@ -78,47 +77,47 @@ object Main {
     Event("Pay school fees of $150", Pay(150))
   )
 
-  val board: Vector[(Int, String)] = Vector(
+  val Board: Vector[(Int, String)] = Vector(
     0 -> "Go",
-    1 -> Streets(0).name,
+    1 -> InitStreets(0).name,
     2 -> "Community Chest",
-    3 -> Streets(1).name,
+    3 -> InitStreets(1).name,
     4 -> "Income Tax",
-    5 -> Trains(0).name,
-    6 -> Streets(2).name,
+    5 -> InitTrains(0).name,
+    6 -> InitStreets(2).name,
     7 -> "Chance",
-    8 -> Streets(3).name,
-    9 -> Streets(4).name,
+    8 -> InitStreets(3).name,
+    9 -> InitStreets(4).name,
     10 -> "Jail / Just Visiting",
-    11 -> Streets(5).name,
-    12 -> Utilities(0).name,
-    13 -> Streets(6).name,
-    14 -> Streets(7).name,
-    15 -> Trains(1).name,
-    16 -> Streets(8).name,
+    11 -> InitStreets(5).name,
+    12 -> InitUtilities(0).name,
+    13 -> InitStreets(6).name,
+    14 -> InitStreets(7).name,
+    15 -> InitTrains(1).name,
+    16 -> InitStreets(8).name,
     17 -> "Community Chest",
-    18 -> Streets(9).name,
-    19 -> Streets(10).name,
+    18 -> InitStreets(9).name,
+    19 -> InitStreets(10).name,
     20 -> "Free Parking",
-    21 -> Streets(11).name,
+    21 -> InitStreets(11).name,
     22 -> "Chance",
-    23 -> Streets(12).name,
-    24 -> Streets(13).name,
-    25 -> Trains(2).name,
-    26 -> Streets(14).name,
-    27 -> Streets(15).name,
-    28 -> Utilities(1).name,
-    29 -> Streets(16).name,
+    23 -> InitStreets(12).name,
+    24 -> InitStreets(13).name,
+    25 -> InitTrains(2).name,
+    26 -> InitStreets(14).name,
+    27 -> InitStreets(15).name,
+    28 -> InitUtilities(1).name,
+    29 -> InitStreets(16).name,
     30 -> "Go To Jail",
-    31 -> Streets(17).name,
-    32 -> Streets(18).name,
+    31 -> InitStreets(17).name,
+    32 -> InitStreets(18).name,
     33 -> "Community Chest",
-    34 -> Streets(19).name,
-    35 -> Trains(3).name,
+    34 -> InitStreets(19).name,
+    35 -> InitTrains(3).name,
     36 -> "Chance",
-    37 -> Streets(20).name,
+    37 -> InitStreets(20).name,
     38 -> "Luxury Tax",
-    39 -> Streets(21).name
+    39 -> InitStreets(21).name
   )
 
 
@@ -144,73 +143,113 @@ object Main {
     updatedPlayers.updated(index, updatedPlayers(index).copy(position = newPosition))
   }
 
-  def giveOwner(player: Player, fieldnr: Int): (Vector[Street], Vector[Railroad], Vector[Utility]) = {
+  def giveOwner(player: Player, fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]): (Vector[Street], Vector[Railroad], Vector[Utility]) = {
     val streetnrs = Array(1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39)
     val trainnrs = Array(5, 15, 25, 35)
 
     val updatedStreets = 
-    if (streetnrs contains fieldnr) {
-      val streetIndex = streetnrs.indexOf(fieldnr)
+    if (streetnrs contains fieldNr) {
+      val streetIndex = streetnrs.indexOf(fieldNr)
       Streets.updated(streetIndex, Streets(streetIndex).copy(owner = Some(player.color)))
     } else Streets
 
     val updatedTrains = 
-    if (trainnrs contains fieldnr) {
-      val trainIndex = (fieldnr - 5) / 10
+    if (trainnrs contains fieldNr) {
+      val trainIndex = (fieldNr - 5) / 10
       Trains.updated(trainIndex, Trains(trainIndex).copy(owner = Some(player.color)))
     } else Trains
 
     val updatedUtilities = 
-    if (fieldnr == 12 || fieldnr == 28) {
-      val utilityIndex = fieldnr / 10 - 1
+    if (fieldNr == 12 || fieldNr == 28) {
+      val utilityIndex = fieldNr / 10 - 1
       Utilities.updated(utilityIndex, Utilities(utilityIndex).copy(owner = Some(player.color)))
     } else Utilities
 
     (updatedStreets, updatedTrains, updatedUtilities)
   }
 
-  def getOwner(fieldNr: Int, LocalStreets: Vector[Street], LocalTrains: Vector[Railroad], LocalUtilities: Vector[Utility]): String = {
-  if (fieldNr < 0 || fieldNr >= board.length) return ""
+  def getOwner(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]): String = {
+  if (fieldNr < 0 || fieldNr >= Board.length) return ""
 
-  val fieldName = board(fieldNr)._2
+  val fieldName = Board(fieldNr)._2
 
-  LocalStreets.find(_.name == fieldName).flatMap(_.owner)
-    .orElse(LocalTrains.find(_.name == fieldName).flatMap(_.owner))
-    .orElse(LocalUtilities.find(_.name == fieldName).flatMap(_.owner))
+  Streets.find(_.name == fieldName).flatMap(_.owner)
+    .orElse(Trains.find(_.name == fieldName).flatMap(_.owner))
+    .orElse(Utilities.find(_.name == fieldName).flatMap(_.owner))
     .getOrElse("")
 }
-  def statusReport(Players: Vector[Player], LocalStreets: Vector[Street], LocalTrains: Vector[Railroad], LocalUtilities: Vector[Utility]):  Unit = {
+  def getHouses(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]): Int = {
+    if (fieldNr < 0 || fieldNr >= Board.length) return 0
+    val fieldName = Board(fieldNr)._2
+    Streets.find(_.name == fieldName).map(_.buildings)
+      .getOrElse(0)
+  }
+  def getHotels(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]): Int = {
+    if (fieldNr < 0 || fieldNr >= Board.length) return 0
+    val fieldName = Board(fieldNr)._2
+    Streets.find(_.name == fieldName).map(_.hotels)
+      .getOrElse(0)
+  }
+
+  def statusReport(Players: Vector[Player], Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]):  Unit = {
     println("Current Player Status:\n| Name    | Money | Pos | Jail |")
     for (player <- Players) {
       //println(f"Player ${player.color}%8s: ${player.money}%6d dollars at ${player.position}%2d")
       printf("| %-8s|%6d |  %2d | %5s|\n", player.color, player.money, player.position, player.inJail)
     }
     println("\nCurrent Game Board Status:\n| Nr | Field                 | Owner   | House | Hotel | Players on field")
-    for ((fieldNr, fieldName) <- board) {
+    for ((fieldNr, fieldName) <- Board) {
 
-      val maybeStreet = LocalStreets.find(_.name == fieldName)
-      val maybeTrain = LocalTrains.find(_.name == fieldName)
-      val maybeUtility = LocalUtilities.find(_.name == fieldName)
+      val maybeStreet = Streets.find(_.name == fieldName)
+      val maybeTrain = Trains.find(_.name == fieldName)
+      val maybeUtility = Utilities.find(_.name == fieldName)
 
       //(maybeStreet orElse maybeTrain orElse maybeUtility).foreach { prop =>  println(s"  Owner: ${prop.owner.getOrElse("No owner")}") }
-      val owner = getOwner(fieldNr, LocalStreets, LocalTrains, LocalUtilities) 
-      maybeStreet.foreach { street =>
-        val houses = street.buildings
-        val hotels = street.hotels
-      }
+      val owner = getOwner(fieldNr, Streets, Trains, Utilities) 
+      val houses = getHouses(fieldNr, Streets, Trains, Utilities)
+      val hotels = getHotels(fieldNr, Streets, Trains, Utilities)
 
       val playersOnField = Players.filter(_.position == fieldNr).map(_.color)
       val playersString = if (playersOnField.isEmpty) "" else playersOnField.mkString(", ")
-      printf("| %2d | %-22s| %-8s|   %1d   |   %1d   | %-7s\n", fieldNr, fieldName, owner, 2, 5, playersString)
+      printf("| %2d | %-22s| %-8s|   %1d   |   %1d   | %-7s\n", fieldNr, fieldName, owner, houses, hotels, playersString)
     }
   }
 
-  val player = Player("Blue")
-  val (updatedStreets, _, _) = Main.giveOwner(player, 14)
-  statusReport(Players, updatedStreets, Trains, Utilities)
+  def inputPoC(): Unit = {
+    var streets = InitStreets
+    var trains = InitTrains
+    var utilities = InitUtilities
+    val player = Player("BetaTester")
+
+    var input = ""
+    while ({
+      print("Enter property number to buy (or 'exit' to quit): ")
+      input = scala.io.StdIn.readLine()
+      input != "exit"
+    }) {
+      try {
+        val num = input.toInt
+        val (newStreets, newTrains, newUtilities) = giveOwner(player, num, streets, trains, utilities)
+        streets = newStreets
+        trains = newTrains
+        utilities = newUtilities
+
+        statusReport(InitPlayers, streets, trains, utilities)
+      } catch {
+        case _: NumberFormatException =>
+          println("Please enter a valid number.")
+      }
+    }
+  }
+
+
+  //val player = Player("Blue")
+  //val (updatedStreets, _, _) = Main.giveOwner(player, 14,)
+  //statusReport(InitPlayers, updatedStreets, InitTrains, InitUtilities)
   //showCurrentState()
 
-  //TODO: implement getOwner from worksheet
+  //TODO: implement addbuilding
+  //TODO: implement addhotel
   //TODO: implement ownsStreet from worksheet
   //TODO: implement drawCard + Events
 }

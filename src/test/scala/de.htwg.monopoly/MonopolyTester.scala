@@ -4,9 +4,6 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 import de.htwg.monopoly.Main
 import java.io.{ByteArrayOutputStream, PrintStream}
-import de.htwg.monopoly.Main.getOwner
-import de.htwg.monopoly.Main.Trains
-import de.htwg.monopoly.Main.Utilities
 
 class MonopolyTester extends AnyWordSpec {
 
@@ -16,12 +13,12 @@ class MonopolyTester extends AnyWordSpec {
       Console.withOut(new PrintStream(out)) {
         val player = Player("Blue")
         val updatedPlayers = Main.addMoney(Vector(player), 0, -500)
-        val (updatedStreets, _, _) = Main.giveOwner(player, 14)
-        Main.statusReport(updatedPlayers, Main.Streets, Main.Trains, Main.Utilities)
+        val (updatedStreets, updatedTrains, updatedUtilities) = Main.giveOwner(player, 14, Main.InitStreets, Main.InitTrains, Main.InitUtilities)
+        Main.statusReport(updatedPlayers, updatedStreets, updatedTrains, updatedUtilities)
       }
       out.toString.contains("error") shouldBe false
       out.toString.contains("Blue    |  9500") shouldBe true
-      //out.toString.contains("Virginia Avenue       | Blue") shouldBe true
+      out.toString.contains("Virginia Avenue       | Blue") shouldBe true
     }
   }
 
@@ -69,28 +66,37 @@ class MonopolyTester extends AnyWordSpec {
     
     "own Mediterranean Avenue after calling giveOwner" in {
       val player = Player("Blue")
-      val (updatedStreets, _, _) = Main.giveOwner(player, 1)
+      val (updatedStreets, _, _) = Main.giveOwner(player, 1, Main.InitStreets, Main.InitTrains, Main.InitUtilities)
       updatedStreets(0).owner should be(Some("Blue"))
     }
     "own Short line after calling give Owner" in {
       val player = Player("Blue")
-      val (_,updatedTrains, _) = Main.giveOwner(player, 35)
+      val (_,updatedTrains, _) = Main.giveOwner(player, 35, Main.InitStreets, Main.InitTrains, Main.InitUtilities)
       updatedTrains(3).owner should be(Some("Blue"))
     }
     "own first utility after calling give Owner" in {
       val player = Player("Blue")
-      val (_, _, updatedUtility) = Main.giveOwner(player, 12)
+      val (_, _, updatedUtility) = Main.giveOwner(player, 12, Main.InitStreets, Main.InitTrains, Main.InitUtilities)
       updatedUtility(0).owner should be(Some("Blue"))
     }
     "be returned as owner" in {
       val player = Player("Blue")
-      val (updatedStreets, _, _) = Main.giveOwner(player, 14)
-      Main.getOwner(14, updatedStreets, Trains, Utilities) shouldBe "Blue"
+      val (updatedStreets, _, _) = Main.giveOwner(player, 14, Main.InitStreets, Main.InitTrains, Main.InitUtilities)
+      Main.getOwner(14, updatedStreets, Main.InitTrains, Main.InitUtilities) shouldBe "Blue"
     }
     "be empty on wrongful getOwner" in {
       val player = Player("Blue")
-      val (updatedStreets, _, _) = Main.giveOwner(player, 17)
-      Main.getOwner(17, updatedStreets, Trains, Utilities) shouldBe ""
+      val (updatedStreets, _, _) = Main.giveOwner(player, 17, Main.InitStreets, Main.InitTrains, Main.InitUtilities)
+      Main.getOwner(17, updatedStreets, Main.InitTrains, Main.InitUtilities) shouldBe ""
+    }
+    "be empty on OutOfBounce in getOwner" in {
+      Main.getOwner(50, Main.InitStreets, Main.InitTrains, Main.InitUtilities) shouldBe ""
+    }
+    "be empty on OutOfBounce in getHouses" in {
+      Main.getHouses(50, Main.InitStreets, Main.InitTrains, Main.InitUtilities) shouldBe 0
+    }
+    "be empty on OutOfBounce in getHotels" in {
+      Main.getHotels(50, Main.InitStreets, Main.InitTrains, Main.InitUtilities) shouldBe 0
     }
   }
    
@@ -116,6 +122,18 @@ class MonopolyTester extends AnyWordSpec {
       val util = Utility("Test Utility", Some("Player"))
       util.name shouldBe "Test Utility"
       util.owner shouldBe Some("Player")
+    }
+  }
+
+  "A console input" should {
+    "be able to exit the programm" in {
+
+    }
+    "be able to do nothing on wrong inputs" in {
+
+    }
+    "be able to call a function on right inputs" in {
+      
     }
   }
 }
