@@ -2,7 +2,8 @@ package de.htwg.monopoly
 
 object Main {
   @main def hello(): Unit = {
-    print(helloMessage())
+    //print(helloMessage())
+    helloMessage()
   }
   def helloMessage(): String = {
     "    Hello Players.\n  Wanna play a game?\n"
@@ -169,8 +170,7 @@ object Main {
   }
 
   def showCurrentState(): Unit = {
-    // Print player names and their current money
-    println("Players' Current Status:")
+    println("Current Player Status:")
     for (player <- players) {
       println(s"Player ${player.color}: ${player.money} dollars")
     }
@@ -180,23 +180,19 @@ object Main {
     for ((fieldNr, fieldName) <- board) {
       println(s"Field $fieldNr: $fieldName")
 
-      // Try to find a matching Street, Railroad, or Utility
       val maybeStreet = Streets.find(_.name == fieldName)
       val maybeTrain = Trains.find(_.name == fieldName)
       val maybeUtility = Utilities.find(_.name == fieldName)
 
-      // If it's a property (Street, Railroad, or Utility), show owner
       (maybeStreet orElse maybeTrain orElse maybeUtility).foreach { prop =>
         println(s"  Owner: ${prop.owner.getOrElse("No owner")}")
       }
 
-      // If it's a street, show buildings and hotels
       maybeStreet.foreach { street =>
         println(s"  Houses: ${street.buildings}")
         println(s"  Hotels: ${street.hotels}")
       }
 
-      // Show players standing here
       val playersOnField = players.filter(_.position == fieldNr).map(_.color)
       val playersString = if (playersOnField.isEmpty) "No one" else playersOnField.mkString(", ")
       println(s"  Players standing here: $playersString")
