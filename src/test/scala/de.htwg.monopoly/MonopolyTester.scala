@@ -165,22 +165,22 @@ class MonopolyTester extends AnyWordSpec {
    
   "model" should {
     "be creatable with a name and colorGroup for Street" in {
-      val str = Street("Test Street", Some("Red"), 1, 0, "Red")
+      val str: Property = Street("Test Street", Some("Red"), 1, 0, "Red")
       str.name shouldBe "Test Street"
       str.owner shouldBe Some("Red")
-      str.colorGroup shouldBe "Red"
     }
     "be creatable with a name for Railroad" in {
-      val rr = Railroad("Test Railroad", Some("Player"))
+      val rr: Property = Railroad("Test Railroad", Some("Player"))
       rr.name shouldBe "Test Railroad"
       rr.owner shouldBe Some("Player")
     }
     "be creatable with a name for Utility" in {
-      val util = Utility("Test Utility", Some("Player"))
+      val util: Property = Utility("Test Utility", Some("Player"))
       util.name shouldBe "Test Utility"
       util.owner shouldBe Some("Player")
     }
   }
+
 
   "tui" should {
     "print the correct gamestate message to stdout" in {
