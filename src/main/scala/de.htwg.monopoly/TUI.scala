@@ -2,7 +2,7 @@ package de.htwg.monopoly
 
 import scala.io.StdIn.readLine
 
-def inputPoC(): Unit = {
+def devPlay(): Unit = {
   val controller = new Controller()
   controller.statusReport()
   var input = ""
