@@ -14,7 +14,7 @@ class Controller(
   }
 
   def buyCurrentProperty(): Unit = {
-    val fieldNr = players(currentPlayerIndex).position
+    val fieldNr = currentPlayer.position
     val (newStreets, newTrains, newUtilities) = giveOwner(currentPlayer, fieldNr, streets, trains, utilities)
     streets = newStreets
     trains = newTrains

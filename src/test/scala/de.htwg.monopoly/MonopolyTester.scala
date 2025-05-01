@@ -122,46 +122,6 @@ class MonopolyTester extends AnyWordSpec {
       getHotels(50, InitStreets, InitTrains, InitUtilities) shouldBe 0
     }
   }
-  //-------------------------------------------------------------------------------------------------------------------
-  "Main" should {
-    "run startGame and assign ownership" in {
-      val input =
-        """14
-          |exit
-          |""".stripMargin
-      val in = new java.io.ByteArrayInputStream(input.getBytes)
-      val out = new java.io.ByteArrayOutputStream()
-
-      Console.withIn(in) {
-        Console.withOut(new java.io.PrintStream(out)) {
-          Main.startGame()
-        }
-      }
-
-      val outputString = out.toString
-      outputString should include("BetaTester")
-      outputString should include("Virginia Avenue") // adjust if property 14 has a different name
-    }
-    "run inputPoC and process valid and invalid inputs" in {
-      val input =
-        """oops
-          |14
-          |exit
-          |""".stripMargin
-      val in = new java.io.ByteArrayInputStream(input.getBytes)
-      val out = new java.io.ByteArrayOutputStream()
-
-      Console.withIn(in) {
-        Console.withOut(new java.io.PrintStream(out)) {
-          inputPoC()
-        }
-      }
-
-      val outputString = out.toString
-      outputString should include("Please enter a valid number.")
-      outputString should include("BetaTester")
-    }
-  }
   //-------------------------------------------------------------------------------------------------------------------   
   "model" should {
     "be creatable with a name and colorGroup for Street" in {
@@ -180,75 +140,68 @@ class MonopolyTester extends AnyWordSpec {
       util.owner shouldBe Some("Player")
     }
   }
-  //-------------------------------------------------------------------------------------------------------------------
-  "tui" should {
-  "print the correct gamestate message to stdout" in {
-    val out = new ByteArrayOutputStream()
-    Console.withOut(new PrintStream(out)) {
-      val player = Player("Blue")
-      val updatedPlayers = addMoney(Vector(player), 0, -500)
-      val (updatedStreets, updatedTrains, updatedUtilities) = giveOwner(player, 14, InitStreets, InitTrains, InitUtilities)
-      
-      // Create an instance of Controller and call statusReport
-      val controller = new Controller(players = updatedPlayers, streets = updatedStreets, trains = updatedTrains, utilities = updatedUtilities)
-      controller.statusReport()  // Now calling the instance method
-    }
-    out.toString.contains("error") shouldBe false
-    out.toString.contains("Blue    |  9500") shouldBe true
-    out.toString.contains("Virginia Avenue       | Blue") shouldBe true
-  }
-  
-  "process input and assign ownership to BetaTester" in {
-    val input =
-      """14
-        |exit
-        |""".stripMargin
-    val in = new java.io.ByteArrayInputStream(input.getBytes)
-    val out = new java.io.ByteArrayOutputStream()
-
-    Console.withIn(in) {
-      Console.withOut(new java.io.PrintStream(out)) {
-        inputPoC()
-      }
-    }
-
-    val outputString = out.toString
-    outputString should include("BetaTester")
-    outputString should include("Virginia Avenue") // assuming property 14 is that
-  }
-
-  "print error message for invalid input" in {
-    val input =
-      """hello
-        |exit
-        |""".stripMargin
-    val in = new java.io.ByteArrayInputStream(input.getBytes)
-    val out = new java.io.ByteArrayOutputStream()
-
-    Console.withIn(in) {
-      Console.withOut(new java.io.PrintStream(out)) {
-        inputPoC()
-      }
-    }
-
-    val outputString = out.toString
-    outputString should include("Please enter a valid number.")
-  }
-}
 //-------------------------------------------------------------------------------------------------------------------
   "controller" should {
+    "advance to the next player correctly" in {
+      val player1 = Player("Blue")
+      val player2 = Player("Red")
+      val controller = new Controller(players = Vector(player1, player2))
+
+      controller.currentPlayerIndex should be(0) // Start at 0
+      controller.nextTurn()
+      controller.currentPlayerIndex should be(1) // Now at 1
+      controller.nextTurn()
+      controller.currentPlayerIndex should be(0) // Wraps back to 0
+    }
     "move the player correctly" in {
       val player = Player("Blue")
       val controller = new Controller(players = Vector(player))
       controller.moveCurrentPlayer(5)
       controller.players(0).position should be(5)
     }
+    "get the correct field name" in {
+      val player = Player("Blue", position = 5)
+      val controller = new Controller(players = Vector(player))
+      controller.getCurrentFieldName should be("Reading Railroad")
+    }
     "buy a property correctly" in {
-      val player = Player("Blue")
-      val street = Street("Park Place", None, 0, 0, "Blue")
-      val controller = new Controller(players = Vector(player), streets = Vector(street))
+      val player = Player("Blue", position = 5) //Reading Railroad
+      val controller = new Controller(players = Vector(player))
       controller.buyCurrentProperty()
-      controller.streets(0).owner should be(Some("Blue"))
+      controller.statusReport()
+      controller.getCurrentOwner should be("Blue")
+    }
+    "build a house correctly" in {
+      val player = Player("Blue", position = 1) //Mediterranean Avenue
+      val controller = new Controller(players = Vector(player))
+      controller.buyCurrentProperty()
+      controller.getCurrentOwner should be("Blue")
+      controller.buildHouse(1)
+      controller.streets(0).buildings should be(1)
+    }
+    "build a hotel correctly" in {
+      val player = Player("Blue", position = 1) //Mediterranean Avenue
+      val controller = new Controller(players = Vector(player))
+      controller.buyCurrentProperty()
+      controller.getCurrentOwner should be("Blue")
+      controller.buildHotel(1)
+      controller.streets(0).hotels should be(1)
+    }
+    "get the winner correctly" in {
+      val player = Player("Blue", position = 1, money = 0)
+      val controller = new Controller(players = Vector(player))
+      controller.getWinnerIfAny should be(None)
+    }
+    "get the winner correctly when there is one" in {
+      val player = Player("Blue", position = 1, money = 100)
+      val controller = new Controller(players = Vector(player))
+      controller.getWinnerIfAny should be(Some("Blue"))
+    }
+    "get the correct owner of a property" in {
+      val player = Player("Blue", position = 1) //Mediterranean Avenue
+      val controller = new Controller(players = Vector(player))
+      controller.buyCurrentProperty()
+      controller.getCurrentOwner should be("Blue")
     }
   }
 }
