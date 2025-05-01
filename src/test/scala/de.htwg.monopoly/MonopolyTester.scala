@@ -28,7 +28,7 @@ class MonopolyTester extends AnyWordSpec {
       Board contains 0 -> "Go" shouldBe true
     }
   }
-
+  //-------------------------------------------------------------------------------------------------------------------
   "functions" should {
     "get money when called with positive" in {
       val player = Player("Blue")
@@ -122,7 +122,7 @@ class MonopolyTester extends AnyWordSpec {
       getHotels(50, InitStreets, InitTrains, InitUtilities) shouldBe 0
     }
   }
-
+  //-------------------------------------------------------------------------------------------------------------------
   "Main" should {
     "run startGame and assign ownership" in {
       val input =
@@ -162,7 +162,7 @@ class MonopolyTester extends AnyWordSpec {
       outputString should include("BetaTester")
     }
   }
-   
+  //-------------------------------------------------------------------------------------------------------------------   
   "model" should {
     "be creatable with a name and colorGroup for Street" in {
       val str: Property = Street("Test Street", Some("Red"), 1, 0, "Red")
@@ -180,56 +180,75 @@ class MonopolyTester extends AnyWordSpec {
       util.owner shouldBe Some("Player")
     }
   }
-
-
+  //-------------------------------------------------------------------------------------------------------------------
   "tui" should {
-    "print the correct gamestate message to stdout" in {
-      val out = new ByteArrayOutputStream()
-      Console.withOut(new PrintStream(out)) {
-        val player = Player("Blue")
-        val updatedPlayers = addMoney(Vector(player), 0, -500)
-        val (updatedStreets, updatedTrains, updatedUtilities) = giveOwner(player, 14, InitStreets, InitTrains, InitUtilities)
-        statusReport(updatedPlayers, updatedStreets, updatedTrains, updatedUtilities)
-      }
-      out.toString.contains("error") shouldBe false
-      out.toString.contains("Blue    |  9500") shouldBe true
-      out.toString.contains("Virginia Avenue       | Blue") shouldBe true
+  "print the correct gamestate message to stdout" in {
+    val out = new ByteArrayOutputStream()
+    Console.withOut(new PrintStream(out)) {
+      val player = Player("Blue")
+      val updatedPlayers = addMoney(Vector(player), 0, -500)
+      val (updatedStreets, updatedTrains, updatedUtilities) = giveOwner(player, 14, InitStreets, InitTrains, InitUtilities)
+      
+      // Create an instance of Controller and call statusReport
+      val controller = new Controller(players = updatedPlayers, streets = updatedStreets, trains = updatedTrains, utilities = updatedUtilities)
+      controller.statusReport()  // Now calling the instance method
     }
-    "process input and assign ownership to BetaTester" in {
-      val input =
-        """14
-          |exit
-          |""".stripMargin
-      val in = new java.io.ByteArrayInputStream(input.getBytes)
-      val out = new java.io.ByteArrayOutputStream()
+    out.toString.contains("error") shouldBe false
+    out.toString.contains("Blue    |  9500") shouldBe true
+    out.toString.contains("Virginia Avenue       | Blue") shouldBe true
+  }
+  
+  "process input and assign ownership to BetaTester" in {
+    val input =
+      """14
+        |exit
+        |""".stripMargin
+    val in = new java.io.ByteArrayInputStream(input.getBytes)
+    val out = new java.io.ByteArrayOutputStream()
 
-      Console.withIn(in) {
-        Console.withOut(new java.io.PrintStream(out)) {
-          inputPoC()
-        }
+    Console.withIn(in) {
+      Console.withOut(new java.io.PrintStream(out)) {
+        inputPoC()
       }
-
-      val outputString = out.toString
-      outputString should include("BetaTester")
-      outputString should include("Virginia Avenue") // assuming property 14 is that
     }
-    "print error message for invalid input" in {
-      val input =
-        """hello
-          |exit
-          |""".stripMargin
-      val in = new java.io.ByteArrayInputStream(input.getBytes)
-      val out = new java.io.ByteArrayOutputStream()
 
-      Console.withIn(in) {
-        Console.withOut(new java.io.PrintStream(out)) {
-          inputPoC()
-        }
-      }
-
-      val outputString = out.toString
-      outputString should include("Please enter a valid number.")
-    }
+    val outputString = out.toString
+    outputString should include("BetaTester")
+    outputString should include("Virginia Avenue") // assuming property 14 is that
   }
 
+  "print error message for invalid input" in {
+    val input =
+      """hello
+        |exit
+        |""".stripMargin
+    val in = new java.io.ByteArrayInputStream(input.getBytes)
+    val out = new java.io.ByteArrayOutputStream()
+
+    Console.withIn(in) {
+      Console.withOut(new java.io.PrintStream(out)) {
+        inputPoC()
+      }
+    }
+
+    val outputString = out.toString
+    outputString should include("Please enter a valid number.")
+  }
+}
+//-------------------------------------------------------------------------------------------------------------------
+  "controller" should {
+    "move the player correctly" in {
+      val player = Player("Blue")
+      val controller = new Controller(players = Vector(player))
+      controller.moveCurrentPlayer(5)
+      controller.players(0).position should be(5)
+    }
+    "buy a property correctly" in {
+      val player = Player("Blue")
+      val street = Street("Park Place", None, 0, 0, "Blue")
+      val controller = new Controller(players = Vector(player), streets = Vector(street))
+      controller.buyCurrentProperty()
+      controller.streets(0).owner should be(Some("Blue"))
+    }
+  }
 }

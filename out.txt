@@ -1,0 +1,537 @@
+[info] welcome to sbt 1.10.11 (Private Build Java 19.0.2)
+[info] loading settings for project monopoly-build-build-build from metals.sbt...
+[info] loading project definition from /home/jannik/htwg/SE/monopoly/project/project/project
+[info] loading settings for project monopoly-build-build from metals.sbt...
+[info] loading project definition from /home/jannik/htwg/SE/monopoly/project/project
+[success] Generated .bloop/monopoly-build-build.json
+[success] Total time: 1 s, completed May 1, 2025, 7:21:22 PM
+[info] loading settings for project monopoly-build from metals.sbt, plugins.sbt...
+[info] loading project definition from /home/jannik/htwg/SE/monopoly/project
+[success] Generated .bloop/monopoly-build.json
+[success] Total time: 0 s, completed May 1, 2025, 7:21:22 PM
+[info] loading settings for project root from build.sbt...
+[info] set current project to Monopoly (in build file:/home/jannik/htwg/SE/monopoly/)
+[info] MonopolyTester:
+[info] data
+[info] - should hold the data for players
+[info] - should hold the data for streets
+[info] - should hold the data for trains
+[info] - should hold the data for utilities
+[info] - should hold the data for events
+[info] - should hold the data for boards
+[info] functions
+[info] - should get money when called with positive
+[info] - should loose money when called with negative
+[info] - should gain and then lose money, keeping updates in the same variable
+[info] - should move correctly
+[info] - should update position and money when passing Go
+[info] - should update position and money when landing on Go
+[info] - should don't get money when just moving
+[info] - should own Mediterranean Avenue after calling giveOwner
+[info] - should own Short line after calling give Owner
+[info] - should own first utility after calling give Owner
+[info] - should win if they're the only one with money
+[info] - should not win if they're not the only one with money
+[info] - should be returned as owner
+[info] - should be empty on wrongful getOwner
+[info] - should be empty on OutOfBounce in getOwner
+[info] - should be empty on OutOfBounce in getHouses
+[info] - should be empty on OutOfBounce in getHotels
+[info] Main
+[info] - should run startGame and assign ownership *** FAILED ***
+[info]   "Current Player Status:
+[info]   | Name    | Money | Pos | Jail |
+[info]   | Blue    | 10000 |   0 | false|
+[info]   | Green   | 10000 |   0 | false|
+[info]   | Yellow  | 10000 |   0 | false|
+[info]   | Orange  | 10000 |   0 | false|
+[info]   | Purple  | 10000 |   0 | false|
+[info]   
+[info]   Current Game Board Status:
+[info]   | Nr | Field                 | Owner   | House | Hotel | Players on field
+[info]   |  0 | Go                    |         |   0   |   0   | Blue, Green, Yellow, Orange, Purple
+[info]   |  1 | Mediterranean Avenue  |         |   0   |   0   |        
+[info]   |  2 | Event                 |         |   0   |   0   |        
+[info]   |  3 | Baltic Avenue         |         |   0   |   0   |        
+[info]   |  4 | Income Tax            |         |   0   |   0   |        
+[info]   |  5 | Reading Railroad      |         |   0   |   0   |        
+[info]   |  6 | Oriental Avenue       |         |   0   |   0   |        
+[info]   |  7 | Event                 |         |   0   |   0   |        
+[info]   |  8 | Vermont Avenue        |         |   0   |   0   |        
+[info]   |  9 | Connecticut Avenue    |         |   0   |   0   |        
+[info]   | 10 | Jail / Just Visiting  |         |   0   |   0   |        
+[info]   | 11 | St. Charles Place     |         |   0   |   0   |        
+[info]   | 12 | Electric Company      |         |   0   |   0   |        
+[info]   | 13 | States Avenue         |         |   0   |   0   |        
+[info]   | 14 | Virginia Avenue       |         |   0   |   0   |        
+[info]   | 15 | Pennsylvania Railroad |         |   0   |   0   |        
+[info]   | 16 | St. James Place       |         |   0   |   0   |        
+[info]   | 17 | Event                 |         |   0   |   0   |        
+[info]   | 18 | Tennessee Avenue      |         |   0   |   0   |        
+[info]   | 19 | New York Avenue       |         |   0   |   0   |        
+[info]   | 20 | Free Parking          |         |   0   |   0   |        
+[info]   | 21 | Kentucky Avenue       |         |   0   |   0   |        
+[info]   | 22 | Event                 |         |   0   |   0   |        
+[info]   | 23 | Indiana Avenue        |         |   0   |   0   |        
+[info]   | 24 | Illinois Avenue       |         |   0   |   0   |        
+[info]   | 25 | B&O Railroad          |         |   0   |   0   |        
+[info]   | 26 | Atlantic Avenue       |         |   0   |   0   |        
+[info]   | 27 | Ventnor Avenue        |         |   0   |   0   |        
+[info]   | 28 | Water Works           |         |   0   |   0   |        
+[info]   | 29 | Marvin Gardens        |         |   0   |   0   |        
+[info]   | 30 | Go To Jail            |         |   0   |   0   |        
+[info]   | 31 | Pacific Avenue        |         |   0   |   0   |        
+[info]   | 32 | North Carolina Avenue |         |   0   |   0   |        
+[info]   | 33 | Event                 |         |   0   |   0   |        
+[info]   | 34 | Pennsylvania Avenue   |         |   0   |   0   |        
+[info]   | 35 | Short Line            |         |   0   |   0   |        
+[info]   | 36 | Event                 |         |   0   |   0   |        
+[info]   | 37 | Park Place            |         |   0   |   0   |        
+[info]   | 38 | Luxury Tax            |         |   0   |   0   |        
+[info]   | 39 | Boardwalk             |         |   0   |   0   |        
+[info]   Current player: Blue
+[info]   Enter command: move X | buy | buildhouse X | buildhotel X | end | exit
+[info]   Invalid command.
+[info]   Current Player Status:
+[info]   | Name    | Money | Pos | Jail |
+[info]   | Blue    | 10000 |   0 | false|
+[info]   | Green   | 10000 |   0 | false|
+[info]   | Yellow  | 10000 |   0 | false|
+[info]   | Orange  | 10000 |   0 | false|
+[info]   | Purple  | 10000 |   0 | false|
+[info]   
+[info]   Current Game Board Status:
+[info]   | Nr | Field                 | Owner   | House | Hotel | Players on field
+[info]   |  0 | Go                    |         |   0   |   0   | Blue, Green, Yellow, Orange, Purple
+[info]   |  1 | Mediterranean Avenue  |         |   0   |   0   |        
+[info]   |  2 | Event                 |         |   0   |   0   |        
+[info]   |  3 | Baltic Avenue         |         |   0   |   0   |        
+[info]   |  4 | Income Tax            |         |   0   |   0   |        
+[info]   |  5 | Reading Railroad      |         |   0   |   0   |        
+[info]   |  6 | Oriental Avenue       |         |   0   |   0   |        
+[info]   |  7 | Event                 |         |   0   |   0   |        
+[info]   |  8 | Vermont Avenue        |         |   0   |   0   |        
+[info]   |  9 | Connecticut Avenue    |         |   0   |   0   |        
+[info]   | 10 | Jail / Just Visiting  |         |   0   |   0   |        
+[info]   | 11 | St. Charles Place     |         |   0   |   0   |        
+[info]   | 12 | Electric Company      |         |   0   |   0   |        
+[info]   | 13 | States Avenue         |         |   0   |   0   |        
+[info]   | 14 | Virginia Avenue       |         |   0   |   0   |        
+[info]   | 15 | Pennsylvania Railroad |         |   0   |   0   |        
+[info]   | 16 | St. James Place       |         |   0   |   0   |        
+[info]   | 17 | Event                 |         |   0   |   0   |        
+[info]   | 18 | Tennessee Avenue      |         |   0   |   0   |        
+[info]   | 19 | New York Avenue       |         |   0   |   0   |        
+[info]   | 20 | Free Parking          |         |   0   |   0   |        
+[info]   | 21 | Kentucky Avenue       |         |   0   |   0   |        
+[info]   | 22 | Event                 |         |   0   |   0   |        
+[info]   | 23 | Indiana Avenue        |         |   0   |   0   |        
+[info]   | 24 | Illinois Avenue       |         |   0   |   0   |        
+[info]   | 25 | B&O Railroad          |         |   0   |   0   |        
+[info]   | 26 | Atlantic Avenue       |         |   0   |   0   |        
+[info]   | 27 | Ventnor Avenue        |         |   0   |   0   |        
+[info]   | 28 | Water Works           |         |   0   |   0   |        
+[info]   | 29 | Marvin Gardens        |         |   0   |   0   |        
+[info]   | 30 | Go To Jail            |         |   0   |   0   |        
+[info]   | 31 | Pacific Avenue        |         |   0   |   0   |        
+[info]   | 32 | North Carolina Avenue |         |   0   |   0   |        
+[info]   | 33 | Event                 |         |   0   |   0   |        
+[info]   | 34 | Pennsylvania Avenue   |         |   0   |   0   |        
+[info]   | 35 | Short Line            |         |   0   |   0   |        
+[info]   | 36 | Event                 |         |   0   |   0   |        
+[info]   | 37 | Park Place            |         |   0   |   0   |        
+[info]   | 38 | Luxury Tax            |         |   0   |   0   |        
+[info]   | 39 | Boardwalk             |         |   0   |   0   |        
+[info]   Current player: Blue
+[info]   Enter command: move X | buy | buildhouse X | buildhotel X | end | exit
+[info]   " did not include substring "BetaTester" (MonopolyTester.scala:142)
+[info] - should run inputPoC and process valid and invalid inputs *** FAILED ***
+[info]   "Current Player Status:
+[info]   | Name    | Money | Pos | Jail |
+[info]   | Blue    | 10000 |   0 | false|
+[info]   | Green   | 10000 |   0 | false|
+[info]   | Yellow  | 10000 |   0 | false|
+[info]   | Orange  | 10000 |   0 | false|
+[info]   | Purple  | 10000 |   0 | false|
+[info]   
+[info]   Current Game Board Status:
+[info]   | Nr | Field                 | Owner   | House | Hotel | Players on field
+[info]   |  0 | Go                    |         |   0   |   0   | Blue, Green, Yellow, Orange, Purple
+[info]   |  1 | Mediterranean Avenue  |         |   0   |   0   |        
+[info]   |  2 | Event                 |         |   0   |   0   |        
+[info]   |  3 | Baltic Avenue         |         |   0   |   0   |        
+[info]   |  4 | Income Tax            |         |   0   |   0   |        
+[info]   |  5 | Reading Railroad      |         |   0   |   0   |        
+[info]   |  6 | Oriental Avenue       |         |   0   |   0   |        
+[info]   |  7 | Event                 |         |   0   |   0   |        
+[info]   |  8 | Vermont Avenue        |         |   0   |   0   |        
+[info]   |  9 | Connecticut Avenue    |         |   0   |   0   |        
+[info]   | 10 | Jail / Just Visiting  |         |   0   |   0   |        
+[info]   | 11 | St. Charles Place     |         |   0   |   0   |        
+[info]   | 12 | Electric Company      |         |   0   |   0   |        
+[info]   | 13 | States Avenue         |         |   0   |   0   |        
+[info]   | 14 | Virginia Avenue       |         |   0   |   0   |        
+[info]   | 15 | Pennsylvania Railroad |         |   0   |   0   |        
+[info]   | 16 | St. James Place       |         |   0   |   0   |        
+[info]   | 17 | Event                 |         |   0   |   0   |        
+[info]   | 18 | Tennessee Avenue      |         |   0   |   0   |        
+[info]   | 19 | New York Avenue       |         |   0   |   0   |        
+[info]   | 20 | Free Parking          |         |   0   |   0   |        
+[info]   | 21 | Kentucky Avenue       |         |   0   |   0   |        
+[info]   | 22 | Event                 |         |   0   |   0   |        
+[info]   | 23 | Indiana Avenue        |         |   0   |   0   |        
+[info]   | 24 | Illinois Avenue       |         |   0   |   0   |        
+[info]   | 25 | B&O Railroad          |         |   0   |   0   |        
+[info]   | 26 | Atlantic Avenue       |         |   0   |   0   |        
+[info]   | 27 | Ventnor Avenue        |         |   0   |   0   |        
+[info]   | 28 | Water Works           |         |   0   |   0   |        
+[info]   | 29 | Marvin Gardens        |         |   0   |   0   |        
+[info]   | 30 | Go To Jail            |         |   0   |   0   |        
+[info]   | 31 | Pacific Avenue        |         |   0   |   0   |        
+[info]   | 32 | North Carolina Avenue |         |   0   |   0   |        
+[info]   | 33 | Event                 |         |   0   |   0   |        
+[info]   | 34 | Pennsylvania Avenue   |         |   0   |   0   |        
+[info]   | 35 | Short Line            |         |   0   |   0   |        
+[info]   | 36 | Event                 |         |   0   |   0   |        
+[info]   | 37 | Park Place            |         |   0   |   0   |        
+[info]   | 38 | Luxury Tax            |         |   0   |   0   |        
+[info]   | 39 | Boardwalk             |         |   0   |   0   |        
+[info]   Current player: Blue
+[info]   Enter command: move X | buy | buildhouse X | buildhotel X | end | exit
+[info]   Invalid command.
+[info]   Current Player Status:
+[info]   | Name    | Money | Pos | Jail |
+[info]   | Blue    | 10000 |   0 | false|
+[info]   | Green   | 10000 |   0 | false|
+[info]   | Yellow  | 10000 |   0 | false|
+[info]   | Orange  | 10000 |   0 | false|
+[info]   | Purple  | 10000 |   0 | false|
+[info]   
+[info]   Current Game Board Status:
+[info]   | Nr | Field                 | Owner   | House | Hotel | Players on field
+[info]   |  0 | Go                    |         |   0   |   0   | Blue, Green, Yellow, Orange, Purple
+[info]   |  1 | Mediterranean Avenue  |         |   0   |   0   |        
+[info]   |  2 | Event                 |         |   0   |   0   |        
+[info]   |  3 | Baltic Avenue         |         |   0   |   0   |        
+[info]   |  4 | Income Tax            |         |   0   |   0   |        
+[info]   |  5 | Reading Railroad      |         |   0   |   0   |        
+[info]   |  6 | Oriental Avenue       |         |   0   |   0   |        
+[info]   |  7 | Event                 |         |   0   |   0   |        
+[info]   |  8 | Vermont Avenue        |         |   0   |   0   |        
+[info]   |  9 | Connecticut Avenue    |         |   0   |   0   |        
+[info]   | 10 | Jail / Just Visiting  |         |   0   |   0   |        
+[info]   | 11 | St. Charles Place     |         |   0   |   0   |        
+[info]   | 12 | Electric Company      |         |   0   |   0   |        
+[info]   | 13 | States Avenue         |         |   0   |   0   |        
+[info]   | 14 | Virginia Avenue       |         |   0   |   0   |        
+[info]   | 15 | Pennsylvania Railroad |         |   0   |   0   |        
+[info]   | 16 | St. James Place       |         |   0   |   0   |        
+[info]   | 17 | Event                 |         |   0   |   0   |        
+[info]   | 18 | Tennessee Avenue      |         |   0   |   0   |        
+[info]   | 19 | New York Avenue       |         |   0   |   0   |        
+[info]   | 20 | Free Parking          |         |   0   |   0   |        
+[info]   | 21 | Kentucky Avenue       |         |   0   |   0   |        
+[info]   | 22 | Event                 |         |   0   |   0   |        
+[info]   | 23 | Indiana Avenue        |         |   0   |   0   |        
+[info]   | 24 | Illinois Avenue       |         |   0   |   0   |        
+[info]   | 25 | B&O Railroad          |         |   0   |   0   |        
+[info]   | 26 | Atlantic Avenue       |         |   0   |   0   |        
+[info]   | 27 | Ventnor Avenue        |         |   0   |   0   |        
+[info]   | 28 | Water Works           |         |   0   |   0   |        
+[info]   | 29 | Marvin Gardens        |         |   0   |   0   |        
+[info]   | 30 | Go To Jail            |         |   0   |   0   |        
+[info]   | 31 | Pacific Avenue        |         |   0   |   0   |        
+[info]   | 32 | North Carolina Avenue |         |   0   |   0   |        
+[info]   | 33 | Event                 |         |   0   |   0   |        
+[info]   | 34 | Pennsylvania Avenue   |         |   0   |   0   |        
+[info]   | 35 | Short Line            |         |   0   |   0   |        
+[info]   | 36 | Event                 |         |   0   |   0   |        
+[info]   | 37 | Park Place            |         |   0   |   0   |        
+[info]   | 38 | Luxury Tax            |         |   0   |   0   |        
+[info]   | 39 | Boardwalk             |         |   0   |   0   |        
+[info]   Current player: Blue
+[info]   Enter command: move X | buy | buildhouse X | buildhotel X | end | exit
+[info]   Invalid command.
+[info]   Current Player Status:
+[info]   | Name    | Money | Pos | Jail |
+[info]   | Blue    | 10000 |   0 | false|
+[info]   | Green   | 10000 |   0 | false|
+[info]   | Yellow  | 10000 |   0 | false|
+[info]   | Orange  | 10000 |   0 | false|
+[info]   | Purple  | 10000 |   0 | false|
+[info]   
+[info]   Current Game Board Status:
+[info]   | Nr | Field                 | Owner   | House | Hotel | Players on field
+[info]   |  0 | Go                    |         |   0   |   0   | Blue, Green, Yellow, Orange, Purple
+[info]   |  1 | Mediterranean Avenue  |         |   0   |   0   |        
+[info]   |  2 | Event                 |         |   0   |   0   |        
+[info]   |  3 | Baltic Avenue         |         |   0   |   0   |        
+[info]   |  4 | Income Tax            |         |   0   |   0   |        
+[info]   |  5 | Reading Railroad      |         |   0   |   0   |        
+[info]   |  6 | Oriental Avenue       |         |   0   |   0   |        
+[info]   |  7 | Event                 |         |   0   |   0   |        
+[info]   |  8 | Vermont Avenue        |         |   0   |   0   |        
+[info]   |  9 | Connecticut Avenue    |         |   0   |   0   |        
+[info]   | 10 | Jail / Just Visiting  |         |   0   |   0   |        
+[info]   | 11 | St. Charles Place     |         |   0   |   0   |        
+[info]   | 12 | Electric Company      |         |   0   |   0   |        
+[info]   | 13 | States Avenue         |         |   0   |   0   |        
+[info]   | 14 | Virginia Avenue       |         |   0   |   0   |        
+[info]   | 15 | Pennsylvania Railroad |         |   0   |   0   |        
+[info]   | 16 | St. James Place       |         |   0   |   0   |        
+[info]   | 17 | Event                 |         |   0   |   0   |        
+[info]   | 18 | Tennessee Avenue      |         |   0   |   0   |        
+[info]   | 19 | New York Avenue       |         |   0   |   0   |        
+[info]   | 20 | Free Parking          |         |   0   |   0   |        
+[info]   | 21 | Kentucky Avenue       |         |   0   |   0   |        
+[info]   | 22 | Event                 |         |   0   |   0   |        
+[info]   | 23 | Indiana Avenue        |         |   0   |   0   |        
+[info]   | 24 | Illinois Avenue       |         |   0   |   0   |        
+[info]   | 25 | B&O Railroad          |         |   0   |   0   |        
+[info]   | 26 | Atlantic Avenue       |         |   0   |   0   |        
+[info]   | 27 | Ventnor Avenue        |         |   0   |   0   |        
+[info]   | 28 | Water Works           |         |   0   |   0   |        
+[info]   | 29 | Marvin Gardens        |         |   0   |   0   |        
+[info]   | 30 | Go To Jail            |         |   0   |   0   |        
+[info]   | 31 | Pacific Avenue        |         |   0   |   0   |        
+[info]   | 32 | North Carolina Avenue |         |   0   |   0   |        
+[info]   | 33 | Event                 |         |   0   |   0   |        
+[info]   | 34 | Pennsylvania Avenue   |         |   0   |   0   |        
+[info]   | 35 | Short Line            |         |   0   |   0   |        
+[info]   | 36 | Event                 |         |   0   |   0   |        
+[info]   | 37 | Park Place            |         |   0   |   0   |        
+[info]   | 38 | Luxury Tax            |         |   0   |   0   |        
+[info]   | 39 | Boardwalk             |         |   0   |   0   |        
+[info]   Current player: Blue
+[info]   Enter command: move X | buy | buildhouse X | buildhotel X | end | exit
+[info]   " did not include substring "Please enter a valid number." (MonopolyTester.scala:161)
+[info] model
+[info] - should be creatable with a name and colorGroup for Street
+[info] - should be creatable with a name for Railroad
+[info] - should be creatable with a name for Utility
+[info] tui
+[info] - should print the correct gamestate message to stdout *** FAILED ***
+[info]   false was not equal to true (MonopolyTester.scala:196)
+[info] - should process input and assign ownership to BetaTester *** FAILED ***
+[info]   "Current Player Status:
+[info]   | Name    | Money | Pos | Jail |
+[info]   | Blue    | 10000 |   0 | false|
+[info]   | Green   | 10000 |   0 | false|
+[info]   | Yellow  | 10000 |   0 | false|
+[info]   | Orange  | 10000 |   0 | false|
+[info]   | Purple  | 10000 |   0 | false|
+[info]   
+[info]   Current Game Board Status:
+[info]   | Nr | Field                 | Owner   | House | Hotel | Players on field
+[info]   |  0 | Go                    |         |   0   |   0   | Blue, Green, Yellow, Orange, Purple
+[info]   |  1 | Mediterranean Avenue  |         |   0   |   0   |        
+[info]   |  2 | Event                 |         |   0   |   0   |        
+[info]   |  3 | Baltic Avenue         |         |   0   |   0   |        
+[info]   |  4 | Income Tax            |         |   0   |   0   |        
+[info]   |  5 | Reading Railroad      |         |   0   |   0   |        
+[info]   |  6 | Oriental Avenue       |         |   0   |   0   |        
+[info]   |  7 | Event                 |         |   0   |   0   |        
+[info]   |  8 | Vermont Avenue        |         |   0   |   0   |        
+[info]   |  9 | Connecticut Avenue    |         |   0   |   0   |        
+[info]   | 10 | Jail / Just Visiting  |         |   0   |   0   |        
+[info]   | 11 | St. Charles Place     |         |   0   |   0   |        
+[info]   | 12 | Electric Company      |         |   0   |   0   |        
+[info]   | 13 | States Avenue         |         |   0   |   0   |        
+[info]   | 14 | Virginia Avenue       |         |   0   |   0   |        
+[info]   | 15 | Pennsylvania Railroad |         |   0   |   0   |        
+[info]   | 16 | St. James Place       |         |   0   |   0   |        
+[info]   | 17 | Event                 |         |   0   |   0   |        
+[info]   | 18 | Tennessee Avenue      |         |   0   |   0   |        
+[info]   | 19 | New York Avenue       |         |   0   |   0   |        
+[info]   | 20 | Free Parking          |         |   0   |   0   |        
+[info]   | 21 | Kentucky Avenue       |         |   0   |   0   |        
+[info]   | 22 | Event                 |         |   0   |   0   |        
+[info]   | 23 | Indiana Avenue        |         |   0   |   0   |        
+[info]   | 24 | Illinois Avenue       |         |   0   |   0   |        
+[info]   | 25 | B&O Railroad          |         |   0   |   0   |        
+[info]   | 26 | Atlantic Avenue       |         |   0   |   0   |        
+[info]   | 27 | Ventnor Avenue        |         |   0   |   0   |        
+[info]   | 28 | Water Works           |         |   0   |   0   |        
+[info]   | 29 | Marvin Gardens        |         |   0   |   0   |        
+[info]   | 30 | Go To Jail            |         |   0   |   0   |        
+[info]   | 31 | Pacific Avenue        |         |   0   |   0   |        
+[info]   | 32 | North Carolina Avenue |         |   0   |   0   |        
+[info]   | 33 | Event                 |         |   0   |   0   |        
+[info]   | 34 | Pennsylvania Avenue   |         |   0   |   0   |        
+[info]   | 35 | Short Line            |         |   0   |   0   |        
+[info]   | 36 | Event                 |         |   0   |   0   |        
+[info]   | 37 | Park Place            |         |   0   |   0   |        
+[info]   | 38 | Luxury Tax            |         |   0   |   0   |        
+[info]   | 39 | Boardwalk             |         |   0   |   0   |        
+[info]   Current player: Blue
+[info]   Enter command: move X | buy | buildhouse X | buildhotel X | end | exit
+[info]   Invalid command.
+[info]   Current Player Status:
+[info]   | Name    | Money | Pos | Jail |
+[info]   | Blue    | 10000 |   0 | false|
+[info]   | Green   | 10000 |   0 | false|
+[info]   | Yellow  | 10000 |   0 | false|
+[info]   | Orange  | 10000 |   0 | false|
+[info]   | Purple  | 10000 |   0 | false|
+[info]   
+[info]   Current Game Board Status:
+[info]   | Nr | Field                 | Owner   | House | Hotel | Players on field
+[info]   |  0 | Go                    |         |   0   |   0   | Blue, Green, Yellow, Orange, Purple
+[info]   |  1 | Mediterranean Avenue  |         |   0   |   0   |        
+[info]   |  2 | Event                 |         |   0   |   0   |        
+[info]   |  3 | Baltic Avenue         |         |   0   |   0   |        
+[info]   |  4 | Income Tax            |         |   0   |   0   |        
+[info]   |  5 | Reading Railroad      |         |   0   |   0   |        
+[info]   |  6 | Oriental Avenue       |         |   0   |   0   |        
+[info]   |  7 | Event                 |         |   0   |   0   |        
+[info]   |  8 | Vermont Avenue        |         |   0   |   0   |        
+[info]   |  9 | Connecticut Avenue    |         |   0   |   0   |        
+[info]   | 10 | Jail / Just Visiting  |         |   0   |   0   |        
+[info]   | 11 | St. Charles Place     |         |   0   |   0   |        
+[info]   | 12 | Electric Company      |         |   0   |   0   |        
+[info]   | 13 | States Avenue         |         |   0   |   0   |        
+[info]   | 14 | Virginia Avenue       |         |   0   |   0   |        
+[info]   | 15 | Pennsylvania Railroad |         |   0   |   0   |        
+[info]   | 16 | St. James Place       |         |   0   |   0   |        
+[info]   | 17 | Event                 |         |   0   |   0   |        
+[info]   | 18 | Tennessee Avenue      |         |   0   |   0   |        
+[info]   | 19 | New York Avenue       |         |   0   |   0   |        
+[info]   | 20 | Free Parking          |         |   0   |   0   |        
+[info]   | 21 | Kentucky Avenue       |         |   0   |   0   |        
+[info]   | 22 | Event                 |         |   0   |   0   |        
+[info]   | 23 | Indiana Avenue        |         |   0   |   0   |        
+[info]   | 24 | Illinois Avenue       |         |   0   |   0   |        
+[info]   | 25 | B&O Railroad          |         |   0   |   0   |        
+[info]   | 26 | Atlantic Avenue       |         |   0   |   0   |        
+[info]   | 27 | Ventnor Avenue        |         |   0   |   0   |        
+[info]   | 28 | Water Works           |         |   0   |   0   |        
+[info]   | 29 | Marvin Gardens        |         |   0   |   0   |        
+[info]   | 30 | Go To Jail            |         |   0   |   0   |        
+[info]   | 31 | Pacific Avenue        |         |   0   |   0   |        
+[info]   | 32 | North Carolina Avenue |         |   0   |   0   |        
+[info]   | 33 | Event                 |         |   0   |   0   |        
+[info]   | 34 | Pennsylvania Avenue   |         |   0   |   0   |        
+[info]   | 35 | Short Line            |         |   0   |   0   |        
+[info]   | 36 | Event                 |         |   0   |   0   |        
+[info]   | 37 | Park Place            |         |   0   |   0   |        
+[info]   | 38 | Luxury Tax            |         |   0   |   0   |        
+[info]   | 39 | Boardwalk             |         |   0   |   0   |        
+[info]   Current player: Blue
+[info]   Enter command: move X | buy | buildhouse X | buildhotel X | end | exit
+[info]   " did not include substring "BetaTester" (MonopolyTester.scala:214)
+[info] - should print error message for invalid input *** FAILED ***
+[info]   "Current Player Status:
+[info]   | Name    | Money | Pos | Jail |
+[info]   | Blue    | 10000 |   0 | false|
+[info]   | Green   | 10000 |   0 | false|
+[info]   | Yellow  | 10000 |   0 | false|
+[info]   | Orange  | 10000 |   0 | false|
+[info]   | Purple  | 10000 |   0 | false|
+[info]   
+[info]   Current Game Board Status:
+[info]   | Nr | Field                 | Owner   | House | Hotel | Players on field
+[info]   |  0 | Go                    |         |   0   |   0   | Blue, Green, Yellow, Orange, Purple
+[info]   |  1 | Mediterranean Avenue  |         |   0   |   0   |        
+[info]   |  2 | Event                 |         |   0   |   0   |        
+[info]   |  3 | Baltic Avenue         |         |   0   |   0   |        
+[info]   |  4 | Income Tax            |         |   0   |   0   |        
+[info]   |  5 | Reading Railroad      |         |   0   |   0   |        
+[info]   |  6 | Oriental Avenue       |         |   0   |   0   |        
+[info]   |  7 | Event                 |         |   0   |   0   |        
+[info]   |  8 | Vermont Avenue        |         |   0   |   0   |        
+[info]   |  9 | Connecticut Avenue    |         |   0   |   0   |        
+[info]   | 10 | Jail / Just Visiting  |         |   0   |   0   |        
+[info]   | 11 | St. Charles Place     |         |   0   |   0   |        
+[info]   | 12 | Electric Company      |         |   0   |   0   |        
+[info]   | 13 | States Avenue         |         |   0   |   0   |        
+[info]   | 14 | Virginia Avenue       |         |   0   |   0   |        
+[info]   | 15 | Pennsylvania Railroad |         |   0   |   0   |        
+[info]   | 16 | St. James Place       |         |   0   |   0   |        
+[info]   | 17 | Event                 |         |   0   |   0   |        
+[info]   | 18 | Tennessee Avenue      |         |   0   |   0   |        
+[info]   | 19 | New York Avenue       |         |   0   |   0   |        
+[info]   | 20 | Free Parking          |         |   0   |   0   |        
+[info]   | 21 | Kentucky Avenue       |         |   0   |   0   |        
+[info]   | 22 | Event                 |         |   0   |   0   |        
+[info]   | 23 | Indiana Avenue        |         |   0   |   0   |        
+[info]   | 24 | Illinois Avenue       |         |   0   |   0   |        
+[info]   | 25 | B&O Railroad          |         |   0   |   0   |        
+[info]   | 26 | Atlantic Avenue       |         |   0   |   0   |        
+[info]   | 27 | Ventnor Avenue        |         |   0   |   0   |        
+[info]   | 28 | Water Works           |         |   0   |   0   |        
+[info]   | 29 | Marvin Gardens        |         |   0   |   0   |        
+[info]   | 30 | Go To Jail            |         |   0   |   0   |        
+[info]   | 31 | Pacific Avenue        |         |   0   |   0   |        
+[info]   | 32 | North Carolina Avenue |         |   0   |   0   |        
+[info]   | 33 | Event                 |         |   0   |   0   |        
+[info]   | 34 | Pennsylvania Avenue   |         |   0   |   0   |        
+[info]   | 35 | Short Line            |         |   0   |   0   |        
+[info]   | 36 | Event                 |         |   0   |   0   |        
+[info]   | 37 | Park Place            |         |   0   |   0   |        
+[info]   | 38 | Luxury Tax            |         |   0   |   0   |        
+[info]   | 39 | Boardwalk             |         |   0   |   0   |        
+[info]   Current player: Blue
+[info]   Enter command: move X | buy | buildhouse X | buildhotel X | end | exit
+[info]   Invalid command.
+[info]   Current Player Status:
+[info]   | Name    | Money | Pos | Jail |
+[info]   | Blue    | 10000 |   0 | false|
+[info]   | Green   | 10000 |   0 | false|
+[info]   | Yellow  | 10000 |   0 | false|
+[info]   | Orange  | 10000 |   0 | false|
+[info]   | Purple  | 10000 |   0 | false|
+[info]   
+[info]   Current Game Board Status:
+[info]   | Nr | Field                 | Owner   | House | Hotel | Players on field
+[info]   |  0 | Go                    |         |   0   |   0   | Blue, Green, Yellow, Orange, Purple
+[info]   |  1 | Mediterranean Avenue  |         |   0   |   0   |        
+[info]   |  2 | Event                 |         |   0   |   0   |        
+[info]   |  3 | Baltic Avenue         |         |   0   |   0   |        
+[info]   |  4 | Income Tax            |         |   0   |   0   |        
+[info]   |  5 | Reading Railroad      |         |   0   |   0   |        
+[info]   |  6 | Oriental Avenue       |         |   0   |   0   |        
+[info]   |  7 | Event                 |         |   0   |   0   |        
+[info]   |  8 | Vermont Avenue        |         |   0   |   0   |        
+[info]   |  9 | Connecticut Avenue    |         |   0   |   0   |        
+[info]   | 10 | Jail / Just Visiting  |         |   0   |   0   |        
+[info]   | 11 | St. Charles Place     |         |   0   |   0   |        
+[info]   | 12 | Electric Company      |         |   0   |   0   |        
+[info]   | 13 | States Avenue         |         |   0   |   0   |        
+[info]   | 14 | Virginia Avenue       |         |   0   |   0   |        
+[info]   | 15 | Pennsylvania Railroad |         |   0   |   0   |        
+[info]   | 16 | St. James Place       |         |   0   |   0   |        
+[info]   | 17 | Event                 |         |   0   |   0   |        
+[info]   | 18 | Tennessee Avenue      |         |   0   |   0   |        
+[info]   | 19 | New York Avenue       |         |   0   |   0   |        
+[info]   | 20 | Free Parking          |         |   0   |   0   |        
+[info]   | 21 | Kentucky Avenue       |         |   0   |   0   |        
+[info]   | 22 | Event                 |         |   0   |   0   |        
+[info]   | 23 | Indiana Avenue        |         |   0   |   0   |        
+[info]   | 24 | Illinois Avenue       |         |   0   |   0   |        
+[info]   | 25 | B&O Railroad          |         |   0   |   0   |        
+[info]   | 26 | Atlantic Avenue       |         |   0   |   0   |        
+[info]   | 27 | Ventnor Avenue        |         |   0   |   0   |        
+[info]   | 28 | Water Works           |         |   0   |   0   |        
+[info]   | 29 | Marvin Gardens        |         |   0   |   0   |        
+[info]   | 30 | Go To Jail            |         |   0   |   0   |        
+[info]   | 31 | Pacific Avenue        |         |   0   |   0   |        
+[info]   | 32 | North Carolina Avenue |         |   0   |   0   |        
+[info]   | 33 | Event                 |         |   0   |   0   |        
+[info]   | 34 | Pennsylvania Avenue   |         |   0   |   0   |        
+[info]   | 35 | Short Line            |         |   0   |   0   |        
+[info]   | 36 | Event                 |         |   0   |   0   |        
+[info]   | 37 | Park Place            |         |   0   |   0   |        
+[info]   | 38 | Luxury Tax            |         |   0   |   0   |        
+[info]   | 39 | Boardwalk             |         |   0   |   0   |        
+[info]   Current player: Blue
+[info]   Enter command: move X | buy | buildhouse X | buildhotel X | end | exit
+[info]   " did not include substring "Please enter a valid number." (MonopolyTester.scala:232)
+[info] Run completed in 269 milliseconds.
+[info] Total number of tests run: 31
+[info] Suites: completed 1, aborted 0
+[info] Tests: succeeded 26, failed 5, canceled 0, ignored 0, pending 0
+[info] *** 5 TESTS FAILED ***
+[error] Failed tests:
+[error] 	de.htwg.monopoly.MonopolyTester
+[error] (Test / test) sbt.TestsFailedException: Tests unsuccessful
+[error] Total time: 1 s, completed May 1, 2025, 7:21:23 PM
