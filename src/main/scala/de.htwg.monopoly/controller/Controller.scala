@@ -5,7 +5,7 @@ class Controller(
     var streets: Vector[Street] = InitStreets,
     var trains: Vector[Railroad] = InitTrains,
     var utilities: Vector[Utility] = InitUtilities,
-    var currentPlayerIndex: Int = 0) {
+    var currentPlayerIndex: Int = 0) extends Observable{
 
   def currentPlayer: Player = players(currentPlayerIndex)
 
