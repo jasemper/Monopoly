@@ -5,8 +5,7 @@ import scala.io.StdIn.readLine
 class Tui(controller: Controller) extends Observer {
   controller.add(this)
   def devPlay(): Unit = {
-    val controller = new Controller()
-    statusReport()
+    print(statusReport())
     var input = ""
     while ({
       println(s"Current player: ${controller.currentPlayer.color}")
@@ -17,6 +16,7 @@ class Tui(controller: Controller) extends Observer {
       val parts = input.split(" ")
       parts(0).toLowerCase match {
         case "move" if parts.length == 2 =>
+          println("moved (theory)")
           controller.moveCurrentPlayer(parts(1).toInt)
         case "buy" =>
           controller.buyCurrentProperty()
@@ -29,26 +29,33 @@ class Tui(controller: Controller) extends Observer {
         case _ =>
           println("Invalid command.")
       }
-      statusReport()
+      print(statusReport())
     }
   }
-  def statusReport(): Unit = {
-  val (players, streets, trains, utilities) = controller.getGameState
+  def statusReport(): String = {
+    val (players, streets, trains, utilities) = controller.getGameState
 
-  println("Current Player Status:\n| Name    | Money | Pos | Jail |")
-  for (player <- players) {
-    printf("| %-8s|%6d |  %2d | %5s|\n", player.color, player.money, player.position, player.inJail)
-  }
+    var strOut = ""
 
-  println("\nCurrent Game Board Status:\n| Nr | Field                 | Owner   | House | Hotel | Players on field")
-  for ((fieldNr, fieldName) <- Board) {
-    val owner = controller.getCurrentOwner
-    val houses = streets.find(_.name == fieldName).map(_.buildings).getOrElse(0)
-    val hotels = streets.find(_.name == fieldName).map(_.hotels).getOrElse(0)
-    val playersOnField = players.filter(_.position == fieldNr).map(_.color)
-    val playersString = if (playersOnField.isEmpty) "" else playersOnField.mkString(", ")
-    printf("| %2d | %-22s| %-8s|   %1d   |   %1d   | %-7s\n", fieldNr, fieldName, owner, houses, hotels, playersString)
+    //println("Current Player Status:\n| Name    | Money | Pos | Jail |")
+    strOut += "Current Player Status:\n| Name    | Money | Pos | Jail |\n"
+    for (player <- players) {
+      //printf("| %-8s|%6d |  %2d | %5s|\n", player.color, player.money, player.position, player.inJail)
+      strOut += f"| ${player.color}%-8s|${player.money}%6d | ${player.position}%2d | ${player.inJail}%5s|\n"
+    }
+
+    //println("\nCurrent Game Board Status:\n| Nr | Field                 | Owner   | House | Hotel | Players on field")
+    strOut += "\nCurrent Game Board Status:\n| Nr | Field                 | Owner   | House | Hotel | Players on field\n"
+    for ((fieldNr, fieldName) <- Board) {
+      val owner = controller.getCurrentOwner
+      val houses = streets.find(_.name == fieldName).map(_.buildings).getOrElse(0)
+      val hotels = streets.find(_.name == fieldName).map(_.hotels).getOrElse(0)
+      val playersOnField = players.filter(_.position == fieldNr).map(_.color)
+      val playersString = if (playersOnField.isEmpty) "" else playersOnField.mkString(", ")
+      //printf("| %2d | %-22s| %-8s|   %1d   |   %1d   | %-7s\n", fieldNr, fieldName, owner, houses, hotels, playersString)
+      strOut += f"| ${fieldNr}%2d | ${fieldName}%-22s| ${owner}%-8s|   ${houses}%1d   |   ${hotels}%1d   | ${playersString}%-7s\n"
+    }
+    return strOut
   }
-}
   override def update: Unit = println(statusReport())
 }
