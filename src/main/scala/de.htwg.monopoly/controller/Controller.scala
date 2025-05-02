@@ -57,8 +57,8 @@ class Controller(
       streets = streets.updated(index, updatedStreet)
     }
   }
-  
+
   def getGameState: (Vector[Player], Vector[Street], Vector[Railroad], Vector[Utility]) = {
-  (players, streets, trains, utilities)
-}
+    (players, streets, trains, utilities)
+  }
 }
