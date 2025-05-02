@@ -168,7 +168,6 @@ class MonopolyTester extends AnyWordSpec {
       val player = Player("Blue", position = 5) //Reading Railroad
       val controller = new Controller(players = Vector(player))
       controller.buyCurrentProperty()
-      controller.statusReport()
       controller.getCurrentOwner should be("Blue")
     }
     "build a house correctly" in {
@@ -202,6 +201,18 @@ class MonopolyTester extends AnyWordSpec {
       val controller = new Controller(players = Vector(player))
       controller.buyCurrentProperty()
       controller.getCurrentOwner should be("Blue")
+    }
+    "return the correct game state" in {
+      val controller = new Controller()
+      val (players, streets, trains, utilities) = controller.getGameState
+      players.length shouldBe 5
+      players.map(_.color) should contain allOf ("Blue", "Green", "Yellow", "Orange", "Purple")
+      streets.length shouldBe 22
+      all (streets.map(_.owner)) shouldBe None
+      trains.length shouldBe 4
+      all (trains.map(_.owner)) shouldBe None
+      utilities.length shouldBe 2
+      all (utilities.map(_.owner)) shouldBe None
     }
   }
 }

@@ -57,20 +57,8 @@ class Controller(
       streets = streets.updated(index, updatedStreet)
     }
   }
-
-  def statusReport(): Unit = {
-    println("Current Player Status:\n| Name    | Money | Pos | Jail |")
-    for (player <- players) {
-      printf("| %-8s|%6d |  %2d | %5s|\n", player.color, player.money, player.position, player.inJail)
-    }
-    println("\nCurrent Game Board Status:\n| Nr | Field                 | Owner   | House | Hotel | Players on field")
-    for ((fieldNr, fieldName) <- Board) {
-      val owner = getOwner(fieldNr, streets, trains, utilities)
-      val houses = getHouses(fieldNr, streets, trains, utilities)
-      val hotels = getHotels(fieldNr, streets, trains, utilities)
-      val playersOnField = players.filter(_.position == fieldNr).map(_.color)
-      val playersString = if (playersOnField.isEmpty) "" else playersOnField.mkString(", ")
-      printf("| %2d | %-22s| %-8s|   %1d   |   %1d   | %-7s\n", fieldNr, fieldName, owner, houses, hotels, playersString)
-    }
-  }
+  
+  def getGameState: (Vector[Player], Vector[Street], Vector[Railroad], Vector[Utility]) = {
+  (players, streets, trains, utilities)
+}
 }
