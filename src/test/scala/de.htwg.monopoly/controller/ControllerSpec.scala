@@ -4,7 +4,6 @@ import de.htwg.monopoly
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
-import java.io.{ByteArrayOutputStream, PrintStream}
 
 class ControllerSpec extends AnyWordSpec {
   "controller" should {

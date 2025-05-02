@@ -10,7 +10,7 @@ class Tui(controller: Controller) extends Observer {
     while ({
       println(s"Current player: ${controller.currentPlayer.color}")
       println("Enter command: move X | buy | buildhouse X | buildhotel X | end | exit")
-      input = readLine()
+      input = scala.io.StdIn.readLine()
       input != "exit"
     }) {
       val parts = input.split(" ")
