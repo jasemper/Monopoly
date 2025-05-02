@@ -10,7 +10,7 @@ lazy val root = project
     scalaVersion := scala3Version,
 
     libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14",
-    libraryDependencies +="org.scalatest" %% "scalatest" % "3.2.14" % Test
+    libraryDependencies +="org.scalatest" %% "scalatest" % "3.2.14" % Test,
 
     coverageEnabled := true
   )
