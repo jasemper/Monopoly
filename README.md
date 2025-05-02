@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/jasemper/Monopoly/badge.svg?branch=master)](https://coveralls.io/github/jasemper/Monopoly?branch=master)
+
 ## BEFORE PUSHING, PULL
 ## Monopoly written in Scala 3
 
