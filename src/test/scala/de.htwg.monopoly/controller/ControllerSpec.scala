@@ -44,6 +44,12 @@ class ControllerSpec extends AnyWordSpec {
       controller.buildHouse(1)
       controller.streets(0).buildings should be(1)
     }
+    "not build a house on a property not owned" in {
+      val player = Player("Blue", position = 1) //Mediterranean Avenue
+      val controller = new Controller(players = Vector(player))
+      controller.buildHouse(1)
+      controller.streets(0).buildings should be(0)
+    }
     "build a hotel correctly" in {
       val player = Player("Blue", position = 1) //Mediterranean Avenue
       val controller = new Controller(players = Vector(player))
@@ -51,6 +57,12 @@ class ControllerSpec extends AnyWordSpec {
       controller.getCurrentOwner should be("Blue")
       controller.buildHotel(1)
       controller.streets(0).hotels should be(1)
+    }
+    "not build a hotel on a property not owned" in {
+      val player = Player("Blue", position = 1) //Mediterranean Avenue
+      val controller = new Controller(players = Vector(player))
+      controller.buildHotel(1)
+      controller.streets(0).hotels should be(0)
     }
     "get the winner correctly" in {
       val player = Player("Blue", position = 1, money = 0)
