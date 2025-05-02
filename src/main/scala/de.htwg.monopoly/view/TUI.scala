@@ -16,7 +16,6 @@ class Tui(controller: Controller) extends Observer {
       val parts = input.split(" ")
       parts(0).toLowerCase match {
         case "move" if parts.length == 2 =>
-          println("moved (theory)")
           controller.moveCurrentPlayer(parts(1).toInt)
         case "buy" =>
           controller.buyCurrentProperty()
