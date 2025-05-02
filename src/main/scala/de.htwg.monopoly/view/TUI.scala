@@ -29,7 +29,7 @@ class Tui(controller: Controller) extends Observer {
         case _ =>
           println("Invalid command.")
       }
-      print(statusReport())
+      //print(statusReport())
     }
   }
   def statusReport(): String = {
@@ -47,7 +47,8 @@ class Tui(controller: Controller) extends Observer {
     //println("\nCurrent Game Board Status:\n| Nr | Field                 | Owner   | House | Hotel | Players on field")
     strOut += "\nCurrent Game Board Status:\n| Nr | Field                 | Owner   | House | Hotel | Players on field\n"
     for ((fieldNr, fieldName) <- Board) {
-      val owner = controller.getCurrentOwner
+      val ownerx = controller.getCurrentOwner
+      val owner = streets.find(_.name == fieldName).flatMap(_.owner).getOrElse("")
       val houses = streets.find(_.name == fieldName).map(_.buildings).getOrElse(0)
       val hotels = streets.find(_.name == fieldName).map(_.hotels).getOrElse(0)
       val playersOnField = players.filter(_.position == fieldNr).map(_.color)

@@ -11,6 +11,7 @@ class Controller(
 
   def moveCurrentPlayer(spaces: Int): Unit = {
     players = movePlayer(players, currentPlayerIndex, spaces)
+    notifyObservers
   }
 
   def buyCurrentProperty(): Unit = {
@@ -19,10 +20,12 @@ class Controller(
     streets = newStreets
     trains = newTrains
     utilities = newUtilities
+    notifyObservers
   }
 
   def nextTurn(): Unit = {
     currentPlayerIndex = (currentPlayerIndex + 1) % players.length
+    notifyObservers
   }
 
   def getCurrentFieldName: String = {
@@ -47,6 +50,7 @@ class Controller(
       val updatedStreet = streets(index).copy(buildings = streets(index).buildings + 1)
       streets = streets.updated(index, updatedStreet)
     }
+    notifyObservers
   }
 
   def buildHotel(streetFieldNr: Int): Unit = {
@@ -56,6 +60,7 @@ class Controller(
       val updatedStreet = streets(index).copy(hotels = streets(index).hotels + 1)
       streets = streets.updated(index, updatedStreet)
     }
+    notifyObservers
   }
 
   def getGameState: (Vector[Player], Vector[Street], Vector[Railroad], Vector[Utility]) = {
