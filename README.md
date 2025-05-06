@@ -1,3 +1,4 @@
+![Clones](https://img.shields.io/badge/Clones-171-blue)
 [![Coverage Status](https://coveralls.io/repos/github/jasemper/Monopoly/badge.svg?branch=master)](https://coveralls.io/github/jasemper/Monopoly?branch=master)
 ![GitHub last commit](https://img.shields.io/github/last-commit/jasemper/Monopoly)
 
