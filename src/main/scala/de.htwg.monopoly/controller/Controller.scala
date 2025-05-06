@@ -9,17 +9,46 @@ class Controller(
 
   def currentPlayer: Player = players(currentPlayerIndex)
 
+  def rollDice(): Int = {
+    val dice1 = scala.util.Random.nextInt(6) + 1
+    val dice2 = scala.util.Random.nextInt(6) + 1
+    val total = dice1 + dice2
+    if (dice1 == dice2) {
+      players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = currentPlayer.pasch + 1))
+      CurrentPlayerPasch()
+    } else {
+      players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = 0))
+    }
+    total
+  }
+
+  def CurrentPlayerPasch(): Unit = {
+    if (currentPlayer.pasch >= 3) {
+      toJail()
+    }
+  }
+
   def moveCurrentPlayer(spaces: Int): Unit = {
     players = movePlayer(players, currentPlayerIndex, spaces)
     notifyObservers
   }
 
   def buyCurrentProperty(): Unit = {
+    if (getCurrentOwner != "") {
+      return
+    }
     val fieldNr = currentPlayer.position
     val (newStreets, newTrains, newUtilities) = giveOwner(currentPlayer, fieldNr, streets, trains, utilities)
     streets = newStreets
     trains = newTrains
     utilities = newUtilities
+    notifyObservers
+  }
+
+  def toJail(): Unit = {
+    val fieldNr = currentPlayer.position
+    moveCurrentPlayer((10-fieldNr)%40)
+    players = players.updated(currentPlayerIndex, currentPlayer.copy(inJail = true))
     notifyObservers
   }
 

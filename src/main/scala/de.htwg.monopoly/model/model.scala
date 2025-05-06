@@ -11,6 +11,7 @@ case class Player(
   color: String,
   money: Int = 10000,
   position: Int = 0,
+  pasch: Int = 0,
   inJail: Boolean = false
 )
 

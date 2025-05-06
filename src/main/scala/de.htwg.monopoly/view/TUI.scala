@@ -15,6 +15,9 @@ class Tui(controller: Controller) extends Observer {
     }) {
       val parts = input.split(" ")
       parts(0).toLowerCase match {
+        case "move" if parts.length == 1 =>
+          val spaces = controller.rollDice()
+          controller.moveCurrentPlayer(spaces)
         case "move" if parts.length == 2 =>
           controller.moveCurrentPlayer(parts(1).toInt)
         case "buy" =>
@@ -35,7 +38,7 @@ class Tui(controller: Controller) extends Observer {
 
     var strOut = "Current Player Status:\n| Name    | Money | Pos | Jail |\n"
     for (player <- players) {
-      strOut += f"| ${player.color}%-8s|${player.money}%6d | ${player.position}%2d | ${player.inJail}%5s|\n"
+      strOut += f"| ${player.color}%-8s|${player.money}%6d |  ${player.position}%2d | ${player.inJail}%5s|\n"
     }
 
     strOut += "\nCurrent Game Board Status:\n| Nr | Field                 | Owner   | House | Hotel | Players on field\n"

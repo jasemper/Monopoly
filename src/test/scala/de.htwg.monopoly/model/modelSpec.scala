@@ -5,6 +5,10 @@ import org.scalatest.matchers.should.Matchers._
 
 class modelSpec extends AnyWordSpec {
     "model" should {
+        "have a player with pasch 0" in {
+            val player: Player = Player("Test Player")
+            player.pasch shouldBe 0
+        }
         "be creatable with a name and colorGroup for Street" in {
         val str: Property = Street("Test Street", Some("Red"), 1, 0, "Red")
         str.name shouldBe "Test Street"

@@ -8,12 +8,19 @@
 # Monopoly written in Scala 3
 
 ## TODO:
-### Implement money to pay for property
-### Implement money to pay for getting on a field
+### Implement money "move" to pay for getting on a field
+### Player loose money by buying property
+### Player loose money moving onto pay fields
+### Player can roll dice
+### Player can goto Jail
+### Player can leave Jail
+### Test all of the above
+### Create a GUI
+### Implement additional Event fields
 
 
 # Usage
-'sbt test' runs the tests
+'sbt test' runs the tests (I hope they alll work)
 'sbt run' starts the main class that uses the input to let you play the game without money nor end
 This is a normal sbt project. You can compile code with `sbt compile`, run it with `sbt run`, and `sbt console` will start a Scala 3 REPL.
 For more information on the sbt-dotty plugin, see the
