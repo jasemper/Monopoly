@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers._
 import java.io.{ByteArrayOutputStream, PrintStream}
 
 class helperSpec extends AnyWordSpec {
-  "controller" should {
+  "helper" should {
     "be returned as owner" in {
       val controller = new Controller()
       val player = Player("Blue")
@@ -118,6 +118,42 @@ class helperSpec extends AnyWordSpec {
         case player => player
       }
       getWinner(updatedPlayers) shouldBe ""
+    }
+  }
+  "getRent" should {
+    "return 0 for an empty field" in {
+      val controller = new Controller()
+      getRent(0, controller.streets, controller.trains, controller.utilities) should be(0)
+    }
+    "return 100 for first street" in {
+      val controller = new Controller()
+      getRent(1, controller.streets, controller.trains, controller.utilities) should be(100)
+    }
+    "return 100 for first train" in {
+      val controller = new Controller()
+      getRent(5, controller.streets, controller.trains, controller.utilities) should be(100)
+    }
+    "return 100 for first utility" in {
+      val controller = new Controller()
+      getRent(12, controller.streets, controller.trains, controller.utilities) should be(100)
+    }
+    "return 0 for out of bounds" in {
+      val controller = new Controller()
+      getRent(50, controller.streets, controller.trains, controller.utilities) should be(0)
+    }
+  }
+  "getPlayerIndex" should {
+    "return 0 for first player" in {
+      val controller = new Controller()
+      getPlayerIndex(controller.players, "Blue") should be(0)
+    }
+    "return 1 for second player" in {
+      val controller = new Controller()
+      getPlayerIndex(controller.players, "Green") should be(1)
+    }
+    "return -1 for non-existing player" in {
+      val controller = new Controller()
+      getPlayerIndex(controller.players, "Red") should be(-1)
     }
   }
 }

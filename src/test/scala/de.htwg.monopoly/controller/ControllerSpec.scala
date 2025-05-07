@@ -105,4 +105,54 @@ class ControllerSpec extends AnyWordSpec {
       all (utilities.map(_.owner)) shouldBe None
     }
   }
+  "CurrentPlayerPasch" should {
+    "send the player to jail" in {
+      val player = Player ("Blue", pasch = 3)
+      val controller = new Controller(players = Vector(player))
+      controller.currentPlayer.inJail should be (false)
+      controller.currentPlayerPasch()
+      controller.currentPlayer.inJail should be (true)
+    }
+  }
+  "moveCurrentPlayer" should {
+    "move the player correctly" in {
+      val player = Player("Blue", position = 0)
+      val controller = new Controller(players = Vector(player))
+      controller.moveCurrentPlayer(5)
+      controller.players(0).position should be(5)
+    }
+    "move the player to jail" in {
+      val player = Player("Blue", position = 0)
+      val controller = new Controller(players = Vector(player))
+      controller.toJail()
+      controller.players(0).inJail should be(true)
+    }
+    "have the player pay rent" in {
+      val controller = new Controller()
+      controller.moveCurrentPlayer(1)
+      controller.buyCurrentProperty()
+      controller.nextTurn()
+      controller.moveCurrentPlayer(1)
+      controller.players(0).money should be(10100)
+      controller.players(1).money should be(9900)
+    }
+  }
+  "buyCurrentProperty" should {
+    "buy the property correctly" in {
+      val player = Player("Blue", position = 1) //Mediterranean Avenue
+      val controller = new Controller(players = Vector(player))
+      controller.buyCurrentProperty()
+      controller.getCurrentOwner should be("Blue")
+    }
+    "not buy a property already owned" in {
+      val controller = new Controller()
+      controller.moveCurrentPlayer(1)
+      controller.buyCurrentProperty()
+      controller.getCurrentOwner should be("Blue")
+      controller.nextTurn()
+      controller.moveCurrentPlayer(1)
+      controller.buyCurrentProperty()
+      controller.getCurrentOwner should be("Blue")
+    }
+  }
 }

@@ -13,14 +13,14 @@ class Controller(
     val total = dice1 + dice2
     if (dice1 == dice2) {
       players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = currentPlayer.pasch + 1))
-      CurrentPlayerPasch()
+      currentPlayerPasch()
     } else {
       players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = 0))
     }
     total
   }
 
-  def CurrentPlayerPasch(): Unit = {
+  def currentPlayerPasch(): Unit = {
     if (currentPlayer.pasch >= 3) {
       toJail()
     }
