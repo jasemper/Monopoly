@@ -8,7 +8,6 @@
 # Monopoly written in Scala 3
 
 ## TODO:
-### Implement money "move" to pay for getting on a field
 ### Player loose money by buying property
 ### Player loose money moving onto pay fields
 ### Player can roll dice

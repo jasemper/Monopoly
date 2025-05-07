@@ -9,9 +9,7 @@ class Controller(
 
   def currentPlayer: Player = players(currentPlayerIndex)
 
-  def rollDice(): Int = {
-    val dice1 = scala.util.Random.nextInt(6) + 1
-    val dice2 = scala.util.Random.nextInt(6) + 1
+  def rollDice(dice1: Int = scala.util.Random.nextInt(6) + 1, dice2: Int = scala.util.Random.nextInt(6) + 1): Int = {
     val total = dice1 + dice2
     if (dice1 == dice2) {
       players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = currentPlayer.pasch + 1))
@@ -30,6 +28,12 @@ class Controller(
 
   def moveCurrentPlayer(spaces: Int): Unit = {
     players = movePlayer(players, currentPlayerIndex, spaces)
+    val owner  = getCurrentOwner
+    if (owner != "") {
+      val ownerIndex = getPlayerIndex(players, owner) 
+      players = addMoney(players, currentPlayerIndex, -getRent(currentPlayer.position, streets, trains, utilities))
+      players = addMoney(players, ownerIndex, getRent(currentPlayer.position, streets, trains, utilities))
+    }
     notifyObservers
   }
 

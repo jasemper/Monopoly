@@ -6,6 +6,19 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
 class ControllerSpec extends AnyWordSpec {
+  "rolldice" should {
+    "roll the dice correctly" in {
+      val controller = new Controller()
+      val result = controller.rollDice()
+      result should be >= 2
+      result should be <= 12
+    }
+    "call on Jail" in {
+      val controller = new Controller()
+      val result = controller.rollDice(4,4)
+      result should be(8)
+    }
+  }
   "controller" should {
     "advance to the next player correctly" in {
       val player1 = Player("Blue")

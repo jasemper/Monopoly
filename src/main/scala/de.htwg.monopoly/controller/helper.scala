@@ -70,6 +70,20 @@ def getOwner(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Ut
       (updatedStreets, updatedTrains, updatedUtilities)
     }
 
+  def getRent(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]): Int = {
+    if (fieldNr < 0 || fieldNr >= Board.length) return 0
+    val fieldName = Board(fieldNr)._2
+
+    Streets.find(_.name == fieldName).map(_.rent)
+      .orElse(Trains.find(_.name == fieldName).map(_.rent))
+      .orElse(Utilities.find(_.name == fieldName).map(_.rent))
+      .getOrElse(0)
+  }
+  
+  def getPlayerIndex(Players: Vector[Player], color: String): Int = {
+    Players.indexWhere(_.color == color)
+  }
+
   def getWinner(Players: Vector[Player]): String = {
     val remaining = Players.filter(_.money > 0)
     remaining match {

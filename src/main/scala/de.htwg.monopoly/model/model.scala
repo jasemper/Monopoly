@@ -3,6 +3,7 @@ package de.htwg.monopoly
 sealed trait Property {
   def name: String
   def owner: Option[String]
+  def rent: Int
 }
 
 sealed trait EventEffect
@@ -20,17 +21,20 @@ case class Street(
   owner: Option[String] = None,
   buildings: Int = 0,
   hotels: Int = 0,
-  colorGroup: String
+  colorGroup: String,
+  rent: Int = 100
 ) extends Property
 
 case class Railroad(
   name: String,
-  owner: Option[String] = None
+  owner: Option[String] = None,
+  rent: Int = 100
 ) extends Property
 
 case class Utility(
   name: String,
-  owner: Option[String] = None
+  owner: Option[String] = None,
+  rent: Int = 100
 ) extends Property
 
 case class Event(description: String, effect: EventEffect)
