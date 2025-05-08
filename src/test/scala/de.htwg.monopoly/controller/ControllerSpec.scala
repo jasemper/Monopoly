@@ -17,6 +17,7 @@ class ControllerSpec extends AnyWordSpec {
       val controller = new Controller()
       val result = controller.rollDice(4,4)
       result should be(8)
+      controller.currentPlayer.pasch should be(1)
     }
   }
   "controller" should {
