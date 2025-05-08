@@ -19,6 +19,14 @@ class ControllerSpec extends AnyWordSpec {
       result should be(8)
       controller.currentPlayer.pasch should be(1)
     }
+    "reset pasch on no-pasch" in {
+      val player = Player("Blue", pasch = 1)
+      val controller = new Controller(players = Vector(player))
+      controller.currentPlayer.pasch should be(1)
+      val result = controller.rollDice(1,2)
+      result should be(3)
+      controller.currentPlayer.pasch should be(0)
+    }
   }
   "controller" should {
     "advance to the next player correctly" in {
