@@ -10,6 +10,7 @@
 ## TODO:
 ### Correct property values
 ### Rent increase with houses, full streets, etc
+### Roll again after pasch
 ### Player loose money moving onto pay fields
 ### Player can roll dice
 ### Player can goto Jail

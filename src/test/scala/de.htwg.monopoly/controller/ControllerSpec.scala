@@ -26,11 +26,11 @@ class ControllerSpec extends AnyWordSpec {
       val player2 = Player("Red")
       val controller = new Controller(players = Vector(player1, player2))
 
-      controller.currentPlayerIndex should be(0) // Start at 0
+      controller.currentPlayerIndex should be(0)
       controller.nextTurn()
-      controller.currentPlayerIndex should be(1) // Now at 1
+      controller.currentPlayerIndex should be(1)
       controller.nextTurn()
-      controller.currentPlayerIndex should be(0) // Wraps back to 0
+      controller.currentPlayerIndex should be(0)
     }
     "move the player correctly" in {
       val player = Player("Blue")
@@ -44,13 +44,13 @@ class ControllerSpec extends AnyWordSpec {
       controller.getCurrentFieldName should be("Reading Railroad")
     }
     "buy a property correctly" in {
-      val player = Player("Blue", position = 5) //Reading Railroad
+      val player = Player("Blue", position = 5)
       val controller = new Controller(players = Vector(player))
       controller.buyCurrentProperty()
       controller.getCurrentOwner should be("Blue")
     }
     "build a house correctly" in {
-      val player = Player("Blue", position = 1) //Mediterranean Avenue
+      val player = Player("Blue", position = 1)
       val controller = new Controller(players = Vector(player))
       controller.buyCurrentProperty()
       controller.getCurrentOwner should be("Blue")
@@ -58,13 +58,13 @@ class ControllerSpec extends AnyWordSpec {
       controller.streets(0).buildings should be(1)
     }
     "not build a house on a property not owned" in {
-      val player = Player("Blue", position = 1) //Mediterranean Avenue
+      val player = Player("Blue", position = 1)
       val controller = new Controller(players = Vector(player))
       controller.buildHouse(1)
       controller.streets(0).buildings should be(0)
     }
     "build a hotel correctly" in {
-      val player = Player("Blue", position = 1) //Mediterranean Avenue
+      val player = Player("Blue", position = 1)
       val controller = new Controller(players = Vector(player))
       controller.buyCurrentProperty()
       controller.getCurrentOwner should be("Blue")
@@ -72,7 +72,7 @@ class ControllerSpec extends AnyWordSpec {
       controller.streets(0).hotels should be(1)
     }
     "not build a hotel on a property not owned" in {
-      val player = Player("Blue", position = 1) //Mediterranean Avenue
+      val player = Player("Blue", position = 1)
       val controller = new Controller(players = Vector(player))
       controller.buildHotel(1)
       controller.streets(0).hotels should be(0)
@@ -88,7 +88,7 @@ class ControllerSpec extends AnyWordSpec {
       controller.getWinnerIfAny should be(Some("Blue"))
     }
     "get the correct owner of a property" in {
-      val player = Player("Blue", position = 1) //Mediterranean Avenue
+      val player = Player("Blue", position = 1)
       val controller = new Controller(players = Vector(player))
       controller.buyCurrentProperty()
       controller.getCurrentOwner should be("Blue")
@@ -140,7 +140,7 @@ class ControllerSpec extends AnyWordSpec {
   }
   "buyCurrentProperty" should {
     "buy the property correctly" in {
-      val player = Player("Blue", position = 1) //Mediterranean Avenue
+      val player = Player("Blue", position = 1)
       val controller = new Controller(players = Vector(player))
       controller.buyCurrentProperty()
       controller.getCurrentOwner should be("Blue")
