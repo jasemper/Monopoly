@@ -28,10 +28,33 @@ jobs:
 
     - name: Run tests
       run: sbt test
-
+      
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install sbt
+      uses: coursier/setup-action@v1
+      with:
+        apps: sbt
+        
     - name: Run coverage and send to Coveralls
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
       run: |
         export CI_BRANCH="${GITHUB_REF#refs/heads/}"
         sbt clean coverage test coverageReport coveralls
+        
+  dependencies:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Install sbt
+      uses: coursier/setup-action@v1
+      with:
+        apps: sbt
+        
+    - name: Upload dependency graph
+      uses: scalacenter/sbt-dependency-submission@ab086b50c947c9774b70f39fc7f6e20ca2706c91
