@@ -39,10 +39,12 @@ class Controller(
 
   def buyCurrentProperty(): Unit = {
     if (getCurrentOwner != "") {
+      notifyObservers
       return
     }
     val fieldNr = currentPlayer.position
     val (newStreets, newTrains, newUtilities) = giveOwner(currentPlayer, fieldNr, streets, trains, utilities)
+    players = addMoney(players, currentPlayerIndex, -getRent(currentPlayer.position, streets, trains, utilities)*10)
     streets = newStreets
     trains = newTrains
     utilities = newUtilities

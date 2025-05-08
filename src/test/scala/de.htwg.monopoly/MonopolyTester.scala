@@ -39,5 +39,25 @@ class MonopolyTester extends AnyWordSpec {
     "hold the data for boards" in {
       Board contains 0 -> "Go" shouldBe true
     }
-  }
+  }/*
+  "Monopoly" should {
+    "play itself without exceptions" in {
+      val controller = new Controller()
+      while (controller.getWinnerIfAny == None) {
+        val rolled = controller.rollDice()
+        if (controller.currentPlayer.inJail) {
+          if (controller.currentPlayer.pasch > 0) {
+            controller.moveCurrentPlayer(rolled)
+            controller.players = controller.players.updated(controller.currentPlayerIndex, controller.currentPlayer.copy(inJail = false))
+          }
+        } else {
+          controller.moveCurrentPlayer(rolled)
+          val fieldNr = controller.currentPlayer.position
+          if (controller.getCurrentOwner == "") {
+            controller.buyCurrentProperty()
+          }
+        }
+      }
+    }
+  }*/
 }

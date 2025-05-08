@@ -44,7 +44,11 @@ class Tui(controller: Controller) extends Observer {
     strOut += "\nCurrent Game Board Status:\n| Nr | Field                 | Owner   | House | Hotel | Players on field\n"
     for ((fieldNr, fieldName) <- Board) {
       val ownerx = controller.getCurrentOwner
-      val owner = streets.find(_.name == fieldName).flatMap(_.owner).getOrElse("")
+      val owner = streets.find(_.name == fieldName).flatMap(_.owner).getOrElse(
+        trains.find(_.name == fieldName).flatMap(_.owner).getOrElse(
+          utilities.find(_.name == fieldName).flatMap(_.owner).getOrElse("")
+        )
+      )
       val houses = streets.find(_.name == fieldName).map(_.buildings).getOrElse(0)
       val hotels = streets.find(_.name == fieldName).map(_.hotels).getOrElse(0)
       val playersOnField = players.filter(_.position == fieldNr).map(_.color)

@@ -8,7 +8,8 @@
 # Monopoly written in Scala 3
 
 ## TODO:
-### Player loose money by buying property
+### Correct property values
+### Rent increase with houses, full streets, etc
 ### Player loose money moving onto pay fields
 ### Player can roll dice
 ### Player can goto Jail

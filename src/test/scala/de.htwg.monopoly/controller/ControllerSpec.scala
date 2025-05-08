@@ -133,7 +133,7 @@ class ControllerSpec extends AnyWordSpec {
       controller.buyCurrentProperty()
       controller.nextTurn()
       controller.moveCurrentPlayer(1)
-      controller.players(0).money should be(10100)
+      controller.players(0).money should be(9100)
       controller.players(1).money should be(9900)
     }
   }
