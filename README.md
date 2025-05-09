@@ -1,4 +1,3 @@
-![Clones](https://img.shields.io/badge/Clones-240-blue)
 [![Coverage Status](https://coveralls.io/repos/github/jasemper/Monopoly/badge.svg?branch=master)](https://coveralls.io/github/jasemper/Monopoly?branch=master)
 ![GitHub last commit](https://img.shields.io/github/last-commit/jasemper/Monopoly)
 
@@ -9,7 +8,7 @@
 
 ## TODO:
 ### Correct property values
-### Rent increase with houses, full streets, etc
+### Rent increase with hotels, houses, full streets, both companies
 ### Roll again (only) after pasch
 ### Player loose money moving onto pay fields
 ### Player can roll dice

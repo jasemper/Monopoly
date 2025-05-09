@@ -7,7 +7,3 @@ object TUIGame {
     tui.devPlay()
   }
 }
-  //TODO: Get all Case Classes own files
-  //TODO: link buying and entering field to addmoney and remove money
-  //TODO: Split tests into multiple files
-  //TODO: Add tests for all classes
