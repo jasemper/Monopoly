@@ -27,12 +27,14 @@ class Controller(
   }
 
   def moveCurrentPlayer(spaces: Int): Unit = {
-    players = movePlayer(players, currentPlayerIndex, spaces)
-    val owner  = getCurrentOwner
-    if (owner != "") {
-      val ownerIndex = getPlayerIndex(players, owner) 
-      players = addMoney(players, currentPlayerIndex, -getRent(currentPlayer.position, streets, trains, utilities))
-      players = addMoney(players, ownerIndex, getRent(currentPlayer.position, streets, trains, utilities))
+    if (currentPlayer.roll <= currentPlayer.pasch && currentPlayer.roll<= 3) {
+      players = movePlayer(players, currentPlayerIndex, spaces)
+      val owner  = getCurrentOwner
+      if (owner != "") {
+        val ownerIndex = getPlayerIndex(players, owner) 
+        players = addMoney(players, currentPlayerIndex, -getRent(currentPlayer.position, streets, trains, utilities))
+        players = addMoney(players, ownerIndex, getRent(currentPlayer.position, streets, trains, utilities))
+      }
     }
     notifyObservers
   }
@@ -59,6 +61,7 @@ class Controller(
   }
 
   def nextTurn(): Unit = {
+    players = players.updated(currentPlayerIndex, currentPlayer.copy(roll = 0))
     currentPlayerIndex = (currentPlayerIndex + 1) % players.length
     notifyObservers
   }

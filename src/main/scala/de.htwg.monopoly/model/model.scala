@@ -13,6 +13,8 @@ case class Player(
   money: Int = 10000,
   position: Int = 0,
   pasch: Int = 0,
+  roll: Int = 0,
+  properties: Vector[Property] = Vector.empty,
   inJail: Boolean = false
 )
 
