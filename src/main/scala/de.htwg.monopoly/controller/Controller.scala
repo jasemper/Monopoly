@@ -27,7 +27,7 @@ class Controller(
   }
 
   def moveCurrentPlayer(spaces: Int): Unit = {
-    if (currentPlayer.roll <= currentPlayer.pasch && currentPlayer.roll<= 3) {
+    if (currentPlayer.roll <= currentPlayer.pasch && currentPlayer.roll<= 3 && currentPlayer.inJail== false) {
       players = movePlayer(players, currentPlayerIndex, spaces)
       val owner  = getCurrentOwner
       if (owner != "") {

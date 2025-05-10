@@ -145,6 +145,24 @@ class ControllerSpec extends AnyWordSpec {
       controller.players(0).money should be(9100)
       controller.players(1).money should be(9900)
     }
+    "not move the player if they are in jail" in {
+      val player = Player("Blue", position = 0, inJail = true)
+      val controller = new Controller(players = Vector(player))
+      controller.moveCurrentPlayer(5)
+      controller.players(0).position should be(0)
+    }
+    "not move the player if the roll is higher than the pasch" in {
+      val player = Player("Blue", position = 0, roll = 5, pasch = 2)
+      val controller = new Controller(players = Vector(player))
+      controller.moveCurrentPlayer(5)
+      controller.players(0).position should be(0)
+    }
+    "not move the player if the roll is higher than 3" in {
+      val player = Player("Blue", position = 0, roll = 5)
+      val controller = new Controller(players = Vector(player))
+      controller.moveCurrentPlayer(5)
+      controller.players(0).position should be(0)
+    }
   }
   "buyCurrentProperty" should {
     "buy the property correctly" in {
