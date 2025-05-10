@@ -121,6 +121,7 @@ class ControllerSpec extends AnyWordSpec {
       controller.currentPlayer.inJail should be (false)
       controller.currentPlayerPasch()
       controller.currentPlayer.inJail should be (true)
+      controller.currentPlayer.position should be (10)
     }
   }
   "moveCurrentPlayer" should {
@@ -172,6 +173,7 @@ class ControllerSpec extends AnyWordSpec {
       controller.currentPlayer.roll should be(1)
       controller.moveCurrentPlayer(spaces)
       controller.players(0).inJail should be(false)
+      controller.players(0).position should be(16)
     }
   }
   "buyCurrentProperty" should {
