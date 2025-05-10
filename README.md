@@ -6,6 +6,9 @@
 # BEFORE PUSHING, PULL
 # Monopoly written in Scala 3
 
+## BUGFIX:
+### number of times a player can move isn't working
+
 ## TODO:
 ### Correct property values
 ### Rent increase with hotels, houses, full streets, both companies

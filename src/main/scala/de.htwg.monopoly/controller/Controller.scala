@@ -13,9 +13,11 @@ class Controller(
     val total = dice1 + dice2
     if (dice1 == dice2) {
       players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = currentPlayer.pasch + 1))
+      players = players.updated(currentPlayerIndex, currentPlayer.copy(roll = currentPlayer.roll + 1))
       currentPlayerPasch()
     } else {
       players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = 0))
+      players = players.updated(currentPlayerIndex, currentPlayer.copy(roll = currentPlayer.roll + 1))
     }
     total
   }
@@ -27,7 +29,7 @@ class Controller(
   }
 
   def moveCurrentPlayer(spaces: Int): Unit = {
-    if (currentPlayer.roll <= currentPlayer.pasch && currentPlayer.roll<= 3 && currentPlayer.inJail== false) {
+    if (currentPlayer.roll <= currentPlayer.pasch+1 && currentPlayer.roll <= 3 && currentPlayer.inJail == false) {
       players = movePlayer(players, currentPlayerIndex, spaces)
       val owner  = getCurrentOwner
       if (owner != "") {
@@ -35,6 +37,10 @@ class Controller(
         players = addMoney(players, currentPlayerIndex, -getRent(currentPlayer.position, streets, trains, utilities))
         players = addMoney(players, ownerIndex, getRent(currentPlayer.position, streets, trains, utilities))
       }
+    }
+    if (currentPlayer.inJail == true && currentPlayer.pasch > 0 && currentPlayer.roll <=3) {
+      players = players.updated(currentPlayerIndex, currentPlayer.copy(inJail = false))
+      moveCurrentPlayer(spaces)
     }
     notifyObservers
   }
@@ -57,6 +63,7 @@ class Controller(
     val fieldNr = currentPlayer.position
     moveCurrentPlayer((10-fieldNr)%40)
     players = players.updated(currentPlayerIndex, currentPlayer.copy(inJail = true))
+    players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = 0))
     notifyObservers
   }
 

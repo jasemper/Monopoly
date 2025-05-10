@@ -19,7 +19,11 @@ class Tui(controller: Controller) extends Observer {
           val spaces = controller.rollDice()
           controller.moveCurrentPlayer(spaces)
         case "move" if parts.length == 2 =>
-          controller.moveCurrentPlayer(parts(1).toInt)
+          val spaces = controller.rollDice(parts(1).toInt, 0)
+          controller.moveCurrentPlayer(spaces)
+        case "move" if parts.length == 3 =>
+          val spaces = controller.rollDice(parts(1).toInt, parts(2).toInt)
+          controller.moveCurrentPlayer(spaces)
         case "buy" =>
           controller.buyCurrentProperty()
         case "buildhouse" if parts.length == 2 =>

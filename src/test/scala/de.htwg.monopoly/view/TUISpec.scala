@@ -33,7 +33,7 @@ class TUISpec extends AnyWordSpec {
                 }
             }
             val output = outContent.toString
-            output should include("2")
+            output should include("|  2 | Event                 |         |   0   |   0   | Blue")
         }
         "show updated random player position" in {
             val controller = new Controller()
@@ -46,7 +46,20 @@ class TUISpec extends AnyWordSpec {
                 }
             }
             val output = outContent.toString
-            output should include("| Green")
+            output should include("| Green") // because usually blue is first. green can only be first if blue has moved away from start
+        }
+        "show updated specific playerroll position" in {
+            val controller = new Controller()
+            val tui = new Tui(controller)
+            val simulatedInput = new ByteArrayInputStream("move 1 2\nexit\n".getBytes)
+            val outContent = new ByteArrayOutputStream()
+            Console.withIn(simulatedInput) {
+                Console.withOut(new PrintStream(outContent)) {
+                    tui.devPlay()
+                }
+            }
+            val output = outContent.toString
+            output should include("|  3 | Baltic Avenue         |         |   0   |   0   | Blue")
         }
         "show bought properties" in {
             val controller = new Controller()
