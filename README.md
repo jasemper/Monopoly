@@ -7,7 +7,7 @@
 # Monopoly written in Scala 3
 
 ## BUGFIX:
-### number of times a player can move isn't working
+### number of times a player can move is now correct //after fising (no-pasch -> pasch)
 
 ## TODO:
 ### Correct property values

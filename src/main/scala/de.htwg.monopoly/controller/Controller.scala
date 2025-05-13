@@ -16,8 +16,8 @@ class Controller(
       players = players.updated(currentPlayerIndex, currentPlayer.copy(roll = currentPlayer.roll + 1))
       currentPlayerPasch()
     } else {
-      players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = 0))
       players = players.updated(currentPlayerIndex, currentPlayer.copy(roll = currentPlayer.roll + 1))
+      players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = 0))
     }
     total
   }
@@ -68,6 +68,7 @@ class Controller(
   }
 
   def nextTurn(): Unit = {
+    players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = 0))
     players = players.updated(currentPlayerIndex, currentPlayer.copy(roll = 0))
     currentPlayerIndex = (currentPlayerIndex + 1) % players.length
     notifyObservers
