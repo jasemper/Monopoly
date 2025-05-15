@@ -6,7 +6,8 @@ class Controller(
     var trains: Vector[Railroad] = InitTrains,
     var utilities: Vector[Utility] = InitUtilities,
     var currentPlayerIndex: Int = 0,
-    var state: GameState = new WaitingForRoll) extends Observable{
+    var state: GameState = new WaitingForRoll,
+    val undoManager: UndoManager = new UndoManager()) extends Observable{
 
   def currentPlayer: Player = players(currentPlayerIndex)
   var tilt: Int = -1 // Debugging purposes: 1 more likle random yes; 0 more likely random no; -1 random random
@@ -77,11 +78,10 @@ class Controller(
   }
 
   def nextTurn(): Unit = {
-  players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = 0))
-  players = players.updated(currentPlayerIndex, currentPlayer.copy(roll = 0))
-  currentPlayerIndex = (currentPlayerIndex + 1) % players.length
-  notifyObservers
-}
+    players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = 0, roll = 0))
+    currentPlayerIndex = (currentPlayerIndex + 1) % players.length
+    notifyObservers
+  }
 
   def getCurrentFieldName: String = {
     val position = players(currentPlayerIndex).position
@@ -146,4 +146,31 @@ class Controller(
   def getGameState: (Vector[Player], Vector[Street], Vector[Railroad], Vector[Utility]) = {
     (players, streets, trains, utilities)
   }
+
+  def snapshot(): GameSnapshot = GameSnapshot(
+    players.map(_.copy()),
+    streets.map(_.copy()),
+    trains.map(_.copy()),
+    utilities.map(_.copy()),
+    currentPlayerIndex
+  )
+
+  def restore(snapshot: GameSnapshot): Unit = {
+    players = snapshot.players.map(_.copy())
+    streets = snapshot.streets.map(_.copy())
+    trains = snapshot.trains.map(_.copy())
+    utilities = snapshot.utilities.map(_.copy())
+    currentPlayerIndex = snapshot.currentPlayerIndex
+    notifyObservers
+  }
+
+  def performFullTurnWithUndo(): Unit = {
+    val command = new TurnCommand(this)
+    undoManager.doStep(command)
+  }
+
+  def undo(): Unit = undoManager.undoStep()
+  def redo(): Unit = undoManager.redoStep()
+
+
 }

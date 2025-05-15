@@ -8,7 +8,13 @@ object TUIGame {
       new DefensiveFactory().createPlayer("Green"),
       new RandomFactory().createPlayer("Yellow")
     )
-    val controller = new Controller(players = players)
+    val playersHuman = Vector(
+      new HumanFactory().createPlayer("Red"),
+      new HumanFactory().createPlayer("Blue"),
+      new HumanFactory().createPlayer("Green"),
+      new HumanFactory().createPlayer("Yellow")
+    )
+    val controller = new Controller(players = playersHuman)
     val tui = new Tui(controller)
     tui.devPlay()
   }

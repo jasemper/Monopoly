@@ -43,6 +43,10 @@ class Tui(controller: Controller) extends Observer {
               controller.state.buildHouse(controller, parts(1).toInt)
             case "buildhotel" if parts.length == 2 && parts(1).forall(_.isDigit) =>
               controller.state.buildHotel(controller, parts(1).toInt)
+            case "undo" =>
+              controller.undo()
+            case "redo" =>
+              controller.redo()
             case "end" =>
               controller.state.endTurn(controller)
               continue = false
