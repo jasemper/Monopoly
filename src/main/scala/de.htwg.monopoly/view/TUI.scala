@@ -5,38 +5,54 @@ import scala.io.StdIn.readLine
 class Tui(controller: Controller) extends Observer {
   controller.add(this)
   def devPlay(): Unit = {
-    print(statusReport())
-    var input = ""
-    while ({
-      println(s"Current player: ${controller.currentPlayer.color}")
-      println("Enter command: move X | buy | buildhouse X | buildhotel X | end | exit")
-      input = scala.io.StdIn.readLine()
-      input != "exit"
-    }) {
-      val parts = input.split(" ")
-      parts(0).toLowerCase match {
-        case "move" if parts.length == 1 =>
-          val spaces = controller.rollDice()
-          controller.moveCurrentPlayer(spaces)
-        case "move" if parts.length == 2 =>
-          val spaces = controller.rollDice(parts(1).toInt, 0)
-          controller.moveCurrentPlayer(spaces)
-        case "move" if parts.length == 3 =>
-          val spaces = controller.rollDice(parts(1).toInt, parts(2).toInt)
-          controller.moveCurrentPlayer(spaces)
-        case "buy" =>
-          controller.buyCurrentProperty()
-        case "buildhouse" if parts.length == 2 =>
-          controller.buildHouse(parts(1).toInt)
-        case "buildhotel" if parts.length == 2 =>
-          controller.buildHotel(parts(1).toInt)
-        case "end" =>
-          controller.nextTurn()
-        case _ =>
-          println("Invalid command.")
+    var run = true
+    while (controller.getWinnerIfAny.isEmpty && run) {
+      val player = controller.currentPlayer
+
+      if (player.strategy.isDefined) {
+        println(s"\n${player.color}'s turn (AI):")
+        println("calculating move...")
+        controller.performAITurn()
+        controller.nextTurn()
+      } else {
+        println(s"\n${player.color}'s turn (Human):")
+        println("Enter command: move X | buy | buildhouse X | buildhotel X | end | exit")
+        var continue = true
+        while (continue) {
+          val input = scala.io.StdIn.readLine()
+          val parts = input.split(" ")
+          parts(0).toLowerCase match {
+            case "move" if parts.length == 1 =>
+              val spaces = controller.rollDice()
+              controller.moveCurrentPlayer(spaces)
+            case "move" if parts.length == 2 =>
+              val spaces = controller.rollDice(parts(1).toInt, 0)
+              controller.moveCurrentPlayer(spaces)
+            case "move" if parts.length == 3 =>
+              val spaces = controller.rollDice(parts(1).toInt, parts(2).toInt)
+              controller.moveCurrentPlayer(spaces)
+            case "buy" =>
+              controller.buyCurrentProperty()
+            case "buildhouse" if parts.length == 2 =>
+              controller.buildHouse(parts(1).toInt)
+            case "buildhotel" if parts.length == 2 =>
+              controller.buildHotel(parts(1).toInt)
+            case "end" =>
+              controller.nextTurn()
+              continue = false
+            case "exit" =>
+              continue = false
+              run = false
+            case _ =>
+              println("Invalid command.")
+          }
+        }
       }
     }
   }
+
+
+
   def statusReport(): String = {
     val (players, streets, trains, utilities) = controller.getGameState
 

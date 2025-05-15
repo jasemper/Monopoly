@@ -68,11 +68,11 @@ class Controller(
   }
 
   def nextTurn(): Unit = {
-    players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = 0))
-    players = players.updated(currentPlayerIndex, currentPlayer.copy(roll = 0))
-    currentPlayerIndex = (currentPlayerIndex + 1) % players.length
-    notifyObservers
-  }
+  players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = 0))
+  players = players.updated(currentPlayerIndex, currentPlayer.copy(roll = 0))
+  currentPlayerIndex = (currentPlayerIndex + 1) % players.length
+  notifyObservers
+}
 
   def getCurrentFieldName: String = {
     val position = players(currentPlayerIndex).position
@@ -108,6 +108,23 @@ class Controller(
     }
     notifyObservers
   }
+
+  def performAITurn(): Unit = {
+  currentPlayer.strategy.foreach { strategy =>
+    val spaces = rollDice()
+    moveCurrentPlayer(spaces)
+    Thread.sleep(500)
+    if (getCurrentOwner == "") {
+      strategy.decideBuy(currentPlayer, this)
+      Thread.sleep(500)
+    }
+    strategy.decideBuild(currentPlayer, this)
+    Thread.sleep(500)
+  }
+
+  notifyObservers
+}
+
 
   def getGameState: (Vector[Player], Vector[Street], Vector[Railroad], Vector[Utility]) = {
     (players, streets, trains, utilities)

@@ -15,7 +15,8 @@ case class Player(
   pasch: Int = 0,
   roll: Int = 0,
   properties: Vector[Property] = Vector.empty,
-  inJail: Boolean = false
+  inJail: Boolean = false,
+  strategy: Option[PlayerStrategy] = None
 )
 
 case class Street(
