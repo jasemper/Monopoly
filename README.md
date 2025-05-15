@@ -6,10 +6,12 @@
 # BEFORE PUSHING, PULL
 # Monopoly written in Scala 3
 
-## BUGFIX:
-### number of times a player can move is now correct //after fising (no-pasch -> pasch)
+## TOFIX:
+### (no-pasch -> pasch)
+### TUI sometimes missing??
 
 ## TODO:
+### Build only when owned street and on field
 ### Correct property values
 ### Rent increase with hotels, houses, full streets, both companies
 ### Roll again (only) after pasch

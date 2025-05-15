@@ -3,10 +3,6 @@ package de.htwg.monopoly
 import scala.util.Random
 
 class RandomStrategy extends PlayerStrategy {
-  override def decideMove(player: Player, controller: Controller): Unit = {
-    // Not needed (handled in controller)
-  }
-
   override def decideBuy(player: Player, controller: Controller): Unit = {
     if (Random.nextBoolean()) {
       controller.buyCurrentProperty()

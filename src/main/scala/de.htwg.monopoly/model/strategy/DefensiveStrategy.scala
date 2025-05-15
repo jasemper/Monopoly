@@ -1,18 +1,14 @@
 package de.htwg.monopoly
 
 class DefensiveStrategy extends PlayerStrategy {
-  override def decideMove(player: Player, controller: Controller): Unit = {
-    // Not needed
-  }
-
   override def decideBuy(player: Player, controller: Controller): Unit = {
-    if (player.money > 1000) {
+    if (player.money > 8000) {
       controller.buyCurrentProperty()
     }
   }
 
   override def decideBuild(player: Player, controller: Controller): Unit = {
-    if (player.money > 1000) {
+    if (player.money > 5000) {
       controller.streets.zipWithIndex.foreach {
         case (street, index) =>
           if (street.owner.contains(player.color)) {
