@@ -18,9 +18,15 @@ class RandomStrategy extends PlayerStrategy {
       val (street, index) = Random.shuffle(ownedStreets).head
       if (street.buildings < 4) {
         controller.buildHouse(index)
-      } else if (street.buildings == 4 && street.hotels < 1) {
+      } else {
         controller.buildHotel(index)
       }
+    }
+  }
+
+  override def decideJail(player: Player, controller: Controller): Unit = {
+    if (player.inJail && Random.nextBoolean()) {
+      controller.payJailFee()
     }
   }
 }

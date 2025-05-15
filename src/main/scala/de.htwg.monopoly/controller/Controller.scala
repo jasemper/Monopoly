@@ -67,6 +67,12 @@ class Controller(
     notifyObservers
   }
 
+  def payJailFee(): Unit = {
+    players = players.updated(currentPlayerIndex, currentPlayer.copy(money = currentPlayer.money - 50))
+    players = players.updated(currentPlayerIndex, currentPlayer.copy(inJail = false))
+    notifyObservers
+  }
+
   def nextTurn(): Unit = {
   players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = 0))
   players = players.updated(currentPlayerIndex, currentPlayer.copy(roll = 0))
@@ -109,22 +115,25 @@ class Controller(
     notifyObservers
   }
 
-  def performAITurn(): Unit = {
-  currentPlayer.strategy.foreach { strategy =>
-    val spaces = rollDice()
-    moveCurrentPlayer(spaces)
-    Thread.sleep(500)
-    if (getCurrentOwner == "") {
-      strategy.decideBuy(currentPlayer, this)
-      Thread.sleep(500)
+  def performAITurn(dice1: Int = scala.util.Random.nextInt(6) + 1, dice2: Int = scala.util.Random.nextInt(6) + 1): Unit = {
+    currentPlayer.strategy.foreach { strategy =>
+      val spaces = rollDice(dice1, dice2)
+      moveCurrentPlayer(spaces)
+      //Thread.sleep(1000)
+      if (getCurrentOwner == "") {
+        strategy.decideBuy(currentPlayer, this)
+        //Thread.sleep(1000)
+      } else if (currentPlayer.color == getCurrentOwner) {
+        strategy.decideBuild(currentPlayer, this)
+        //Thread.sleep(1000)
+      }
+      if (currentPlayer.inJail) {
+        strategy.decideJail(currentPlayer, this)
+        //Thread.sleep(1000)
+      }
     }
-    strategy.decideBuild(currentPlayer, this)
-    Thread.sleep(500)
+    notifyObservers
   }
-
-  notifyObservers
-}
-
 
   def getGameState: (Vector[Player], Vector[Street], Vector[Railroad], Vector[Utility]) = {
     (players, streets, trains, utilities)

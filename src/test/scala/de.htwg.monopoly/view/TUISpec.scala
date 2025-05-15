@@ -21,6 +21,21 @@ class TUISpec extends AnyWordSpec {
             val output = outContent.toString
             output.length should be > 0
         }
+        "show AI players" in {
+            val player = Player("Blue", strategy = Some(new AggressiveStrategy))
+            val player2 = Player("Green")
+            val controller = new Controller(players = Vector(player, player2))
+            val tui = new Tui(controller)
+            val simulatedInput = new ByteArrayInputStream("exit\n".getBytes)
+            val outContent = new ByteArrayOutputStream()
+            Console.withIn(simulatedInput) {
+                Console.withOut(new PrintStream(outContent)) {
+                    tui.devPlay()
+                }
+            }
+            val output = outContent.toString
+            output should include("AI")
+        }
         "show updated player position" in {
             val player = Player("Blue")
             val player2 = Player("Green")

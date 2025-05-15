@@ -16,5 +16,8 @@ class AggressiveStrategy extends PlayerStrategy {
       }
     }
   }
+  override def decideJail(player: Player, controller: Controller): Unit = {
+    controller.payJailFee()
+  }
 }
 

@@ -8,17 +8,29 @@ class DefensiveStrategy extends PlayerStrategy {
   }
 
   override def decideBuild(player: Player, controller: Controller): Unit = {
-    if (player.money > 5000) {
-      controller.streets.zipWithIndex.foreach {
-        case (street, index) =>
-          if (street.owner.contains(player.color)) {
-            if (street.buildings < 4) {
-              controller.buildHouse(index)
-            } else if (street.buildings == 4 && street.hotels < 1) {
-              controller.buildHotel(index)
-            }
-          }
+  if (player.money > 5000) {
+    for (i <- controller.streets.indices) {
+      val street = controller.streets(i)
+      if (street.owner.contains(player.color)) {
+        val fieldNumber = streetIndexToFieldNumber(i, controller)
+        if (street.buildings < 4) {
+          controller.buildHouse(fieldNumber)
+        } else {
+          controller.buildHotel(fieldNumber)
+        }
       }
     }
   }
+}
+
+  override def decideJail(player: Player, controller: Controller): Unit = {
+    if (player.inJail && player.money > 500) {
+      controller.payJailFee()
+    }
+  }
+
+  def streetIndexToFieldNumber(index: Int, controller: Controller): Int = {
+    Board.indexWhere(_._2 == controller.streets(index).name)
+  }
+
 }
