@@ -2,16 +2,15 @@ package de.htwg.monopoly
 
 object TUIGame {
   @main def startGame(): Unit = {
-  val controller = new Controller(
-    players = Vector(
-      Player("Red", 10000, 0, strategy = None),
-      Player("Blue", 10000, 0, strategy = Some(new AggressiveStrategy)),
-      Player("Green", 10000, 0, strategy = Some(new DefensiveStrategy)),
-      Player("Yellow", 10000, 0, strategy = Some(new RandomStrategy))
+    val players = Vector(
+      new HumanFactory().createPlayer("Red"),
+      new AggressiveFactory().createPlayer("Blue"),
+      new DefensiveFactory().createPlayer("Green"),
+      new RandomFactory().createPlayer("Yellow")
     )
-  )
-  val tui = new Tui(controller)
-  tui.devPlay()
-}
+    val controller = new Controller(players = players)
+    val tui = new Tui(controller)
+    tui.devPlay()
+  }
 }
 
