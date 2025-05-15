@@ -4,6 +4,7 @@ import scala.io.StdIn.readLine
 
 class Tui(controller: Controller) extends Observer {
   controller.add(this)
+
   def devPlay(): Unit = {
     var run = true
     while (controller.getWinnerIfAny.isEmpty && run) {
@@ -11,34 +12,39 @@ class Tui(controller: Controller) extends Observer {
 
       if (player.strategy.isDefined) {
         println(s"\n${player.color}'s turn (AI):")
-        println("calculating move...")
+        println("Calculating move...")
         controller.performAITurn()
-        controller.nextTurn()
+
+        //Thread.sleep(1000)
+
+        controller.state.endTurn(controller)
       } else {
-        println(s"\n${player.color}'s turn (Human):")
-        println("Enter command: move X | buy | buildhouse X | buildhotel X | end | exit")
         var continue = true
         while (continue) {
-          val input = scala.io.StdIn.readLine()
-          val parts = input.split(" ")
+
+          println(s"\n${player.color}'s turn (Human):")
+          println("Enter command: move [X] [Y] | buy | buildhouse X | buildhotel X | end | exit")
+          val input = readLine()
+          val parts = input.trim.split(" ")
+
           parts(0).toLowerCase match {
             case "move" if parts.length == 1 =>
-              val spaces = controller.rollDice()
-              controller.moveCurrentPlayer(spaces)
-            case "move" if parts.length == 2 =>
-              val spaces = controller.rollDice(parts(1).toInt, 0)
-              controller.moveCurrentPlayer(spaces)
-            case "move" if parts.length == 3 =>
-              val spaces = controller.rollDice(parts(1).toInt, parts(2).toInt)
-              controller.moveCurrentPlayer(spaces)
+              val spaces = controller.state.rollDice(controller)
+              controller.state.move(controller, spaces)
+            case "move" if parts.length == 2 && parts(1).forall(_.isDigit) =>
+              val spaces = controller.state.rollDice(controller, parts(1).toInt, 0)
+              controller.state.move(controller, spaces)
+            case "move" if parts.length == 3 && parts(1).forall(_.isDigit) && parts(2).forall(_.isDigit) =>
+              val spaces = controller.state.rollDice(controller, parts(1).toInt, parts(2).toInt)
+              controller.state.move(controller, spaces)
             case "buy" =>
-              controller.buyCurrentProperty()
-            case "buildhouse" if parts.length == 2 =>
-              controller.buildHouse(parts(1).toInt)
-            case "buildhotel" if parts.length == 2 =>
-              controller.buildHotel(parts(1).toInt)
+              controller.state.buy(controller)
+            case "buildhouse" if parts.length == 2 && parts(1).forall(_.isDigit) =>
+              controller.state.buildHouse(controller, parts(1).toInt)
+            case "buildhotel" if parts.length == 2 && parts(1).forall(_.isDigit) =>
+              controller.state.buildHotel(controller, parts(1).toInt)
             case "end" =>
-              controller.nextTurn()
+              controller.state.endTurn(controller)
               continue = false
             case "exit" =>
               continue = false

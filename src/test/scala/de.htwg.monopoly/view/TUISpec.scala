@@ -121,7 +121,7 @@ class TUISpec extends AnyWordSpec {
             val player2 = Player("Green")
             val controller = new Controller(players = Vector(player,player2))
             val tui = new Tui(controller)
-            val simulatedInput = new ByteArrayInputStream("end\nexit\n".getBytes)
+            val simulatedInput = new ByteArrayInputStream("move\nend\nexit\n".getBytes)
             val outContent = new ByteArrayOutputStream()
             Console.withIn(simulatedInput) {
                 Console.withOut(new PrintStream(outContent)) {

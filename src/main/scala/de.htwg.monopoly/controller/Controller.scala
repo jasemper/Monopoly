@@ -5,7 +5,8 @@ class Controller(
     var streets: Vector[Street] = InitStreets,
     var trains: Vector[Railroad] = InitTrains,
     var utilities: Vector[Utility] = InitUtilities,
-    var currentPlayerIndex: Int = 0) extends Observable{
+    var currentPlayerIndex: Int = 0,
+    var state: GameState = new WaitingForRoll) extends Observable{
 
   def currentPlayer: Player = players(currentPlayerIndex)
 
@@ -37,6 +38,7 @@ class Controller(
         players = addMoney(players, currentPlayerIndex, -getRent(currentPlayer.position, streets, trains, utilities))
         players = addMoney(players, ownerIndex, getRent(currentPlayer.position, streets, trains, utilities))
       }
+      state = Buying()
     }
     if (currentPlayer.inJail == true && currentPlayer.pasch > 0 && currentPlayer.roll <=3) {
       players = players.updated(currentPlayerIndex, currentPlayer.copy(inJail = false))
@@ -132,6 +134,11 @@ class Controller(
         //Thread.sleep(1000)
       }
     }
+    notifyObservers
+  }
+
+  def setState(newState: GameState): Unit = {
+    state = newState
     notifyObservers
   }
 
