@@ -5,25 +5,30 @@ class Moving extends GameState {
     println("You already rolled this turn.")
     -1
 
-  override def move(controller: Controller, spaces: Int): Unit =
+  override def move(controller: Controller, spaces: Int): Int =
     controller.moveCurrentPlayer(spaces)
     controller.setState(new Buying)
+    0
 
-  override def buy(controller: Controller): Unit = {
+  override def buy(controller: Controller): Int = {
     println("You first need to move this turn.")
+    -1
   }
 
-  override def buildHouse(controller: Controller, fieldNr: Int): Unit =
+  override def buildHouse(controller: Controller, fieldNr: Int): Int =
     println("You must buy or end turn before building.")
+    -1
 
-  override def buildHotel(controller: Controller, fieldNr: Int): Unit =
+  override def buildHotel(controller: Controller, fieldNr: Int): Int =
     println("You must buy or end turn before building.")
+    -1
 
-  override def endTurn(controller: Controller): Unit = {
+  override def endTurn(controller: Controller): Int = {
     controller.nextTurn()
     if (controller.currentPlayer.inJail)
       controller.setState(new InJail)
     else
       controller.setState(new WaitingForRoll)
+    0
   }
 }

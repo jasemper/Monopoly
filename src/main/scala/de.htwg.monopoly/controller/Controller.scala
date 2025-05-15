@@ -9,6 +9,7 @@ class Controller(
     var state: GameState = new WaitingForRoll) extends Observable{
 
   def currentPlayer: Player = players(currentPlayerIndex)
+  var tilt: Int = -1 // Debugging purposes: 1 more likle random yes; 0 more likely random no; -1 random random
 
   def rollDice(dice1: Int = scala.util.Random.nextInt(6) + 1, dice2: Int = scala.util.Random.nextInt(6) + 1): Int = {
     val total = dice1 + dice2

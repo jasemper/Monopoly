@@ -5,23 +5,28 @@ class TurnEnded extends GameState {
     println("Wait for your next turn.")
     -1
 
-  override def move(controller: Controller, spaces: Int): Unit =
+  override def move(controller: Controller, spaces: Int): Int =
     println("Wait for your next turn.")
+    -1
 
-  override def buy(controller: Controller): Unit =
+  override def buy(controller: Controller): Int =
     println("Wait for your next turn.")
+    -1
 
-  override def buildHouse(controller: Controller, fieldNr: Int): Unit =
+  override def buildHouse(controller: Controller, fieldNr: Int): Int =
     println("Wait for your next turn.")
+    -1
 
-  override def buildHotel(controller: Controller, fieldNr: Int): Unit =
+  override def buildHotel(controller: Controller, fieldNr: Int): Int =
     println("Wait for your next turn.")
+    -1
 
-  override def endTurn(controller: Controller): Unit = {
+  override def endTurn(controller: Controller): Int = {
     controller.nextTurn()
     if (controller.currentPlayer.inJail)
       controller.setState(new InJail)
     else
       controller.setState(new WaitingForRoll)
+    0
   }
 }

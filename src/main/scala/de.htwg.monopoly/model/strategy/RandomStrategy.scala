@@ -4,7 +4,7 @@ import scala.util.Random
 
 class RandomStrategy extends PlayerStrategy {
   override def decideBuy(player: Player, controller: Controller): Unit = {
-    if (Random.nextBoolean()) {
+    if (getRandom(controller)) {
       controller.buyCurrentProperty()
     }
   }
@@ -14,7 +14,7 @@ class RandomStrategy extends PlayerStrategy {
       case (street, _) => street.owner.contains(player.color)
     }
 
-    if (ownedStreets.nonEmpty && Random.nextBoolean()) {
+    if (ownedStreets.nonEmpty && getRandom(controller)) {
       val (street, index) = Random.shuffle(ownedStreets).head
       if (street.buildings < 4) {
         controller.buildHouse(index)
@@ -25,8 +25,18 @@ class RandomStrategy extends PlayerStrategy {
   }
 
   override def decideJail(player: Player, controller: Controller): Unit = {
-    if (player.inJail && Random.nextBoolean()) {
+    if (player.inJail && getRandom(controller)) {
       controller.payJailFee()
     }
+  }
+
+  def getRandom(controller: Controller): Boolean = {
+    var random = Random.nextBoolean()
+    if (controller.tilt == 1) {
+      random = true
+    } else if (controller.tilt == 0) {
+      random = false
+    }
+    random
   }
 }
