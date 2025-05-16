@@ -135,12 +135,12 @@ class Controller(
         //Thread.sleep(1000)
       }
     }
-    notifyObservers
+    //notifyObservers
   }
 
   def setState(newState: GameState): Unit = {
     state = newState
-    notifyObservers
+    //notifyObservers
   }
 
   def getGameState: (Vector[Player], Vector[Street], Vector[Railroad], Vector[Utility]) = {
