@@ -1,32 +1,51 @@
 package de.htwg.monopoly
 
+import scala.compiletime.ops.boolean
+
 class DefensiveStrategy extends PlayerStrategy {
-  override def decideBuy(player: Player, controller: Controller): Unit = {
+  override def decideBuy(player: Player, controller: Controller): Boolean = {
     if (player.money > 8000) {
-      controller.buyCurrentProperty()
+      return true
     }
+    false
   }
 
-  override def decideBuild(player: Player, controller: Controller): Unit = {
-  if (player.money > 5000) {
-    for (i <- controller.streets.indices) {
-      val street = controller.streets(i)
-      if (street.owner.contains(player.color)) {
-        val fieldNumber = streetIndexToFieldNumber(i, controller)
-        if (street.buildings < 4) {
-          controller.buildHouse(fieldNumber)
-        } else {
-          controller.buildHotel(fieldNumber)
+  override def decideBuildHouse(player: Player, controller: Controller): Boolean = {
+    var canBuild = false
+    if (player.money > 5000) {
+      for (i <- controller.streets.indices) {
+        val street = controller.streets(i)
+        if (street.owner.contains(player.color)) {
+          val fieldNumber = streetIndexToFieldNumber(i, controller)
+          if (street.buildings < 4) {
+            canBuild = true
+          }
         }
       }
     }
+    canBuild
   }
-}
-
-  override def decideJail(player: Player, controller: Controller): Unit = {
-    if (player.inJail && player.money > 500) {
-      controller.payJailFee()
+  override def decideBuildHotel(player: Player, controller: Controller): Boolean = {
+    var canBuild = false
+    if (player.money > 5000) {
+      for (i <- controller.streets.indices) {
+        val street = controller.streets(i)
+        if (street.owner.contains(player.color)) {
+          val fieldNumber = streetIndexToFieldNumber(i, controller)
+          if (street.buildings == 4) {
+            canBuild = true
+          }
+        }
+      }
     }
+    canBuild
+  }
+
+  override def decideJail(player: Player, controller: Controller): Boolean = {
+    if (player.inJail && player.money > 500) {
+      return true
+    }
+    false
   }
 
   def streetIndexToFieldNumber(index: Int, controller: Controller): Int = {

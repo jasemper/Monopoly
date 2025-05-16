@@ -124,23 +124,27 @@ class Controller(
       moveCurrentPlayer(spaces)
       //Thread.sleep(1000)
       if (getCurrentOwner == "") {
-        strategy.decideBuy(currentPlayer, this)
+        if strategy.decideBuy(currentPlayer, this) then buyCurrentProperty()
         //Thread.sleep(1000)
-      } else if (currentPlayer.color == getCurrentOwner) {
-        strategy.decideBuild(currentPlayer, this)
+      }
+      if (currentPlayer.color == getCurrentOwner) {
+        if (strategy.decideBuildHouse(currentPlayer, this)){
+          buildHouse(currentPlayer.position)
+        }
+        if (strategy.decideBuildHotel(currentPlayer, this)) {
+          buildHotel(currentPlayer.position)
+        }
         //Thread.sleep(1000)
       }
       if (currentPlayer.inJail) {
-        strategy.decideJail(currentPlayer, this)
+        if strategy.decideJail(currentPlayer, this) then payJailFee()
         //Thread.sleep(1000)
       }
     }
-    //notifyObservers
   }
 
   def setState(newState: GameState): Unit = {
     state = newState
-    //notifyObservers
   }
 
   def getGameState: (Vector[Player], Vector[Street], Vector[Railroad], Vector[Utility]) = {

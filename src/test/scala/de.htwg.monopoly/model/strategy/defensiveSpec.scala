@@ -7,87 +7,106 @@ import org.scalatest.matchers.should.Matchers._
 
 class defensiveSpec extends AnyWordSpec {
     "defensiveAI" should {
-        "defensive move the AI" in {
-            val player = Player("Blue", position = 0, strategy = Some(new DefensiveStrategy))
+        "buy a property" in {
+            val strategy = new DefensiveStrategy
+            val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.performAITurn()
-            controller.players(0).position should be > 0
+            strategy.decideBuy(player, controller) shouldBe true
         }
-        "defensive buy a property" in {
-            val player = Player("Blue", position = 1, strategy = Some(new DefensiveStrategy))
+        "not buy a property, if not enough money" in {
+            val strategy = new DefensiveStrategy
+            val player = Player("Red", position = 1, money = 2000, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.performAITurn(0, 0)
-            controller.getCurrentOwner should be("Blue")
-            }
-        "defensive not buy, if already owned" in {
-            val player = Player ("Red", position = 1)
-            val player2 = Player("Blue", position = 1, strategy = Some(new DefensiveStrategy))
-            val controller = new Controller(players = Vector(player, player2))
-            controller.buyCurrentProperty()
-            controller.getCurrentOwner should be("Red")
-            controller.nextTurn()
-            controller.performAITurn(0, 0)
-            controller.getCurrentOwner should be("Red")
+            strategy.decideBuy(player, controller) shouldBe false
         }
-        "defensive not buy, if not enough money" in {
-            val player = Player("Blue", position = 1, money = 2000, strategy = Some(new DefensiveStrategy))
-            val controller = new Controller(players = Vector(player))
-            controller.performAITurn(0, 0)
-            controller.getCurrentOwner should be("")
-        }
-        "defensive build a house" in {
-            val player = Player("Blue", position = 1, strategy = Some(new DefensiveStrategy))
+        "build a house" in {
+            val strategy = new DefensiveStrategy
+            val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
             controller.buyCurrentProperty()
-            controller.getCurrentOwner should be("Blue")
-            controller.performAITurn(0, 0)
-            controller.streets(0).buildings should be(1)
-        }
-        "defensive not build a house on a property not owned" in {
-            val player = Player("Blue", position = 1, strategy = Some(new DefensiveStrategy))
-            val controller = new Controller(players = Vector(player))
-            controller.getCurrentOwner should be("")
-            controller.performAITurn(0, 0)
             controller.streets(0).buildings should be(0)
+            strategy.decideBuildHouse(player, controller) shouldBe true
         }
-        "defensive not build, if not enough money" in {
-            val player = Player("Blue", position = 1, money = 2000, strategy = Some(new DefensiveStrategy))
+        "not build a house on a property not owned" in {
+            val strategy = new DefensiveStrategy
+            val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.buyCurrentProperty()
-            controller.getCurrentOwner should be("Blue")
-            controller.performAITurn(0, 0)
             controller.streets(0).buildings should be(0)
-            }
-        "defensive build a hotel" in {
-            val player = Player("Blue", money = 100000, position = 1, strategy = Some(new DefensiveStrategy))
+            strategy.decideBuildHouse(player, controller) shouldBe false
+        }
+        "not build a house with less than 5000 money" in {
+            val strategy = new DefensiveStrategy
+            val player = Player("Red", position = 1, money = 2000, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
             controller.buyCurrentProperty()
-            controller.getCurrentOwner should be("Blue")
-            controller.buildHouse(1)
-            controller.buildHouse(1)
-            controller.buildHouse(1)
-            controller.buildHouse(1)
-            controller.streets(0).buildings should be(4)
-            controller.performAITurn(0, 0)
-            controller.streets(0).hotels should be(1)
+            controller.streets(0).buildings should be(0)
+            strategy.decideBuildHouse(player, controller) shouldBe false
         }
-        "defensive not build a hotel on a property not owned" in {
-            val player = Player("Blue", position = 1, strategy = Some(new DefensiveStrategy))
+        "not build a house with 4 houses already" in {
+            val strategy = new DefensiveStrategy
+            val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.performAITurn(0, 0)
-            controller.streets(0).hotels should be(0)
+            controller.buyCurrentProperty()
+            controller.streets(0).buildings should be(0)
+            controller.buildHouse(1)
+            controller.buildHouse(1)
+            controller.buildHouse(1)
+            controller.buildHouse(1)
+            strategy.decideBuildHouse(player, controller) shouldBe false
         }
-        "defensive out of jail" in {
-            val player = Player("Blue", position = 10, inJail = true, strategy = Some(new DefensiveStrategy))
+        "build a hotel" in {
+            val strategy = new DefensiveStrategy
+            val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.performAITurn(2, 3)
-            controller.players(0).inJail should be(false)
+            controller.buyCurrentProperty()
+            controller.streets(0).buildings should be(0)
+            controller.buildHouse(1)
+            controller.buildHouse(1)
+            controller.buildHouse(1)
+            controller.buildHouse(1)
+            strategy.decideBuildHotel(player, controller) shouldBe true
         }
-        "defensive not out of jail, if not enough money" in {
-            val player = Player("Blue", position = 10, inJail = true, money = 200, strategy = Some(new DefensiveStrategy))
+        "not build a hotel on a property not owned" in {
+            val strategy = new DefensiveStrategy
+            val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.performAITurn(2, 3)
-            controller.players(0).inJail should be(true)
+            controller.streets(0).buildings should be(0)
+            strategy.decideBuildHotel(player, controller) shouldBe false
+        }
+        "not build a hotel on a property with less than 4 houses" in {
+            val strategy = new DefensiveStrategy
+            val player = Player("Red", position = 1, strategy = Some(strategy))
+            val controller = new Controller(players = Vector(player))
+            controller.buyCurrentProperty()
+            controller.streets(0).buildings should be(0)
+            controller.buildHouse(1)
+            controller.buildHouse(1)
+            controller.buildHouse(1)
+            strategy.decideBuildHotel(player, controller) shouldBe false
+        }
+        "not build a hotel with less than 5000 money" in {
+            val strategy = new DefensiveStrategy
+            val player = Player("Red", position = 1, money = 2000, strategy = Some(strategy))
+            val controller = new Controller(players = Vector(player))
+            controller.buyCurrentProperty()
+            controller.streets(0).buildings should be(0)
+            controller.buildHouse(1)
+            controller.buildHouse(1)
+            controller.buildHouse(1)
+            controller.buildHouse(1)
+            strategy.decideBuildHotel(player, controller) shouldBe false
+        }
+        "out of jail" in {
+            val strategy = new DefensiveStrategy
+            val player = Player("Red", position = 10, inJail = true, strategy = Some(strategy))
+            val controller = new Controller(players = Vector(player))
+            strategy.decideJail(player, controller) shouldBe true
+        }
+        "not out of jail, if not enough money" in {
+            val strategy = new DefensiveStrategy
+            val player = Player("Red", position = 10, inJail = true, money = 200, strategy = Some(strategy))
+            val controller = new Controller(players = Vector(player))
+            strategy.decideJail(player, controller) shouldBe false
         }
     }
 }

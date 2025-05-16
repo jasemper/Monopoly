@@ -194,4 +194,66 @@ class ControllerSpec extends AnyWordSpec {
       controller.getCurrentOwner should be("Blue")
     }
   }
+  "performAITurn" should {
+    "move the player correctly" in {
+      val player = Player("Blue", position = 0, strategy = Some(RandomStrategy()))
+      val controller = new Controller(players = Vector(player))
+      controller.performAITurn()
+      controller.players(0).position should be > 0
+    }
+    "decide on building a house false" in {
+      val player = Player("Blue", position = 1, strategy = Some(RandomStrategy()))
+      val controller = new Controller(players = Vector(player))
+      controller.tilt = 0
+      controller.buyCurrentProperty()
+      controller.getCurrentOwner should be("Blue")
+      controller.performAITurn(0, 0)
+      controller.streets(0).buildings should be(0)
+    }
+    "decide on building a house true" in {
+      val player = Player("Blue", position = 1, strategy = Some(RandomStrategy()))
+      val controller = new Controller(players = Vector(player))
+      controller.tilt = 1
+      controller.buyCurrentProperty()
+      controller.getCurrentOwner should be("Blue")
+      controller.performAITurn(0, 0)
+      controller.streets(0).buildings should be > 0
+    }
+    "decide on building a hotel false" in {
+      val player = Player("Blue", position = 1, strategy = Some(RandomStrategy()))
+      val controller = new Controller(players = Vector(player))
+      controller.tilt = 0
+      controller.buyCurrentProperty()
+      controller.getCurrentOwner should be("Blue")
+      controller.buildHouse(1)
+      controller.buildHouse(1)
+      controller.buildHouse(1)
+      controller.performAITurn(0, 0)
+      controller.streets(0).hotels should be(0)
+    }
+    "decide on building a hotel true" in {
+      val player = Player("Blue", position = 1, strategy = Some(RandomStrategy()))
+      val controller = new Controller(players = Vector(player))
+      controller.tilt = 1
+      controller.buyCurrentProperty()
+      controller.getCurrentOwner should be("Blue")
+      controller.buildHouse(1)
+      controller.buildHouse(1)
+      controller.buildHouse(1)
+      controller.performAITurn(0, 0)
+      controller.streets(0).hotels should be > 0
+    }
+    "not build on not owned property" in {
+      val player = Player("Blue", position = 1, strategy = Some(RandomStrategy()))
+      val player2 = Player("Red", position = 1, strategy = Some(RandomStrategy()))
+      val controller = new Controller(players = Vector(player, player2))
+      controller.tilt = 1
+      controller.buyCurrentProperty()
+      controller.getCurrentOwner should be("Blue")
+      controller.nextTurn()
+      controller.performAITurn(0, 0)
+      controller.streets(0).buildings should be(0)
+      controller.streets(0).hotels should be(0)
+    }
+  }
 }

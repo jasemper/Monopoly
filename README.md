@@ -26,8 +26,6 @@
 ## abgabe
 ### state no print / no -1 -> enum
 ### strategy return bool
-### factory createplayer to apply
-### humanfactory -> human
 
 
 # Usage
