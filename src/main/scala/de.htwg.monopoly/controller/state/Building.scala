@@ -1,34 +1,31 @@
 package de.htwg.monopoly
 
 class Building extends GameState {
-  override def rollDice(controller: Controller, dice1: Int, dice2: Int): Int =
-    println("You already moved and bought.")
-    -1
+  override def rollDice(controller: Controller, dice1: Int, dice2: Int): GameResult =
+    Error("You already moved and bought.")
 
-  override def move(controller: Controller, spaces: Int): Int =
-    println("You already moved.")
-    -1
+  override def move(controller: Controller, spaces: Int): GameResult =
+    Error("You already moved.")
 
-  override def buy(controller: Controller): Int =
-    println("You already bought or skipped buying.")
-    -1
+  override def buy(controller: Controller): GameResult =
+    Error("You already bought or skipped buying.")
 
-  override def buildHouse(controller: Controller, fieldNr: Int): Int = {
+  override def buildHouse(controller: Controller, fieldNr: Int): GameResult = {
     controller.buildHouse(fieldNr)
-    0
+    Success()
   }
 
-  override def buildHotel(controller: Controller, fieldNr: Int): Int = {
+  override def buildHotel(controller: Controller, fieldNr: Int): GameResult = {
     controller.buildHotel(fieldNr)
-    0
+    Success()
   }
 
-  override def endTurn(controller: Controller): Int = {
+  override def endTurn(controller: Controller): GameResult = {
     controller.nextTurn()
     if (controller.currentPlayer.inJail)
       controller.setState(new InJail)
     else
       controller.setState(new WaitingForRoll)
-    0
+    Success()
   }
 }

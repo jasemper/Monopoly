@@ -29,14 +29,35 @@ class Tui(controller: Controller) extends Observer {
 
           parts(0).toLowerCase match {
             case "move" if parts.length == 1 =>
-              val spaces = controller.state.rollDice(controller, -1, -1)
-              controller.state.move(controller, spaces)
+              controller.state.rollDice(controller, -1, -1) match {
+                case Success(Some(spaces)) =>
+                  controller.state.move(controller, spaces)
+                case Error(msg) =>
+                  println(s"Roll failed: $msg")
+                case _ =>
+                  println("Unexpected result from rolling dice.")
+              }
+
             case "move" if parts.length == 2 && parts(1).forall(_.isDigit) =>
-              val spaces = controller.state.rollDice(controller, parts(1).toInt, 0)
-              controller.state.move(controller, spaces)
+              controller.state.rollDice(controller, parts(1).toInt, 0) match {
+                case Success(Some(spaces)) =>
+                  controller.state.move(controller, spaces)
+                case Error(msg) =>
+                  println(s"Roll failed: $msg")
+                case _ =>
+                  println("Unexpected result from rolling dice.")
+              }
+
             case "move" if parts.length == 3 && parts(1).forall(_.isDigit) && parts(2).forall(_.isDigit) =>
-              val spaces = controller.state.rollDice(controller, parts(1).toInt, parts(2).toInt)
-              controller.state.move(controller, spaces)
+              controller.state.rollDice(controller, parts(1).toInt, parts(2).toInt) match {
+                case Success(Some(spaces)) =>
+                  controller.state.move(controller, spaces)
+                case Error(msg) =>
+                  println(s"Roll failed: $msg")
+                case _ =>
+                  println("Unexpected result from rolling dice.")
+              }
+
             case "buy" =>
               controller.state.buy(controller)
             case "buildhouse" if parts.length == 2 && parts(1).forall(_.isDigit) =>

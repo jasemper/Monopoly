@@ -1,34 +1,30 @@
 package de.htwg.monopoly
 
 class Buying extends GameState {
-  override def rollDice(controller: Controller, dice1: Int, dice2: Int): Int =
-    println("You already rolled this turn.")
-    -1
+  override def rollDice(controller: Controller, dice1: Int, dice2: Int): GameResult =
+    Error("You already rolled this turn.")
 
-  override def move(controller: Controller, spaces: Int): Int =
-    println("You already moved this turn.")
-    -1
+  override def move(controller: Controller, spaces: Int): GameResult =
+    Error("You already moved this turn.")
 
-  override def buy(controller: Controller): Int = {
+  override def buy(controller: Controller): GameResult = {
     controller.buyCurrentProperty()
     controller.setState(new Building)
-    0
+    Success()
   }
 
-  override def buildHouse(controller: Controller, fieldNr: Int): Int =
-    println("You must buy or end turn before building.")
-    -1
+  override def buildHouse(controller: Controller, fieldNr: Int): GameResult =
+    Error("You must buy or end turn before building.")
 
-  override def buildHotel(controller: Controller, fieldNr: Int): Int =
-    println("You must buy or end turn before building.")
-    -1
+  override def buildHotel(controller: Controller, fieldNr: Int): GameResult =
+    Error("You must buy or end turn before building.")
 
-  override def endTurn(controller: Controller): Int = {
+  override def endTurn(controller: Controller): GameResult = {
     controller.nextTurn()
     if (controller.currentPlayer.inJail)
       controller.setState(new InJail)
     else
       controller.setState(new WaitingForRoll)
-    0
+    Success()
   }
 }

@@ -1,76 +1,91 @@
 package de.htwg.monopoly
 
-import de.htwg.monopoly
-
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
 class InJailSpec extends AnyWordSpec {
-    "rolldice" should {
-        "get free with pasch" in {
-            val player1 = Player("Blue", inJail = true)
-            val controller = new Controller(players = Vector(player1))
-            val state = new InJail
-            state.rollDice(controller, 1, 1) should be(2)
-            controller.players(0).inJail should be(false)
-        }
-        "stay in jail without pasch" in {
-            val player1 = Player("Blue", inJail = true)
-            val controller = new Controller(players = Vector(player1))
-            val state = new InJail
-            state.rollDice(controller, 1, 2) should be(3)
-            controller.players(0).inJail should be(true)
-        }
+
+  "rollDice" should {
+    "get free with pasch (double)" in {
+      val player1 = Player("Blue", inJail = true)
+      val controller = new Controller(players = Vector(player1))
+      val state = new InJail
+
+      val result = state.rollDice(controller, 1, 1)
+      result shouldBe Success(Some(2))
+      controller.players(0).inJail shouldBe false
+      controller.state shouldBe a [Buying]
     }
-    "move" should {
-        "return -1" in {
-            val controller = new Controller
-            val state = new InJail
-            state.move(controller, 1) should be(-1)
-        }
+
+    "stay in jail without pasch" in {
+      val player1 = Player("Blue", inJail = true)
+      val controller = new Controller(players = Vector(player1))
+      val state = new InJail
+
+      val result = state.rollDice(controller, 1, 2)
+      result shouldBe Success(Some(3))
+      controller.players(0).inJail shouldBe true
+      controller.state shouldBe a [TurnEnded]
     }
-    "buy" should {
-        "return -1" in {
-            val controller = new Controller
-            val state = new InJail
-            state.buy(controller) should be(-1)
-        }
+  }
+
+  "move" should {
+    "return Error indicating player is in jail" in {
+      val controller = new Controller
+      val state = new InJail
+      val result = state.move(controller, 1)
+      result shouldBe Error("You're in jail. Roll a double to get out.")
     }
-    "buildHouse" should {
-        "return -1" in {
-            val controller = new Controller
-            val state = new InJail
-            state.buildHouse(controller, 1) should be(-1)
-        }
+  }
+
+  "buy" should {
+    "return Error indicating player is in jail" in {
+      val controller = new Controller
+      val state = new InJail
+      val result = state.buy(controller)
+      result shouldBe Error("You're in jail.")
     }
-    "buildHotel" should {
-        "return -1" in {
-            val controller = new Controller
-            val state = new InJail
-            state.buildHotel(controller, 1) should be(-1)
-        }
+  }
+
+  "buildHouse" should {
+    "return Error indicating player is in jail" in {
+      val controller = new Controller
+      val state = new InJail
+      val result = state.buildHouse(controller, 1)
+      result shouldBe Error("You're in jail. Can't build now.")
     }
-    "endTurn" should {
-        "return 0" in {
-            val controller = new Controller
-            val state = new InJail
-            state.endTurn(controller) should be(0)
-        }
-        "set state to InJail" in {
-            val player1 = Player("Blue")
-            val player2 = Player("Red", inJail = true)
-            val controller = new Controller(players = Vector(player1, player2))
-            val state = new InJail
-            state.endTurn(controller)
-            controller.state should be(an[InJail])
-        }
-        "set state to WaitingForRoll" in {
-            val player1 = Player("Blue")
-            val player2 = Player("Red")
-            val controller = new Controller(players = Vector(player1, player2))
-            val state = new InJail
-            state.endTurn(controller)
-            controller.state should be(an[WaitingForRoll])
-        }
+  }
+
+  "buildHotel" should {
+    "return Error indicating player is in jail" in {
+      val controller = new Controller
+      val state = new InJail
+      val result = state.buildHotel(controller, 1)
+      result shouldBe Error("You're in jail. Can't build now.")
     }
+  }
+
+  "endTurn" should {
+    "return Success and set state to InJail if next player is in jail" in {
+      val player1 = Player("Blue")
+      val player2 = Player("Red", inJail = true)
+      val controller = new Controller(players = Vector(player1, player2))
+      val state = new InJail
+
+      val result = state.endTurn(controller)
+      result shouldBe Success()
+      controller.state shouldBe a [InJail]
+    }
+
+    "return Success and set state to WaitingForRoll if next player is not in jail" in {
+      val player1 = Player("Blue")
+      val player2 = Player("Red")
+      val controller = new Controller(players = Vector(player1, player2))
+      val state = new InJail
+
+      val result = state.endTurn(controller)
+      result shouldBe Success()
+      controller.state shouldBe a [WaitingForRoll]
+    }
+  }
 }
