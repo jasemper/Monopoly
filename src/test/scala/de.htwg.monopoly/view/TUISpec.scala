@@ -150,5 +150,50 @@ class TUISpec extends AnyWordSpec {
             val text = tui.statusReport()
             text should include("Current Game Board Status:")
         }
+        "show an error on invalid move random" in {
+            val player = Player("Blue")
+            val player2 = Player("Green")
+            val controller = new Controller(players = Vector(player,player2))
+            val tui = new Tui(controller)
+            val simulatedInput = new ByteArrayInputStream("move 1\nmove\nexit\n".getBytes)
+            val outContent = new ByteArrayOutputStream()
+            Console.withIn(simulatedInput) {
+                Console.withOut(new PrintStream(outContent)) {
+                    tui.devPlay()
+                }
+            }
+            val output = outContent.toString
+            output should include("You already rolled this turn.")
+        }
+        "show an error on invalid move spaces" in {
+            val player = Player("Blue")
+            val player2 = Player("Green")
+            val controller = new Controller(players = Vector(player,player2))
+            val tui = new Tui(controller)
+            val simulatedInput = new ByteArrayInputStream("move 1\nmove 3\nexit\n".getBytes)
+            val outContent = new ByteArrayOutputStream()
+            Console.withIn(simulatedInput) {
+                Console.withOut(new PrintStream(outContent)) {
+                    tui.devPlay()
+                }
+            }
+            val output = outContent.toString
+            output should include("You already rolled this turn.")
+        }
+        "show an error on invalid move specific" in {
+            val player = Player("Blue")
+            val player2 = Player("Green")
+            val controller = new Controller(players = Vector(player,player2))
+            val tui = new Tui(controller)
+            val simulatedInput = new ByteArrayInputStream("move 1\nmove 1 2\nexit\n".getBytes)
+            val outContent = new ByteArrayOutputStream()
+            Console.withIn(simulatedInput) {
+                Console.withOut(new PrintStream(outContent)) {
+                    tui.devPlay()
+                }
+            }
+            val output = outContent.toString
+            output should include("You already rolled this turn.")
+        }
     }
 }

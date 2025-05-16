@@ -11,21 +11,21 @@ class randomSpec extends AnyWordSpec {
             val strategy = new RandomStrategy
             val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.tilt = 1
+            controller.tilt = controller.Tilt.Yes
             strategy.decideBuy(player, controller) shouldBe true
         }
         "not buy a property, if not enough money" in {
             val strategy = new RandomStrategy
             val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.tilt = 0
+            controller.tilt = controller.Tilt.No
             strategy.decideBuy(player, controller) shouldBe false
         }
         "build a house" in {
             val strategy = new RandomStrategy
             val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.tilt = 1
+            controller.tilt = controller.Tilt.Yes
             controller.buyCurrentProperty()
             controller.streets(0).buildings should be(0)
             strategy.decideBuildHouse(player, controller) shouldBe true
@@ -34,14 +34,14 @@ class randomSpec extends AnyWordSpec {
             val strategy = new RandomStrategy
             val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.tilt = 0
+            controller.tilt = controller.Tilt.No
             strategy.decideBuildHouse(player, controller) shouldBe false
         }
         "not build a house when already 4 houses" in {
             val strategy = new RandomStrategy
             val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.tilt = 1
+            controller.tilt = controller.Tilt.Yes
             controller.buyCurrentProperty()
             controller.streets(0).buildings should be(0)
             controller.buildHouse(1)
@@ -54,14 +54,14 @@ class randomSpec extends AnyWordSpec {
             val strategy = new RandomStrategy
             val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.tilt = 0
+            controller.tilt = controller.Tilt.No
             strategy.decideBuildHouse(player, controller) shouldBe false
         }
         "build a hotel" in {
             val strategy = new RandomStrategy
             val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.tilt = 1
+            controller.tilt = controller.Tilt.Yes
             controller.buyCurrentProperty()
             controller.buildHouse(1)
             controller.buildHouse(1)
@@ -73,14 +73,14 @@ class randomSpec extends AnyWordSpec {
             val strategy = new RandomStrategy
             val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.tilt = 0
+            controller.tilt = controller.Tilt.No
             strategy.decideBuildHotel(player, controller) shouldBe false
         }
         "not build a hotel on a property with less than 4 houses" in {
             val strategy = new RandomStrategy
             val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.tilt = 1
+            controller.tilt = controller.Tilt.Yes
             controller.buyCurrentProperty()
             controller.streets(0).buildings should be(0)
             controller.buildHouse(1)
@@ -91,20 +91,20 @@ class randomSpec extends AnyWordSpec {
             val strategy = new RandomStrategy
             val player = Player("Red", position = 1, strategy = Some(strategy))
             val controller = new Controller(players = Vector(player))
-            controller.tilt = 0
+            controller.tilt = controller.Tilt.No
             strategy.decideBuildHotel(player, controller) shouldBe false
         }
         "out of jail" in {
             val player = Player("Blue", position = 10, inJail = true, strategy = Some(new RandomStrategy))
             val controller = new Controller(players = Vector(player))
-            controller.tilt = 1
+            controller.tilt = controller.Tilt.Yes
             controller.performAITurn(2, 3)
             controller.players(0).inJail should (be(false))
         }
         "not out of jail" in {
             val player = Player("Blue", position = 10, inJail = true, strategy = Some(new RandomStrategy))
             val controller = new Controller(players = Vector(player))
-            controller.tilt = 0
+            controller.tilt = controller.Tilt.No
             controller.performAITurn(2, 3)
             controller.players(0).inJail should (be(true))
         }

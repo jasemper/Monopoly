@@ -9,7 +9,7 @@ class BuyingSpec extends AnyWordSpec {
     "return Error indicating dice already rolled this turn" in {
       val controller = new Controller
       val state = new Buying
-      val result = state.rollDice(controller, 1, 2)
+      val result = state.rollDice(controller, Some(1), Some(2))
       result shouldBe Error("You already rolled this turn.")
     }
   }

@@ -9,7 +9,7 @@ class MovingSpec extends AnyWordSpec {
     "return Error because you can't roll while moving" in {
       val controller = new Controller
       val state = new Moving
-      val result = state.rollDice(controller, 1, 2)
+      val result = state.rollDice(controller, Some(1), Some(2))
       result shouldBe Error("You already rolled this turn.")
     }
   }

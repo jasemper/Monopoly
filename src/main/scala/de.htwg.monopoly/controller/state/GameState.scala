@@ -1,7 +1,7 @@
 package de.htwg.monopoly
 
 trait GameState {
-  def rollDice(controller: Controller, dice1: Int, dice2: Int): GameResult
+  def rollDice(controller: Controller, dice1: Option[Int] = None, dice2: Option[Int] = None): GameResult
   def move(controller: Controller, spaces: Int): GameResult
   def buy(controller: Controller): GameResult
   def buildHouse(controller: Controller, fieldNr: Int): GameResult
@@ -10,7 +10,8 @@ trait GameState {
 }
 
 
-sealed trait GameResult
+
+trait GameResult
 
 case class Success(spacesMoved: Option[Int] = None) extends GameResult
 case class Error(message: String) extends GameResult

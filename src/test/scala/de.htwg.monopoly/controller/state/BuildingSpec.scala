@@ -9,7 +9,7 @@ class BuildingSpec extends AnyWordSpec {
     "return Error indicating already moved and bought" in {
       val controller = new Controller
       val state = new Building
-      val result = state.rollDice(controller, 1, 2)
+      val result = state.rollDice(controller, Some(1), Some(2))
       result shouldBe Error("You already moved and bought.")
     }
   }

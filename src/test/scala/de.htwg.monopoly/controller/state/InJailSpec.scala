@@ -11,7 +11,7 @@ class InJailSpec extends AnyWordSpec {
       val controller = new Controller(players = Vector(player1))
       val state = new InJail
 
-      val result = state.rollDice(controller, 1, 1)
+      val result = state.rollDice(controller, Some(1), Some(1))
       result shouldBe Success(Some(2))
       controller.players(0).inJail shouldBe false
       controller.state shouldBe a [Buying]
@@ -22,8 +22,38 @@ class InJailSpec extends AnyWordSpec {
       val controller = new Controller(players = Vector(player1))
       val state = new InJail
 
-      val result = state.rollDice(controller, 1, 2)
-      result shouldBe Success(Some(3))
+      val result = state.rollDice(controller, Some(1), Some(2))
+      result shouldBe Success(None)
+      controller.players(0).inJail shouldBe true
+      controller.state shouldBe a [TurnEnded]
+    }
+    "stay in jail without pasch X None" in {
+      val player1 = Player("Blue", inJail = true)
+      val controller = new Controller(players = Vector(player1))
+      val state = new InJail
+
+      val result = state.rollDice(controller, Some(1), None)
+      result shouldBe Success(None)
+      controller.players(0).inJail shouldBe true
+      controller.state shouldBe a [TurnEnded]
+    }
+    "stay in jail without pasch None X" in {
+      val player1 = Player("Blue", inJail = true)
+      val controller = new Controller(players = Vector(player1))
+      val state = new InJail
+
+      val result = state.rollDice(controller, None, Some(1))
+      result shouldBe Success(None)
+      controller.players(0).inJail shouldBe true
+      controller.state shouldBe a [TurnEnded]
+    }
+    "stay in jail without pasch None None" in {
+      val player1 = Player("Blue", inJail = true)
+      val controller = new Controller(players = Vector(player1))
+      val state = new InJail
+
+      val result = state.rollDice(controller, None, None)
+      result shouldBe Success(None)
       controller.players(0).inJail shouldBe true
       controller.state shouldBe a [TurnEnded]
     }

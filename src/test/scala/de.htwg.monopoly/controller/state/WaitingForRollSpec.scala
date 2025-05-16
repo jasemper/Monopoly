@@ -16,21 +16,21 @@ class WaitingForRollSpec extends AnyWordSpec {
     "return Success with Some(4) when dice (1, 3) are passed" in {
       val controller = new Controller
       val state = new WaitingForRoll
-      val result = state.rollDice(controller, 1, 3)
+      val result = state.rollDice(controller, Some(1), Some(3))
       result shouldBe Success(Some(4))
     }
 
     "return Success with Some(5) when only d1 is passed" in {
       val controller = new Controller
       val state = new WaitingForRoll
-      val result = state.rollDice(controller, 5, -1)
+      val result = state.rollDice(controller, Some(5))
       result shouldBe Success(Some(5))
     }
 
     "return Success with Some(6) when only d2 is passed" in {
       val controller = new Controller
       val state = new WaitingForRoll
-      val result = state.rollDice(controller, -1, 6)
+      val result = state.rollDice(controller, None, Some(6))
       result shouldBe Success(Some(6))
     }
   }

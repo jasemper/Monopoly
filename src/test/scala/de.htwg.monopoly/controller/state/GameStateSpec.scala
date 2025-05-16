@@ -7,7 +7,11 @@ class GameStateSpec extends AnyWordSpec {
 
   // Since GameState is a trait, you can create a minimal dummy implementation for testing
   class DummyState extends GameState {
-    override def rollDice(controller: Controller, dice1: Int, dice2: Int): GameResult = Success(Some(dice1 + dice2))
+    override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = {
+      val d1 = dice1.getOrElse(0)
+      val d2 = dice2.getOrElse(0)
+      Success(Some(d1 + d2))
+    }
     override def move(controller: Controller, spaces: Int): GameResult = Success(Some(spaces))
     override def buy(controller: Controller): GameResult = Success()
     override def buildHouse(controller: Controller, fieldNr: Int): GameResult = Success()
@@ -19,7 +23,7 @@ class GameStateSpec extends AnyWordSpec {
     "return Success with the sum of dice on rollDice" in {
       val state = new DummyState
       val controller = new Controller
-      val result = state.rollDice(controller, 3, 4)
+      val result = state.rollDice(controller, Some(4), Some(3))
       result shouldBe Success(Some(7))
     }
 

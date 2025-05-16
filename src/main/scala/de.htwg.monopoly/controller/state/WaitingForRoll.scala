@@ -1,16 +1,21 @@
 package de.htwg.monopoly
 
 class WaitingForRoll extends GameState {
-  override def rollDice(controller: Controller, dice1: Int = -1, dice2: Int = -1): GameResult  = {
-    val spaces = (dice1, dice2) match {
-      case (-1, -1) => controller.rollDice(scala.util.Random.nextInt(6) + 1, scala.util.Random.nextInt(6) + 1)
-      case (-1, d2) => controller.rollDice(0, d2)
-      case (d1, -1) => controller.rollDice(d1, 0)
-      case (d1, d2) => controller.rollDice(d1, d2)
+  override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = {
+    val (d1, d2) = (dice1, dice2) match {
+      case (Some(d1), Some(d2)) => (d1, d2)
+      case (Some(d1), None)     => (d1, 0)
+      case (None, Some(d2))     => (0, d2)
+      case (None, None)         => (
+        scala.util.Random.nextInt(6) + 1,
+        scala.util.Random.nextInt(6) + 1
+      )
     }
+    val spaces = controller.rollDice(d1, d2)
     controller.setState(new Moving)
     Success(Some(spaces))
   }
+
 
   override def move(controller: Controller, spaces: Int): GameResult =
     Error("You must roll the dice before moving.")

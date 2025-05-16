@@ -1,7 +1,7 @@
 package de.htwg.monopoly
 
 class TurnEnded extends GameState {
-  override def rollDice(controller: Controller, dice1: Int, dice2: Int): GameResult =
+  override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = 
     Error("Wait for your next turn.")
 
   override def move(controller: Controller, spaces: Int): GameResult =

@@ -1,8 +1,17 @@
 package de.htwg.monopoly
 
 class InJail extends GameState {
-  override def rollDice(controller: Controller, dice1: Int, dice2: Int): GameResult = {
-    val spaces = controller.rollDice(dice1, dice2)
+  override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = {
+    val (d1, d2) = (dice1, dice2) match {
+      case (Some(d1), Some(d2)) => (d1, d2)
+      case (Some(d1), None)     => (d1, 0)
+      case (None, Some(d2))     => (0, d2)
+      case (None, None)         => (
+        scala.util.Random.nextInt(6) + 1,
+        scala.util.Random.nextInt(6) + 1
+      )
+    }
+    val spaces = controller.rollDice(d1, d2)
     if (controller.currentPlayer.pasch > 0) {
       controller.players = controller.players.updated(
         controller.currentPlayerIndex,
@@ -10,11 +19,13 @@ class InJail extends GameState {
       )
       controller.moveCurrentPlayer(spaces)
       controller.setState(new Buying)
+      Success(Some(spaces))
     } else {
       println("You didn’t roll a double. You're still in jail.")
       controller.setState(new TurnEnded)
+      Success(None)
     }
-    Success(Some(spaces))
+    
   }
 
   override def move(controller: Controller, spaces: Int): GameResult =

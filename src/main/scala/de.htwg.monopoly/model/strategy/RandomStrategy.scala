@@ -45,12 +45,11 @@ class RandomStrategy extends PlayerStrategy {
   }
 
   def getRandom(controller: Controller): Boolean = {
-    var random = Random.nextBoolean()
-    if (controller.tilt == 1) {
-      random = true
-    } else if (controller.tilt == 0) {
-      random = false
-    }
-    random
+  controller.tilt match {
+    case controller.Tilt.Yes    => true
+    case controller.Tilt.No     => false
+    case controller.Tilt.Random => scala.util.Random.nextBoolean()
   }
+}
+
 }

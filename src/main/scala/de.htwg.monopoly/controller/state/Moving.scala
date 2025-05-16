@@ -1,7 +1,7 @@
 package de.htwg.monopoly
 
 class Moving extends GameState {
-  override def rollDice(controller: Controller, dice1: Int, dice2: Int): GameResult =
+  override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = 
     Error("You already rolled this turn.")
 
   override def move(controller: Controller, spaces: Int): GameResult =

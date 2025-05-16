@@ -9,7 +9,7 @@ class TurnEndedSpec extends AnyWordSpec {
     "return Error indicating turn has ended" in {
       val controller = new Controller
       val state = new TurnEnded
-      val result = state.rollDice(controller, 1, 2)
+      val result = state.rollDice(controller, Some(1), Some(2))
       result shouldBe Error("Wait for your next turn.")
     }
   }
