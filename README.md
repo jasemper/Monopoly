@@ -1,16 +1,17 @@
 [![Coverage Status](https://coveralls.io/repos/github/jasemper/Monopoly/badge.svg?branch=master)](https://coveralls.io/github/jasemper/Monopoly?branch=master)
 ![GitHub last commit](https://img.shields.io/github/last-commit/jasemper/Monopoly)
 
-
-
-# BEFORE PUSHING, PULL
 # Monopoly written in Scala 3
 
+# ToDo:
 ## TOFIX:
 ### (no-pasch -> pasch)
 ### TUI sometimes missing??
 
-## TODO:
+## Abgabe:
+### state no print / no -1 -> enum
+
+## Implement:
 ### Build only when owned street and on field
 ### Correct property values
 ### Rent increase with hotels, houses, full streets, both companies
@@ -22,9 +23,6 @@
 ### Test all of the above
 ### Create a GUI
 ### Implement additional Event fields
-
-## abgabe
-### state no print / no -1 -> enum
 
 
 # Usage
