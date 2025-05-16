@@ -25,7 +25,6 @@
 
 ## abgabe
 ### state no print / no -1 -> enum
-### strategy return bool
 
 
 # Usage
