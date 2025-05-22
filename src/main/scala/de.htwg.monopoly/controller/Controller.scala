@@ -66,6 +66,7 @@ class Controller(
     streets = newStreets
     trains = newTrains
     utilities = newUtilities
+    markUndoPoint()
     notifyObservers
   }
 
@@ -112,6 +113,7 @@ class Controller(
       val updatedStreet = streets(index).copy(buildings = streets(index).buildings + 1)
       streets = streets.updated(index, updatedStreet)
     }
+    markUndoPoint()
     notifyObservers
   }
 
@@ -122,6 +124,7 @@ class Controller(
       val updatedStreet = streets(index).copy(hotels = streets(index).hotels + 1)
       streets = streets.updated(index, updatedStreet)
     }
+    markUndoPoint()
     notifyObservers
   }
 
@@ -195,10 +198,12 @@ class Controller(
 
   def undo(): Unit = {
     if (undoAllowed) undoManager.undoStep()
+    notifyObservers
   }
 
   def redo(): Unit = {
     if (undoAllowed) undoManager.redoStep()
+    notifyObservers
   }
 
   def restoreSnapshot(snapshot: GameSnapshot): Unit = {

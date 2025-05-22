@@ -14,7 +14,7 @@ class GameSnapshotCommand(controller: Controller, val before: GameSnapshot) exte
     controller.restoreSnapshot(before)
   }
 
-  def redoStep(): Unit = {
+  override def redoStep(): Unit = {
     after match {
       case Some(snapshot) => controller.restoreSnapshot(snapshot)
       case None => ()

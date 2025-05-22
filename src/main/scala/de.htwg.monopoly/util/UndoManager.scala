@@ -3,6 +3,7 @@ package de.htwg.monopoly
 trait Command {
   def doStep(): Unit
   def undoStep(): Unit
+  def redoStep(): Unit
 }
 
 class UndoManager {
@@ -28,8 +29,9 @@ class UndoManager {
   def redoStep(): Unit = {
     redoStack match {
       case Nil => // Nothing to redo
+        println("Nothing to redo")
       case head :: stack =>
-        head.doStep()
+        head.redoStep()
         redoStack = stack
         undoStack = head :: undoStack
     }
