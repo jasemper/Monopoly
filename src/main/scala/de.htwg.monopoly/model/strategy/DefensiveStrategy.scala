@@ -42,14 +42,9 @@ class DefensiveStrategy extends PlayerStrategy {
   }
 
   override def decideJail(player: Player, controller: Controller): Boolean = {
-    if (player.inJail && player.money > 500) {
-      return true
-    }
-    false
+    player.inJail && player.money > 500
   }
 
-  def streetIndexToFieldNumber(index: Int, controller: Controller): Int = {
-    Board.indexWhere(_._2 == controller.streets(index).name)
-  }
+  def streetIndexToFieldNumber(index: Int, controller: Controller): Int = Board.indexWhere(_._2 == controller.streets(index).name)
 
 }

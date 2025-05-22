@@ -9,7 +9,7 @@
 ### TUI sometimes missing??
 
 ## Abgabe:
-### state no print / no -1 -> enum
+### HUmen("color") should work
 
 ## Implement:
 ### Build only when owned street and on field
