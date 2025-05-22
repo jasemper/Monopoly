@@ -12,7 +12,7 @@ class dataSpec extends AnyWordSpec {
       InitStreets contains Street("Tennessee Avenue", None, 0, 0, "Orange") shouldBe true
     }
     "hold the data for trains" in {
-      InitTrains contains Railroad("B&O Railroad", None) shouldBe true
+      InitTrains contains Train("B&O Railroad", None) shouldBe true
     }
     "hold the data for utilities" in {
       InitUtilities contains Utility("Water Works", None) shouldBe true

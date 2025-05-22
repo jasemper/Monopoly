@@ -28,7 +28,7 @@ case class Street(
   rent: Int = 100
 ) extends Property
 
-case class Railroad(
+case class Train(
   name: String,
   owner: Option[String] = None,
   rent: Int = 100

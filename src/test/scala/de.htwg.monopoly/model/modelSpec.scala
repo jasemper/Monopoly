@@ -21,12 +21,12 @@ class modelSpec extends AnyWordSpec {
             str.hotels shouldBe 0
         }
         "be creatable with a name for Railroad" in {
-        val rr: Property = Railroad("Test Railroad", Some("Player"))
+        val rr: Property = Train("Test Railroad", Some("Player"))
         rr.name shouldBe "Test Railroad"
         rr.owner shouldBe Some("Player")
         }
         "create a railroad with base values" in {
-            val rr: Railroad = Railroad("Test Railroad")
+            val rr: Train = Train("Test Railroad")
             rr.owner shouldBe None
         }
         "be creatable with a name for Utility" in {

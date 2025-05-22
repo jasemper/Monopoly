@@ -40,11 +40,11 @@ val InitPlayers: Vector[Player] = Vector(
     Street("Boardwalk", None, 0, 0, "Dark Blue")
   )
 
-  val InitTrains: Vector[Railroad] = Vector(
-    Railroad("Reading Railroad", None),
-    Railroad("Pennsylvania Railroad", None),
-    Railroad("B&O Railroad", None),
-    Railroad("Short Line", None)
+  val InitTrains: Vector[Train] = Vector(
+    Train("Reading Railroad", None),
+    Train("Pennsylvania Railroad", None),
+    Train("B&O Railroad", None),
+    Train("Short Line", None)
   )
 
   val InitUtilities: Vector[Utility] = Vector(

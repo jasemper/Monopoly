@@ -3,13 +3,17 @@ package de.htwg.monopoly
 class Controller(
     var players: Vector[Player] = InitPlayers,
     var streets: Vector[Street] = InitStreets,
-    var trains: Vector[Railroad] = InitTrains,
+    var trains: Vector[Train] = InitTrains,
     var utilities: Vector[Utility] = InitUtilities,
     var currentPlayerIndex: Int = 0,
     var state: GameState = new WaitingForRoll) extends Observable{
 
   enum Tilt: 
     case Yes, No, Random
+
+  val undoManager = new UndoManager()
+  var undoAllowed: Boolean = false
+
 
   def currentPlayer: Player = players(currentPlayerIndex)
   var tilt: Tilt = Tilt.Random // Debugging purposes: Yes more likle random true; No more likely random false; random random random
@@ -147,10 +151,86 @@ class Controller(
   }
 
   def setState(newState: GameState): Unit = {
-    state = newState
+  state = newState
+  newState match {
+    case _: Buying =>
+      onEnterBuyingState()
+    case _: TurnEnded =>
+      onExitTurn()
+    case _ =>
   }
+}
 
-  def getGameState: (Vector[Player], Vector[Street], Vector[Railroad], Vector[Utility]) = {
+  def getGameState: (Vector[Player], Vector[Street], Vector[Train], Vector[Utility]) = {
     (players, streets, trains, utilities)
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  def createSnapshot(): GameSnapshot = GameSnapshot(players, streets, trains, utilities, currentPlayerIndex, state)
+
+  def markUndoPoint(): Unit = {
+    if (undoAllowed) {
+      val snapshot = createSnapshot()
+      undoManager.doStep(new GameSnapshotCommand(this, snapshot))
+    }
+  }
+
+  def undo(): Unit = {
+    if (undoAllowed) undoManager.undoStep()
+  }
+
+  def redo(): Unit = {
+    if (undoAllowed) undoManager.redoStep()
+  }
+
+  def restoreSnapshot(snapshot: GameSnapshot): Unit = {
+    this.players = snapshot.players
+    this.streets = snapshot.streets
+    this.trains = snapshot.trains
+    this.utilities = snapshot.utilities
+    this.currentPlayerIndex = snapshot.currentPlayerIndex
+    this.state = snapshot.gameState
+  }
+
+  def onEnterBuyingState(): Unit = {
+    undoAllowed = true
+    markUndoPoint()
+  }
+
+  def onExitTurn(): Unit = {
+    undoAllowed = false
+    undoManager.clear()
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

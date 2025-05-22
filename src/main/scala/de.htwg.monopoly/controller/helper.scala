@@ -1,6 +1,6 @@
 package de.htwg.monopoly
 
-def getOwner(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]): String = {
+def getOwner(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Train], Utilities: Vector[Utility]): String = {
     if (fieldNr < 0 || fieldNr >= Board.length) return ""
 
     val fieldName = Board(fieldNr)._2
@@ -10,13 +10,13 @@ def getOwner(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Ut
       .orElse(Utilities.find(_.name == fieldName).flatMap(_.owner))
       .getOrElse("")
   }
-  def getHouses(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]): Int = {
+  def getHouses(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Train], Utilities: Vector[Utility]): Int = {
     if (fieldNr < 0 || fieldNr >= Board.length) return 0
     val fieldName = Board(fieldNr)._2
     Streets.find(_.name == fieldName).map(_.buildings)
       .getOrElse(0)
   }
-  def getHotels(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]): Int = {
+  def getHotels(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Train], Utilities: Vector[Utility]): Int = {
     if (fieldNr < 0 || fieldNr >= Board.length) return 0
     val fieldName = Board(fieldNr)._2
     Streets.find(_.name == fieldName).map(_.hotels)
@@ -45,7 +45,7 @@ def getOwner(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Ut
     updatedPlayers.updated(index, updatedPlayers(index).copy(position = newPosition))
   }
 
-  def giveOwner(player: Player, fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]): (Vector[Street], Vector[Railroad], Vector[Utility]) = {
+  def giveOwner(player: Player, fieldNr: Int, Streets: Vector[Street], Trains: Vector[Train], Utilities: Vector[Utility]): (Vector[Street], Vector[Train], Vector[Utility]) = {
       val streetnrs = Array(1, 3, 6, 8, 9, 11, 13, 14, 16, 18, 19, 21, 23, 24, 26, 27, 29, 31, 32, 34, 37, 39)
       val trainnrs = Array(5, 15, 25, 35)
 
@@ -70,7 +70,7 @@ def getOwner(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Ut
       (updatedStreets, updatedTrains, updatedUtilities)
     }
 
-  def getRent(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Railroad], Utilities: Vector[Utility]): Int = {
+  def getRent(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Train], Utilities: Vector[Utility]): Int = {
     if (fieldNr < 0 || fieldNr >= Board.length) return 0
     val fieldName = Board(fieldNr)._2
 

@@ -23,7 +23,7 @@ class Tui(controller: Controller) extends Observer {
         while (continue) {
 
           println(s"\n${player.color}'s turn (Human):")
-          println("Enter command: move [X] [Y] | buy | buildhouse X | buildhotel X | end | exit")
+          println("Enter command: move [X] [Y] | buy | buildhouse X | buildhotel X | undo | redo | end | exit")
           val input = readLine()
           val parts = input.trim.split(" ")
 
@@ -64,6 +64,10 @@ class Tui(controller: Controller) extends Observer {
             case "exit" =>
               continue = false
               run = false
+            case "undo" =>
+              controller.undo()
+            case "redo" =>
+              controller.redo()
             case _ =>
               println("Invalid command.")
           }
