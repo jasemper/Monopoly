@@ -5,16 +5,15 @@
 
 # ToDo:
 ## TOFIX:
-### (no-pasch -> pasch)
 
 ## Abgabe:
-### HUmen("color") should work
 
 ## Implement:
 ### Build only when owned street and on field
 ### Correct property values
 ### Rent increase with hotels, houses, full streets, both companies
 ### Roll again (only) after pasch
+### (no-pasch -> pasch)
 ### Player can roll dice
 ### Player can goto Jail (field)
 ### Player can leave Jail (money after 3 rounds)

@@ -4,18 +4,18 @@ trait PlayerFactory {
   def apply(color: String): Player
 }
 
-class Human extends PlayerFactory {
+object Human extends PlayerFactory {
   def apply(color: String): Player = Player(color, strategy = None)
 }
 
-class AggressiveAI extends PlayerFactory {
+object AggressiveAI extends PlayerFactory {
   def apply(color: String): Player = Player(color, strategy = Some(new AggressiveStrategy))
 }
 
-class DefensiveAI extends PlayerFactory {
+object DefensiveAI extends PlayerFactory {
   def apply(color: String): Player = Player(color, strategy = Some(new DefensiveStrategy))
 }
 
-class RandomAI extends PlayerFactory {
+object RandomAI extends PlayerFactory {
   def apply(color: String): Player = Player(color, strategy = Some(new RandomStrategy))
 }
