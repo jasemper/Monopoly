@@ -44,8 +44,8 @@ class Tui(controller: Controller) extends Observer {
                     case Error(msg) =>
                       println(s"Roll failed: $msg")
                   }
-                case Failure(_) =>
-                  println(s"Invalid number format: ${parts(1)}")
+                case Failure(exception) =>
+                  println(s"Invalid number format: ${exception.getMessage}")
               }
 
             case "move" if parts.length == 3 =>
@@ -62,8 +62,8 @@ class Tui(controller: Controller) extends Observer {
                     case Error(msg) =>
                       println(s"Roll failed: $msg")
                   }
-                case Failure(_) =>
-                  println(s"Invalid number format: ${parts(1)}, ${parts(2)}")
+                case Failure(exception) =>
+                  println(s"Invalid number format: ${exception.getMessage} in \"move ${parts(1)} ${parts(2)}\"")
               }
 
             case "buy" =>
