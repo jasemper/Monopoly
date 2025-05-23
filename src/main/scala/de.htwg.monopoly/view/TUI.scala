@@ -1,6 +1,7 @@
 package de.htwg.monopoly
 
 import scala.io.StdIn.readLine
+import scala.util.{Try, Failure}
 
 class Tui(controller: Controller) extends Observer {
   controller.add(this)
@@ -34,20 +35,35 @@ class Tui(controller: Controller) extends Observer {
                   println(s"Roll failed: $msg")
               }
 
-            case "move" if parts.length == 2 && parts(1).forall(_.isDigit) =>
-              controller.state.rollDice(controller, Some(parts(1).toInt)) match {
-                case Success(Some(spaces)) =>
-                  controller.state.move(controller, spaces)
-                case Error(msg) =>
-                  println(s"Roll failed: $msg")
+            case "move" if parts.length == 2 =>
+              Try(parts(1).toInt) match {
+                case scala.util.Success(die1) =>
+                  controller.state.rollDice(controller, Some(die1)) match {
+                    case Success(Some(spaces)) =>
+                      controller.state.move(controller, spaces)
+                    case Error(msg) =>
+                      println(s"Roll failed: $msg")
+                  }
+                case Failure(_) =>
+                  println(s"Invalid number format: ${parts(1)}")
               }
 
-            case "move" if parts.length == 3 && parts(1).forall(_.isDigit) && parts(2).forall(_.isDigit) =>
-              controller.state.rollDice(controller, Some(parts(1).toInt), Some(parts(2).toInt)) match {
-                case Success(Some(spaces)) =>
-                  controller.state.move(controller, spaces)
-                case Error(msg) =>
-                  println(s"Roll failed: $msg")
+            case "move" if parts.length == 3 =>
+              val diceTry = for {
+                d1 <- Try(parts(1).toInt)
+                d2 <- Try(parts(2).toInt)
+              } yield (d1, d2)
+
+              diceTry match {
+                case scala.util.Success((die1, die2)) =>
+                  controller.state.rollDice(controller, Some(die1), Some(die2)) match {
+                    case Success(Some(spaces)) => // your custom Success
+                      controller.state.move(controller, spaces)
+                    case Error(msg) =>
+                      println(s"Roll failed: $msg")
+                  }
+                case Failure(_) =>
+                  println(s"Invalid number format: ${parts(1)}, ${parts(2)}")
               }
 
             case "buy" =>
