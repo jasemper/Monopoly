@@ -50,10 +50,11 @@ class InJailSpec extends AnyWordSpec {
     "stay in jail without pasch None None" in {
       val player1 = Player("Blue", inJail = true)
       val controller = new Controller(players = Vector(player1))
-      val state = new InJail
+      var state = new InJail
       var result = state.rollDice(controller, None, None)
 
       while (result != Success(None)) {
+        state = new InJail
         result = state.rollDice(controller, None, None)
       } //Sorry, but this is the only way to get this "test" out of the way
       

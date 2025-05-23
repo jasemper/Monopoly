@@ -51,6 +51,21 @@ class TUISpec extends AnyWordSpec {
             val output = outContent.toString
             output should include("|  2 | Event                 |         |   0   |   0   | Blue")
         }
+        "show an error on invalid number format" in {
+            val player = Player("Blue")
+            val player2 = Player("Green")
+            val controller = new Controller(players = Vector(player, player2))
+            val tui = new Tui(controller)
+            val simulatedInput = new ByteArrayInputStream("move 1.5\nexit\n".getBytes)
+            val outContent = new ByteArrayOutputStream()
+            Console.withIn(simulatedInput) {
+                Console.withOut(new PrintStream(outContent)) {
+                    tui.devPlay()
+                }
+            }
+            val output = outContent.toString
+            output should include("Invalid number format")
+        }
         "show updated random player position" in {
             val player = Player("Blue")
             val player2 = Player("Green")
@@ -80,6 +95,21 @@ class TUISpec extends AnyWordSpec {
             }
             val output = outContent.toString
             output should include("|  3 | Baltic Avenue         |         |   0   |   0   | Blue")
+        }
+        "show error on invalid number format" in {
+            val player = Player("Blue")
+            val player2 = Player("Green")
+            val controller = new Controller(players = Vector(player, player2))
+            val tui = new Tui(controller)
+            val simulatedInput = new ByteArrayInputStream("move 1 2.5\nexit\n".getBytes)
+            val outContent = new ByteArrayOutputStream()
+            Console.withIn(simulatedInput) {
+                Console.withOut(new PrintStream(outContent)) {
+                    tui.devPlay()
+                }
+            }
+            val output = outContent.toString
+            output should include("Invalid number format")
         }
         "show bought properties" in {
             val player = Player("Blue")
