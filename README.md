@@ -6,7 +6,6 @@
 # ToDo:
 ## TOFIX:
 ### (no-pasch -> pasch)
-### TUI sometimes missing??
 
 ## Abgabe:
 ### HUmen("color") should work
@@ -16,11 +15,9 @@
 ### Correct property values
 ### Rent increase with hotels, houses, full streets, both companies
 ### Roll again (only) after pasch
-### Player loose money moving onto pay fields
 ### Player can roll dice
 ### Player can goto Jail (field)
 ### Player can leave Jail (money after 3 rounds)
-### Test all of the above
 ### Create a GUI
 ### Implement additional Event fields
 
