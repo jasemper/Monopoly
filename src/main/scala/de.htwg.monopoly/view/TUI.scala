@@ -39,7 +39,7 @@ class Tui(controller: Controller) extends Observer {
               Try(parts(1).toInt) match {
                 case scala.util.Success(die1) =>
                   controller.state.rollDice(controller, Some(die1)) match {
-                    case Success(Some(spaces)) =>
+                    case Success(Some(spaces)) => //Own Success from Gamestate -- Rename
                       controller.state.move(controller, spaces)
                     case Error(msg) =>
                       println(s"Roll failed: $msg")
@@ -57,7 +57,7 @@ class Tui(controller: Controller) extends Observer {
               diceTry match {
                 case scala.util.Success((die1, die2)) =>
                   controller.state.rollDice(controller, Some(die1), Some(die2)) match {
-                    case Success(Some(spaces)) => // your custom Success
+                    case Success(Some(spaces)) => //Own Success from Gamestate -- Rename
                       controller.state.move(controller, spaces)
                     case Error(msg) =>
                       println(s"Roll failed: $msg")
