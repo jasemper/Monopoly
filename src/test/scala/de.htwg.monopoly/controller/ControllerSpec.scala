@@ -256,4 +256,47 @@ class ControllerSpec extends AnyWordSpec {
       controller.streets(0).hotels should be(0)
     }
   }
+  "undo" should {
+    "undo the last action" in {
+      val player = Player("Blue", position = 3)
+      val controller = new Controller(players = Vector(player))
+      controller.setState(new Buying())
+      controller.buyCurrentProperty()
+      controller.getCurrentOwner should be("Blue")
+      controller.undo()
+      controller.undo()
+      controller.getCurrentOwner should be("")
+    }
+    "not undo moves" in {
+      val player = Player("Blue", position = 0)
+      val controller = new Controller(players = Vector(player))
+      controller.moveCurrentPlayer(5)
+      controller.players(0).position should be(5)
+      controller.undo()
+      controller.players(0).position should be(5)
+    }
+  }
+  "redo" should {
+    "undo the last action" in {
+      val player = Player("Blue", position = 3)
+      val controller = new Controller(players = Vector(player))
+      controller.setState(new Buying())
+      controller.buyCurrentProperty()
+      controller.getCurrentOwner should be("Blue")
+      controller.undo()
+      controller.undo()
+      controller.getCurrentOwner should be("")
+      controller.redo()
+      controller.redo()
+      controller.getCurrentOwner should be("Blue")
+    }
+    "not redo moves" in {
+      val player = Player("Blue", position = 0)
+      val controller = new Controller(players = Vector(player))
+      controller.moveCurrentPlayer(5)
+      controller.players(0).position should be(5)
+      controller.redo()
+      controller.players(0).position should be(5)
+    }
+  }
 }

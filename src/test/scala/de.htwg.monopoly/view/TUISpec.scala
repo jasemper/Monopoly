@@ -195,5 +195,35 @@ class TUISpec extends AnyWordSpec {
             val output = outContent.toString
             output should include("You already rolled this turn.")
         }
+        "undo a buy" in {
+            val player = Player("Blue")
+            val player2 = Player("Green")
+            val controller = new Controller(players = Vector(player,player2))
+            val tui = new Tui(controller)
+            val simulatedInput = new ByteArrayInputStream("move 1\nbuy\nundo\nexit\n".getBytes)
+            val outContent = new ByteArrayOutputStream()
+            Console.withIn(simulatedInput) {
+                Console.withOut(new PrintStream(outContent)) {
+                    tui.devPlay()
+                }
+            }
+            val output = outContent.toString
+            output should include("undo")
+        }
+        "redo a buy" in {
+            val player = Player("Blue")
+            val player2 = Player("Green")
+            val controller = new Controller(players = Vector(player,player2))
+            val tui = new Tui(controller)
+            val simulatedInput = new ByteArrayInputStream("move 1\nbuy\nundo\nredo\nexit\n".getBytes)
+            val outContent = new ByteArrayOutputStream()
+            Console.withIn(simulatedInput) {
+                Console.withOut(new PrintStream(outContent)) {
+                    tui.devPlay()
+                }
+            }
+            val output = outContent.toString
+            output should include("redo")
+        }
     }
 }

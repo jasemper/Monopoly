@@ -154,38 +154,19 @@ class Controller(
   }
 
   def setState(newState: GameState): Unit = {
-  state = newState
-  newState match {
-    case _: Buying =>
-      onEnterBuyingState()
-    case _: TurnEnded =>
-      onExitTurn()
-    case _ =>
+    state = newState
+    newState match {
+      case _: Buying =>
+        onEnterBuyingState()
+      case _: TurnEnded =>
+        onExitTurn()
+      case _ =>
+    }
   }
-}
 
   def getGameState: (Vector[Player], Vector[Street], Vector[Train], Vector[Utility]) = {
     (players, streets, trains, utilities)
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   def createSnapshot(): GameSnapshot = GameSnapshot(players, streets, trains, utilities, currentPlayerIndex, state)
 
@@ -224,18 +205,4 @@ class Controller(
     undoAllowed = false
     undoManager.clear()
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

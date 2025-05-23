@@ -7,18 +7,18 @@ trait Command {
 }
 
 class UndoManager {
-  private var undoStack: List[Command] = Nil
-  private var redoStack: List[Command] = Nil
+  var undoStack: List[Command] = Nil
+  var redoStack: List[Command] = Nil
 
   def doStep(command: Command): Unit = {
     undoStack = command :: undoStack
-    redoStack = Nil // Clear redo on new action
+    redoStack = Nil
     command.doStep()
   }
 
   def undoStep(): Unit = {
     undoStack match {
-      case Nil => // Nothing to undo
+      case Nil =>
       case head :: stack =>
         head.undoStep()
         undoStack = stack
@@ -28,8 +28,7 @@ class UndoManager {
 
   def redoStep(): Unit = {
     redoStack match {
-      case Nil => // Nothing to redo
-        println("Nothing to redo")
+      case Nil =>
       case head :: stack =>
         head.redoStep()
         redoStack = stack

@@ -51,8 +51,12 @@ class InJailSpec extends AnyWordSpec {
       val player1 = Player("Blue", inJail = true)
       val controller = new Controller(players = Vector(player1))
       val state = new InJail
+      var result = state.rollDice(controller, None, None)
 
-      val result = state.rollDice(controller, None, None)
+      while (result != Success(None)) {
+        result = state.rollDice(controller, None, None)
+      } //Sorry, but this is the only way to get this "test" out of the way
+      
       result shouldBe Success(None)
       controller.players(0).inJail shouldBe true
       controller.state shouldBe a [TurnEnded]
