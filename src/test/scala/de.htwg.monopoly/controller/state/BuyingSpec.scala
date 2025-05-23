@@ -34,20 +34,20 @@ class BuyingSpec extends AnyWordSpec {
   }
 
   "buildHouse" should {
-    "return Error indicating must buy or end turn before building" in {
+    "return Success after building house" in {
       val controller = new Controller
       val state = new Buying
       val result = state.buildHouse(controller, 1)
-      result shouldBe Error("You must buy or end turn before building.")
+      result shouldBe Success()
     }
   }
 
   "buildHotel" should {
-    "return Error indicating must buy or end turn before building" in {
+    "return Success after building hotel" in {
       val controller = new Controller
       val state = new Buying
       val result = state.buildHotel(controller, 1)
-      result shouldBe Error("You must buy or end turn before building.")
+      result shouldBe Success()
     }
   }
 

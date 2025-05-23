@@ -15,8 +15,6 @@ class Tui(controller: Controller) extends Observer {
         println("Calculating move...")
         controller.performAITurn()
 
-        //Thread.sleep(1000)
-
         controller.state.endTurn(controller)
       } else {
         var continue = true
@@ -102,5 +100,10 @@ class Tui(controller: Controller) extends Observer {
     }
     return strOut
   }
-  override def update: Unit = println(statusReport())
+  override def update: Unit = println(
+    statusReport() +
+    controller.undoManager.undoStack.size + " undo steps available\n" +
+    controller.undoManager.redoStack.size + " redo steps available\n" +
+    controller.state.toString()
+    )
 }

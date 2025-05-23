@@ -13,11 +13,17 @@ class Buying extends GameState {
     Success()
   }
 
-  override def buildHouse(controller: Controller, fieldNr: Int): GameResult =
-    Error("You must buy or end turn before building.")
+  override def buildHouse(controller: Controller, fieldNr: Int): GameResult = {
+    controller.buildHouse(fieldNr)
+    controller.setState(new Building)
+    Success()
+  }
 
-  override def buildHotel(controller: Controller, fieldNr: Int): GameResult =
-    Error("You must buy or end turn before building.")
+  override def buildHotel(controller: Controller, fieldNr: Int): GameResult = {
+    controller.buildHotel(fieldNr)
+    controller.setState(new Building)
+    Success()
+  }
 
   override def endTurn(controller: Controller): GameResult = {
     controller.nextTurn()
