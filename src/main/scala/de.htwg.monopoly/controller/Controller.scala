@@ -151,6 +151,7 @@ class Controller(
         //Thread.sleep(1000)
       }
     }
+    undoManager.clear()
   }
 
   def setState(newState: GameState): Unit = {

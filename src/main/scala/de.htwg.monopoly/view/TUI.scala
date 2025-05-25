@@ -114,12 +114,13 @@ class Tui(controller: Controller) extends Observer {
       val playersString = if (playersOnField.isEmpty) "" else playersOnField.mkString(", ")
       strOut += f"| ${fieldNr}%2d | ${fieldName}%-22s| ${owner}%-8s|   ${houses}%1d   |   ${hotels}%1d   | ${playersString}%-7s\n"
     }
+    strOut += "\n" +
+      controller.undoManager.undoStack.size + " undo steps available\n" +
+      controller.undoManager.redoStack.size + " redo steps available\n"
     return strOut
   }
   override def update: Unit = println(
     statusReport() +
-    controller.undoManager.undoStack.size + " undo steps available\n" +
-    controller.undoManager.redoStack.size + " redo steps available\n" +
     controller.state.toString()
     )
 }
