@@ -6,7 +6,7 @@ import scala.util.{Try, Failure}
 class Tui(controller: Controller) extends Observer {
   controller.add(this)
 
-  def devPlay(): Unit = {
+  def runInputLoop(): Unit = {
     var run = true
     while (controller.getWinnerIfAny.isEmpty && run) {
       val player = controller.currentPlayer
@@ -15,12 +15,10 @@ class Tui(controller: Controller) extends Observer {
         println(s"\n${player.color}'s turn (AI):")
         println("Calculating move...")
         controller.performAITurn()
-
         controller.state.endTurn(controller)
       } else {
         var continue = true
         while (continue) {
-
           println(s"\n${player.color}'s turn (Human):")
           println("Enter command: move [X] [Y] | buy | buildhouse [X] | buildhotel [X] | undo | redo | end | exit")
           val input = readLine()
@@ -39,7 +37,7 @@ class Tui(controller: Controller) extends Observer {
               Try(parts(1).toInt) match {
                 case scala.util.Success(die1) =>
                   controller.state.rollDice(controller, Some(die1)) match {
-                    case Success(Some(spaces)) => //Own Success from Gamestate -- Rename
+                    case Success(Some(spaces)) =>
                       controller.state.move(controller, spaces)
                     case Error(msg) =>
                       println(s"Roll failed: $msg")
@@ -57,7 +55,7 @@ class Tui(controller: Controller) extends Observer {
               diceTry match {
                 case scala.util.Success((die1, die2)) =>
                   controller.state.rollDice(controller, Some(die1), Some(die2)) match {
-                    case Success(Some(spaces)) => //Own Success from Gamestate -- Rename
+                    case Success(Some(spaces)) =>
                       controller.state.move(controller, spaces)
                     case Error(msg) =>
                       println(s"Roll failed: $msg")
@@ -90,8 +88,6 @@ class Tui(controller: Controller) extends Observer {
     }
   }
 
-
-
   def statusReport(): String = {
     val (players, streets, trains, utilities) = controller.getGameState
 
@@ -102,7 +98,6 @@ class Tui(controller: Controller) extends Observer {
 
     strOut += "\nCurrent Game Board Status:\n| Nr | Field                 | Owner   | House | Hotel | Players on field\n"
     for ((fieldNr, fieldName) <- Board) {
-      val ownerx = controller.getCurrentOwner
       val owner = streets.find(_.name == fieldName).flatMap(_.owner).getOrElse(
         trains.find(_.name == fieldName).flatMap(_.owner).getOrElse(
           utilities.find(_.name == fieldName).flatMap(_.owner).getOrElse("")
@@ -117,10 +112,11 @@ class Tui(controller: Controller) extends Observer {
     strOut += "\n" +
       controller.undoManager.undoStack.size + " undo steps available\n" +
       controller.undoManager.redoStack.size + " redo steps available\n"
-    return strOut
+    strOut
   }
+
   override def update: Unit = println(
     statusReport() +
     controller.state.toString()
-    )
+  )
 }

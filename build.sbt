@@ -9,8 +9,11 @@ lazy val root = project
 
     scalaVersion := scala3Version,
 
-    libraryDependencies += "org.scalactic" %% "scalactic" % "3.2.14",
-    libraryDependencies +="org.scalatest" %% "scalatest" % "3.2.14" % Test,
+    libraryDependencies ++= Seq(
+      "org.scalactic" %% "scalactic" % "3.2.14",
+      "org.scalatest" %% "scalatest" % "3.2.14" % Test,
+      "org.scala-lang.modules" %% "scala-swing" % "3.0.0" // ← Add this line
+    ),
 
     coverageEnabled := true
   )
