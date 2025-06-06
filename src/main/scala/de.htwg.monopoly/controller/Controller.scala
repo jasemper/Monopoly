@@ -176,7 +176,7 @@ class Controller(
     (players, streets, trains, utilities)
   }
 
-  def createSnapshot(): GameSnapshot = GameSnapshot(players, streets, trains, utilities, currentPlayerIndex, state)
+  def createSnapshot(): GameSnapshot = GameSnapshot(players, streets, trains, utilities, currentPlayerIndex, state.getState)
 
   def markUndoPoint(): Unit = {
     if (undoAllowed) {
@@ -201,7 +201,15 @@ class Controller(
     this.trains = snapshot.trains
     this.utilities = snapshot.utilities
     this.currentPlayerIndex = snapshot.currentPlayerIndex
-    this.state = snapshot.gameState
+    val stateenum = snapshot.gameState
+    this.state = stateenum match {
+      case GameStateEnum.WaitingForRoll => new WaitingForRoll
+      case GameStateEnum.Moving => new Moving
+      case GameStateEnum.Buying => new Buying
+      case GameStateEnum.Building => new Building
+      case GameStateEnum.TurnEnded => new TurnEnded
+      case GameStateEnum.InJail => new InJail
+    }
   }
 
   def onEnterBuyingState(): Unit = {

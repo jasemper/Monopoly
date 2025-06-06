@@ -1,7 +1,11 @@
 package de.htwg.monopoly.controller.state
 import de.htwg.monopoly.controller.Controller
+import de.htwg.monopoly.model.GameStateEnum
 
 class Moving extends GameState {
+
+  override def getState: GameStateEnum = GameStateEnum.Moving
+  
   override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = 
     Error("You already rolled this turn.")
 

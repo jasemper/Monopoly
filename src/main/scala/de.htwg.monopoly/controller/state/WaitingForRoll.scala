@@ -1,7 +1,10 @@
 package de.htwg.monopoly.controller.state
 import de.htwg.monopoly.controller.Controller
+import de.htwg.monopoly.model.GameStateEnum
 
 class WaitingForRoll extends GameState {
+
+  override def getState: GameStateEnum = GameStateEnum.WaitingForRoll
   override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = {
     val (d1, d2) = (dice1, dice2) match {
       case (Some(d1), Some(d2)) => (d1, d2)
