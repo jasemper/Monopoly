@@ -28,7 +28,7 @@ object MonopolyGame {
 
     // Start TUI input loop in a separate thread
     val tuiThread = new Thread(() => {
-      tui.runInputLoop()  // this reads user input in console and sends commands to controller
+      tui.devPlay()  // this reads user input in console and sends commands to controller
     })
     tuiThread.setDaemon(true)
     tuiThread.start()

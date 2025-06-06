@@ -6,7 +6,7 @@ import scala.util.{Try, Failure}
 class Tui(controller: Controller) extends Observer {
   controller.add(this)
 
-  def runInputLoop(): Unit = {
+  def devPlay(): Unit = {
     var run = true
     while (controller.getWinnerIfAny.isEmpty && run) {
       val player = controller.currentPlayer
