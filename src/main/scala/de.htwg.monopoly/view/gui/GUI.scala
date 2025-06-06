@@ -138,17 +138,14 @@ class Gui(controller: Controller) extends Observer {
     case _        => Color.BLACK
   }
 
-  override def update: Unit = SwingUtilities.invokeLater(() => {
+  def updategui: Unit = SwingUtilities.invokeLater(() => {
     val (players, streets, trains, utilities) = controller.getGameState
 
-
     statusPanel.removeAll()
-
 
     val title = new JLabel("Current Player Status:")
     title.setFont(new Font("Arial", Font.BOLD, 14))
     statusPanel.add(title)
-
 
     val header = new JPanel(new GridLayout(1, 4))
     header.add(new JLabel("Name"))
@@ -156,7 +153,6 @@ class Gui(controller: Controller) extends Observer {
     header.add(new JLabel("Position"))
     header.add(new JLabel("In Jail"))
     statusPanel.add(header)
-
 
     for (player <- players) {
       val row = new JPanel(new GridLayout(1, 4))
@@ -191,4 +187,8 @@ class Gui(controller: Controller) extends Observer {
       setButtonsEnabled(true)
     }
   })
+
+  override def update: Unit = {
+    updategui
+  }
 }
