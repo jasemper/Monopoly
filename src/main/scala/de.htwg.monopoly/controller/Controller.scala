@@ -16,7 +16,7 @@ class Controller(
 
 
   def currentPlayer: Player = players(currentPlayerIndex)
-  var tilt: Tilt = Tilt.Random // Debugging purposes: Yes more likle random true; No more likely random false; random random random
+  var tilt: Tilt = Tilt.Random
 
   def rollDice(dice1: Int = scala.util.Random.nextInt(6) + 1, dice2: Int = scala.util.Random.nextInt(6) + 1): Int = {
     val total = dice1 + dice2
@@ -132,10 +132,10 @@ class Controller(
     currentPlayer.strategy.foreach { strategy =>
       val spaces = rollDice(dice1, dice2)
       moveCurrentPlayer(spaces)
-      //Thread.sleep(1000)
+
       if (getCurrentOwner == "") {
         if strategy.decideBuy(currentPlayer, this) then buyCurrentProperty()
-        //Thread.sleep(1000)
+
       }
       if (currentPlayer.color == getCurrentOwner) {
         if (strategy.decideBuildHouse(currentPlayer, this)){
@@ -144,11 +144,11 @@ class Controller(
         if (strategy.decideBuildHotel(currentPlayer, this)) {
           buildHotel(currentPlayer.position)
         }
-        //Thread.sleep(1000)
+
       }
       if (currentPlayer.inJail) {
         if strategy.decideJail(currentPlayer, this) then payJailFee()
-        //Thread.sleep(1000)
+
       }
     }
     undoManager.clear()

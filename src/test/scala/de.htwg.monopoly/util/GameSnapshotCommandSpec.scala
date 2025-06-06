@@ -10,14 +10,14 @@ class GameSnapshotCommandSpec extends AnyWordSpec {
             val initialSnapshot = controller.createSnapshot()
             val command = new GameSnapshotCommand(controller, initialSnapshot)
 
-            // Simulate some changes in the game state
+
             controller.state.rollDice(controller)
             controller.state.move(controller, 3)
 
-            // Undo the changes
+
             command.undoStep()
 
-            // Verify that the game state is restored to the snapshot
+
             controller.createSnapshot() shouldEqual initialSnapshot
         }
     }
@@ -27,14 +27,14 @@ class GameSnapshotCommandSpec extends AnyWordSpec {
             val initialSnapshot = controller.createSnapshot()
             val command = new GameSnapshotCommand(controller, initialSnapshot)
 
-            // Simulate some changes in the game state
+
             controller.state.rollDice(controller)
             controller.state.move(controller, 3)
 
-            // Undo the changes
+
             command.redoStep()
 
-            // Verify that the game state is restored to the snapshot
+
             controller.createSnapshot() should not equal initialSnapshot
         }
     }
@@ -44,14 +44,14 @@ class GameSnapshotCommandSpec extends AnyWordSpec {
             val initialSnapshot = controller.createSnapshot()
             val command = new GameSnapshotCommand(controller, initialSnapshot)
 
-            // Simulate some changes in the game state
+
             controller.state.rollDice(controller)
             controller.state.move(controller, 3)
 
-            // Create a new snapshot
+
             command.doStep()
 
-            // Verify that the new snapshot is different from the initial snapshot
+
             controller.getGameState should not equal initialSnapshot
         }
     }

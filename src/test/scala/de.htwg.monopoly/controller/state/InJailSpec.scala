@@ -56,7 +56,7 @@ class InJailSpec extends AnyWordSpec {
       while (result != Success(None)) {
         state = new InJail
         result = state.rollDice(controller, None, None)
-      } //Sorry, but this is the only way to get this "test" out of the way
+      }
       
       result shouldBe Success(None)
       controller.players(0).inJail shouldBe true

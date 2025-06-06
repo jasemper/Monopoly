@@ -6,24 +6,24 @@ import scala.collection.mutable
 
 class BoardPanel(controller: Controller) extends JPanel {
 
-  // Constants for drawing
-  private val gridSize = 11
-  private val fieldSize = 60 // size of each square field in pixels
-  private val tokenSize = 10 // size of player tokens
 
-  // Mapping field number to grid coordinates (col, row)
-  // The board layout: bottom row 0..10, left column 10..1, top row 1..9, right column 9..2
+  private val gridSize = 11
+  private val fieldSize = 60
+  private val tokenSize = 10
+
+
+
   private val fieldPositions: Map[Int, (Int, Int)] = {
-    // Bottom row (fields 0 to 10), left to right, y=0
+
     val bottomRow = (0 to 10).map(i => (i, 0)).toList              
 
-    // Left column (fields 11 to 19), top to bottom (y from 9 down to 1), x=0
+
     val leftCol = (1 to 9).map(i => (0, 10 - i)).toList            
 
-    // Top row (fields 20 to 30), right to left (x from 10 down to 0), y=10
+
     val topRow = (0 to 10).map(i => (10 - i, 10)).toList           
 
-    // Right column (fields 31 to 39), bottom to top (y from 1 to 9), x=10
+
     val rightCol = (1 to 9).map(i => (10, i)).toList              
 
     val positions = bottomRow ++ rightCol ++ topRow ++ leftCol
@@ -55,7 +55,7 @@ class BoardPanel(controller: Controller) extends JPanel {
 
     g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON)
 
-    // Draw only the perimeter squares (the Monopoly board edges)
+
     for (row <- 0 until gridSize; col <- 0 until gridSize) {
       if (row == 0 || row == gridSize - 1 || col == 0 || col == gridSize - 1) {
         g2.setColor(Color.WHITE)

@@ -9,34 +9,34 @@ val InitPlayers: Vector[Player] = Vector(
   )
 
   val InitStreets: Vector[Street] = Vector(
-    Street("Mediterranean Avenue", None, 0, 0, "Brown"), // 0
+    Street("Mediterranean Avenue", None, 0, 0, "Brown"),
     Street("Baltic Avenue", None, 0, 0, "Brown"),
 
-    Street("Oriental Avenue", None, 0, 0, "Light Blue"), // 2
+    Street("Oriental Avenue", None, 0, 0, "Light Blue"),
     Street("Vermont Avenue", None, 0, 0, "Light Blue"),
     Street("Connecticut Avenue", None, 0, 0, "Light Blue"),
 
-    Street("St. Charles Place", None, 0, 0, "Pink"), // 5
+    Street("St. Charles Place", None, 0, 0, "Pink"),
     Street("States Avenue", None, 0, 0, "Pink"),
     Street("Virginia Avenue", None, 0, 0, "Pink"),
 
-    Street("St. James Place", None, 0, 0, "Orange"), // 8
+    Street("St. James Place", None, 0, 0, "Orange"),
     Street("Tennessee Avenue", None, 0, 0, "Orange"),
     Street("New York Avenue", None, 0, 0, "Orange"),
 
-    Street("Kentucky Avenue", None, 0, 0, "Red"), // 11
+    Street("Kentucky Avenue", None, 0, 0, "Red"),
     Street("Indiana Avenue", None, 0, 0, "Red"),
     Street("Illinois Avenue", None, 0, 0, "Red"),
 
-    Street("Atlantic Avenue", None, 0, 0, "Yellow"), // 14
+    Street("Atlantic Avenue", None, 0, 0, "Yellow"),
     Street("Ventnor Avenue", None, 0, 0, "Yellow"),
     Street("Marvin Gardens", None, 0, 0, "Yellow"),
 
-    Street("Pacific Avenue", None, 0, 0, "Green"), // 17
+    Street("Pacific Avenue", None, 0, 0, "Green"),
     Street("North Carolina Avenue", None, 0, 0, "Green"),
     Street("Pennsylvania Avenue", None, 0, 0, "Green"),
 
-    Street("Park Place", None, 0, 0, "Dark Blue"), // 20
+    Street("Park Place", None, 0, 0, "Dark Blue"),
     Street("Boardwalk", None, 0, 0, "Dark Blue")
   )
 

@@ -6,10 +6,10 @@ import javax.swing.SwingUtilities
 
 class Gui(controller: Controller) extends Observer {
 
-  // GUI components
+
   private val frame = new JFrame("Monopoly GUI")
 
-  // Replace JTextArea with JPanel for graphical status display
+
   private val statusPanel = new JPanel()
 
   private val inputPanel = new JPanel()
@@ -20,26 +20,26 @@ class Gui(controller: Controller) extends Observer {
   private val endTurnButton = new JButton("End Turn")
   private val undoButton = new JButton("Undo")
   private val redoButton = new JButton("Redo")
-  private val inputField = new JTextField(5) // for positions or dice input
+  private val inputField = new JTextField(5)
 
-  // Add the graphical board panel
+
   private val boardPanel = new BoardPanel(controller)
 
-  // Setup GUI layout and behavior
+
   def createAndShowGUI(): Unit = {
     frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE)
     frame.setLayout(new BorderLayout())
 
-    // Add board panel to center
+
     frame.add(boardPanel, BorderLayout.CENTER)
 
-    // Setup status panel at bottom with vertical layout
+
     statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS))
     statusPanel.setPreferredSize(new Dimension(700, 150))
     val scrollPane = new JScrollPane(statusPanel)
     frame.add(scrollPane, BorderLayout.SOUTH)
 
-    // Input panel with buttons and input field at top
+
     inputPanel.setLayout(new FlowLayout())
     inputPanel.add(new JLabel("Input:"))
     inputPanel.add(inputField)
@@ -52,7 +52,7 @@ class Gui(controller: Controller) extends Observer {
     inputPanel.add(redoButton)
     frame.add(inputPanel, BorderLayout.NORTH)
 
-    // Button listeners
+
     moveButton.addActionListener(_ => doMove())
     buyButton.addActionListener(_ => doBuy())
     buildHouseButton.addActionListener(_ => doBuildHouse())
@@ -62,11 +62,11 @@ class Gui(controller: Controller) extends Observer {
     redoButton.addActionListener(_ => controller.redo())
 
     frame.pack()
-    frame.setLocationRelativeTo(null) // center on screen
+    frame.setLocationRelativeTo(null)
     frame.setVisible(true)
   }
 
-  // Methods to handle button clicks and call controller
+
   private def doMove(): Unit = {
     val input = inputField.getText.trim
     val result = if (input.isEmpty) {
@@ -117,7 +117,7 @@ class Gui(controller: Controller) extends Observer {
   private def showError(msg: String): Unit =
     JOptionPane.showMessageDialog(frame, msg, "Error", JOptionPane.ERROR_MESSAGE)
 
-  // Enable/disable buttons during AI turn
+
   private def setButtonsEnabled(enabled: Boolean): Unit = {
     moveButton.setEnabled(enabled)
     buyButton.setEnabled(enabled)
@@ -129,7 +129,7 @@ class Gui(controller: Controller) extends Observer {
     inputField.setEnabled(enabled)
   }
 
-  // Helper: map player color string to actual Color
+
   private def getColorForName(name: String): Color = name.toLowerCase match {
     case "red"    => Color.RED
     case "blue"   => Color.BLUE
@@ -141,15 +141,15 @@ class Gui(controller: Controller) extends Observer {
   override def update: Unit = SwingUtilities.invokeLater(() => {
     val (players, streets, trains, utilities) = controller.getGameState
 
-    // Clear status panel
+
     statusPanel.removeAll()
 
-    // Add title
+
     val title = new JLabel("Current Player Status:")
     title.setFont(new Font("Arial", Font.BOLD, 14))
     statusPanel.add(title)
 
-    // Header row panel
+
     val header = new JPanel(new GridLayout(1, 4))
     header.add(new JLabel("Name"))
     header.add(new JLabel("Money"))
@@ -157,7 +157,7 @@ class Gui(controller: Controller) extends Observer {
     header.add(new JLabel("In Jail"))
     statusPanel.add(header)
 
-    // Player rows
+
     for (player <- players) {
       val row = new JPanel(new GridLayout(1, 4))
       val nameLabel = new JLabel(player.color)
@@ -169,11 +169,11 @@ class Gui(controller: Controller) extends Observer {
       statusPanel.add(row)
     }
 
-    // Refresh status panel UI
+
     statusPanel.revalidate()
     statusPanel.repaint()
 
-    // Repaint the board panel to show current game state graphically
+
     boardPanel.repaint()
 
     val currentPlayer = controller.currentPlayer

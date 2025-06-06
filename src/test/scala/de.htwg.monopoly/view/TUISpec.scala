@@ -79,7 +79,7 @@ class TUISpec extends AnyWordSpec {
                 }
             }
             val output = outContent.toString
-            output should include("| Green") // because usually blue is first. green can only be first if blue has moved away from start
+            output should include("| Green")
         }
         "show updated specific playerroll position" in {
             val player = Player("Blue")

@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers._
 
 class GameStateSpec extends AnyWordSpec {
 
-  // Since GameState is a trait, you can create a minimal dummy implementation for testing
+
   class DummyState extends GameState {
     override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = {
       val d1 = dice1.getOrElse(0)
