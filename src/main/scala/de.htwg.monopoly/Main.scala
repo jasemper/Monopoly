@@ -12,28 +12,20 @@ object MonopolyGame {
     )
 
     val controller = new Controller(players)
-
-
     val tui = new Tui(controller)
     val gui = new Gui(controller)
-
-
     controller.add(tui)
     controller.add(gui)
-
 
     SwingUtilities.invokeLater(() => {
       gui.createAndShowGUI()
     })
-
 
     val tuiThread = new Thread(() => {
       tui.devPlay()
     })
     tuiThread.setDaemon(true)
     tuiThread.start()
-
-
     tuiThread.join()
   }
 }

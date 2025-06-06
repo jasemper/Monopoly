@@ -6,9 +6,7 @@ import javax.swing.SwingUtilities
 
 class Gui(controller: Controller) extends Observer {
 
-
   private val frame = new JFrame("Monopoly GUI")
-
 
   private val statusPanel = new JPanel()
 
@@ -21,24 +19,18 @@ class Gui(controller: Controller) extends Observer {
   private val undoButton = new JButton("Undo")
   private val redoButton = new JButton("Redo")
   private val inputField = new JTextField(5)
-
-
   private val boardPanel = new BoardPanel(controller)
-
 
   def createAndShowGUI(): Unit = {
     frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE)
     frame.setLayout(new BorderLayout())
 
-
     frame.add(boardPanel, BorderLayout.CENTER)
-
 
     statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS))
     statusPanel.setPreferredSize(new Dimension(700, 150))
     val scrollPane = new JScrollPane(statusPanel)
     frame.add(scrollPane, BorderLayout.SOUTH)
-
 
     inputPanel.setLayout(new FlowLayout())
     inputPanel.add(new JLabel("Input:"))
@@ -52,7 +44,6 @@ class Gui(controller: Controller) extends Observer {
     inputPanel.add(redoButton)
     frame.add(inputPanel, BorderLayout.NORTH)
 
-
     moveButton.addActionListener(_ => doMove())
     buyButton.addActionListener(_ => doBuy())
     buildHouseButton.addActionListener(_ => doBuildHouse())
@@ -65,7 +56,6 @@ class Gui(controller: Controller) extends Observer {
     frame.setLocationRelativeTo(null)
     frame.setVisible(true)
   }
-
 
   private def doMove(): Unit = {
     val input = inputField.getText.trim
@@ -117,7 +107,6 @@ class Gui(controller: Controller) extends Observer {
   private def showError(msg: String): Unit =
     JOptionPane.showMessageDialog(frame, msg, "Error", JOptionPane.ERROR_MESSAGE)
 
-
   private def setButtonsEnabled(enabled: Boolean): Unit = {
     moveButton.setEnabled(enabled)
     buyButton.setEnabled(enabled)
@@ -128,7 +117,6 @@ class Gui(controller: Controller) extends Observer {
     redoButton.setEnabled(enabled)
     inputField.setEnabled(enabled)
   }
-
 
   private def getColorForName(name: String): Color = name.toLowerCase match {
     case "red"    => Color.RED
@@ -165,10 +153,8 @@ class Gui(controller: Controller) extends Observer {
       statusPanel.add(row)
     }
 
-
     statusPanel.revalidate()
     statusPanel.repaint()
-
 
     boardPanel.repaint()
 

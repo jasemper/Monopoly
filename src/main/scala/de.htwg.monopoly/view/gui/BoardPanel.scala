@@ -6,23 +6,17 @@ import scala.collection.mutable
 
 class BoardPanel(controller: Controller) extends JPanel {
 
-
   private val gridSize = 11
   private val fieldSize = 60
   private val tokenSize = 10
-
-
 
   private val fieldPositions: Map[Int, (Int, Int)] = {
 
     val bottomRow = (0 to 10).map(i => (i, 0)).toList              
 
-
     val leftCol = (1 to 9).map(i => (0, 10 - i)).toList            
 
-
     val topRow = (0 to 10).map(i => (10 - i, 10)).toList           
-
 
     val rightCol = (1 to 9).map(i => (10, i)).toList              
 
