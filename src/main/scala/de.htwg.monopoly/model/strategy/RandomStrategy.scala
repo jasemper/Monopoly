@@ -1,4 +1,7 @@
-package de.htwg.monopoly
+package de.htwg.monopoly.model.strategy
+import de.htwg.monopoly.controller.Controller
+import de.htwg.monopoly.model.{Board, Player}
+//import de.htwg.monopoly.model
 
 import scala.util.Random
 

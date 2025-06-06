@@ -1,4 +1,6 @@
-package de.htwg.monopoly
+package de.htwg.monopoly.model.strategy
+import de.htwg.monopoly.controller.Controller
+import de.htwg.monopoly.model.Player
 
 trait PlayerStrategy {
   def decideBuy(player: Player, controller: Controller): Boolean

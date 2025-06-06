@@ -1,4 +1,11 @@
-package de.htwg.monopoly
+package de.htwg.monopoly.controller
+
+import de.htwg.monopoly.model._
+import de.htwg.monopoly.util.UndoManager
+import de.htwg.monopoly.util.GameSnapshotCommand
+import de.htwg.monopoly.util.Observable
+import de.htwg.monopoly.controller.state._
+import de.htwg.monopoly.controller.state.GameState
 
 class Controller(
     var players: Vector[Player] = InitPlayers,

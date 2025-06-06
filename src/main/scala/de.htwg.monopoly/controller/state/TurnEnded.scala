@@ -1,4 +1,5 @@
-package de.htwg.monopoly
+package de.htwg.monopoly.controller.state
+import de.htwg.monopoly.controller.Controller
 
 class TurnEnded extends GameState {
   override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = 

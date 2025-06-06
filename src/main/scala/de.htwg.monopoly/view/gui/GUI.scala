@@ -1,4 +1,8 @@
-package de.htwg.monopoly
+package de.htwg.monopoly.view.gui
+
+import de.htwg.monopoly.util.Observer
+import de.htwg.monopoly.controller.Controller
+import de.htwg.monopoly.controller.state.{GameState, GameResult, Success, Error}
 
 import javax.swing._
 import java.awt._
@@ -82,7 +86,9 @@ class Gui(controller: Controller) extends Observer {
     result match {
       case Success(Some(spaces)) => controller.state.move(controller, spaces)
       case Success(None)         => showError("No moves rolled.")
-      case Error(msg)            => showError(s"Roll failed: $msg")
+      /*case Error(msg)            => showError(s"Roll failed: $msg")*/
+      case e: Error => showError(s"Roll failed: ${e.message}")
+
     }
   }
 

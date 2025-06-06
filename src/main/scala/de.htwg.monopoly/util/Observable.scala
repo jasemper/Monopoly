@@ -1,4 +1,4 @@
-package de.htwg.monopoly
+package de.htwg.monopoly.util
 
 trait Observer {
     def update: Unit

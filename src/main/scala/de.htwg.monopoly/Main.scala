@@ -1,5 +1,10 @@
 package de.htwg.monopoly
 
+import de.htwg.monopoly.controller.Controller
+import de.htwg.monopoly.model.factory._
+import de.htwg.monopoly.view.tui.Tui
+import de.htwg.monopoly.view.gui.Gui
+
 import javax.swing.SwingUtilities
 
 object MonopolyGame {

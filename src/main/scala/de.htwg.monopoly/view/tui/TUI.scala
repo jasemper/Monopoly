@@ -1,4 +1,9 @@
-package de.htwg.monopoly
+package de.htwg.monopoly.view.tui
+
+import de.htwg.monopoly.controller.Controller
+import de.htwg.monopoly.util.Observer
+import de.htwg.monopoly.controller.state.{GameState, GameResult, Success, Error}
+import de.htwg.monopoly.model.Board
 
 import scala.io.StdIn.readLine
 import scala.util.{Try, Failure}

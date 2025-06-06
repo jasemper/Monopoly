@@ -1,4 +1,5 @@
-package de.htwg.monopoly
+package de.htwg.monopoly.controller.state
+import de.htwg.monopoly.controller.Controller
 
 trait GameState {
   def rollDice(controller: Controller, dice1: Option[Int] = None, dice2: Option[Int] = None): GameResult

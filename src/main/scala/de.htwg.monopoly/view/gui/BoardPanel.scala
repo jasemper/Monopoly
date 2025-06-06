@@ -1,4 +1,8 @@
-package de.htwg.monopoly
+package de.htwg.monopoly.view.gui
+
+import de.htwg.monopoly.controller.Controller
+import de.htwg.monopoly.model.Board
+import de.htwg.monopoly.model
 
 import java.awt._
 import javax.swing.JPanel

@@ -1,4 +1,6 @@
-package de.htwg.monopoly
+package de.htwg.monopoly.model
+import de.htwg.monopoly.controller.state.GameState
+import de.htwg.monopoly.model.{Player, Street, Train, Utility}
 
 import scala.annotation.transparentTrait
 

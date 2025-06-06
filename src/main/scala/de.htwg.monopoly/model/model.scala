@@ -1,4 +1,5 @@
-package de.htwg.monopoly
+package de.htwg.monopoly.model
+import de.htwg.monopoly.model.strategy.PlayerStrategy
 
 sealed trait Property {
   def name: String

@@ -1,4 +1,4 @@
-package de.htwg.monopoly
+package de.htwg.monopoly.model
 
 val InitPlayers: Vector[Player] = Vector(
     Player("Blue"),

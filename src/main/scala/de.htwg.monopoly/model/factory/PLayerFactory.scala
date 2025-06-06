@@ -1,4 +1,6 @@
-package de.htwg.monopoly
+package de.htwg.monopoly.model.factory
+import de.htwg.monopoly.model.Player
+import de.htwg.monopoly.model.strategy.{AggressiveStrategy, DefensiveStrategy, PlayerStrategy, RandomStrategy}
 
 trait PlayerFactory {
   def apply(color: String): Player
