@@ -2,14 +2,16 @@ package de.htwg.monopoly
 
 import javax.swing._
 import java.awt._
-import java.awt.event._
 import javax.swing.SwingUtilities
 
 class Gui(controller: Controller) extends Observer {
 
   // GUI components
   private val frame = new JFrame("Monopoly GUI")
-  private val statusTextArea = new JTextArea(20, 50)
+
+  // Replace JTextArea with JPanel for graphical status display
+  private val statusPanel = new JPanel()
+
   private val inputPanel = new JPanel()
   private val moveButton = new JButton("Move")
   private val buyButton = new JButton("Buy")
@@ -20,19 +22,25 @@ class Gui(controller: Controller) extends Observer {
   private val redoButton = new JButton("Redo")
   private val inputField = new JTextField(5) // for positions or dice input
 
+  // Add the graphical board panel
+  private val boardPanel = new BoardPanel(controller)
+
   // Setup GUI layout and behavior
   def createAndShowGUI(): Unit = {
     frame.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE)
-
     frame.setLayout(new BorderLayout())
 
-    // Text area for status
-    statusTextArea.setEditable(false)
-    frame.add(new JScrollPane(statusTextArea), BorderLayout.CENTER)
+    // Add board panel to center
+    frame.add(boardPanel, BorderLayout.CENTER)
 
-    // Input panel with buttons and input field
+    // Setup status panel at bottom with vertical layout
+    statusPanel.setLayout(new BoxLayout(statusPanel, BoxLayout.Y_AXIS))
+    statusPanel.setPreferredSize(new Dimension(700, 150))
+    val scrollPane = new JScrollPane(statusPanel)
+    frame.add(scrollPane, BorderLayout.SOUTH)
+
+    // Input panel with buttons and input field at top
     inputPanel.setLayout(new FlowLayout())
-
     inputPanel.add(new JLabel("Input:"))
     inputPanel.add(inputField)
     inputPanel.add(moveButton)
@@ -42,8 +50,7 @@ class Gui(controller: Controller) extends Observer {
     inputPanel.add(endTurnButton)
     inputPanel.add(undoButton)
     inputPanel.add(redoButton)
-
-    frame.add(inputPanel, BorderLayout.SOUTH)
+    frame.add(inputPanel, BorderLayout.NORTH)
 
     // Button listeners
     moveButton.addActionListener(_ => doMove())
@@ -63,22 +70,17 @@ class Gui(controller: Controller) extends Observer {
   private def doMove(): Unit = {
     val input = inputField.getText.trim
     val result = if (input.isEmpty) {
-      // Roll dice automatically
       controller.state.rollDice(controller)
     } else {
-      // Parse dice input (can be 1 or 2 dice separated by space or comma)
       val parts = input.split("[ ,]+")
       parts.length match {
         case 1 =>
-          val d1 = parts(0).toIntOption
-          d1 match {
+          parts(0).toIntOption match {
             case Some(d1Val) => controller.state.rollDice(controller, Some(d1Val))
             case None => Error("Invalid input for dice")
           }
         case 2 =>
-          val d1 = parts(0).toIntOption
-          val d2 = parts(1).toIntOption
-          (d1, d2) match {
+          (parts(0).toIntOption, parts(1).toIntOption) match {
             case (Some(v1), Some(v2)) => controller.state.rollDice(controller, Some(v1), Some(v2))
             case _ => Error("Invalid dice inputs")
           }
@@ -88,42 +90,34 @@ class Gui(controller: Controller) extends Observer {
     }
 
     result match {
-      case Success(Some(spaces)) =>
-        controller.state.move(controller, spaces)
-      case Success(None) =>
-        showError("No moves rolled.")
-      case Error(msg) =>
-        showError(s"Roll failed: $msg")
+      case Success(Some(spaces)) => controller.state.move(controller, spaces)
+      case Success(None)         => showError("No moves rolled.")
+      case Error(msg)            => showError(s"Roll failed: $msg")
     }
   }
 
-  private def doBuy(): Unit = {
-    controller.state.buy(controller)
-  }
+  private def doBuy(): Unit = controller.state.buy(controller)
 
   private def doBuildHouse(): Unit = {
     inputField.getText.trim.toIntOption match {
       case Some(pos) => controller.state.buildHouse(controller, pos)
-      case None => showError("Enter a valid field number to build a house.")
+      case None      => showError("Enter a valid field number to build a house.")
     }
   }
 
   private def doBuildHotel(): Unit = {
     inputField.getText.trim.toIntOption match {
       case Some(pos) => controller.state.buildHotel(controller, pos)
-      case None => showError("Enter a valid field number to build a hotel.")
+      case None      => showError("Enter a valid field number to build a hotel.")
     }
   }
 
-  private def doEndTurn(): Unit = {
-    controller.state.endTurn(controller)
-  }
+  private def doEndTurn(): Unit = controller.state.endTurn(controller)
 
-  private def showError(msg: String): Unit = {
+  private def showError(msg: String): Unit =
     JOptionPane.showMessageDialog(frame, msg, "Error", JOptionPane.ERROR_MESSAGE)
-  }
 
-  // Helper method to enable/disable buttons during AI turn
+  // Enable/disable buttons during AI turn
   private def setButtonsEnabled(enabled: Boolean): Unit = {
     moveButton.setEnabled(enabled)
     buyButton.setEnabled(enabled)
@@ -135,56 +129,66 @@ class Gui(controller: Controller) extends Observer {
     inputField.setEnabled(enabled)
   }
 
-  override def update: Unit = {
-  SwingUtilities.invokeLater(() => {
+  // Helper: map player color string to actual Color
+  private def getColorForName(name: String): Color = name.toLowerCase match {
+    case "red"    => Color.RED
+    case "blue"   => Color.BLUE
+    case "green"  => new Color(0, 128, 0)
+    case "yellow" => Color.YELLOW.darker()
+    case _        => Color.BLACK
+  }
+
+  override def update: Unit = SwingUtilities.invokeLater(() => {
     val (players, streets, trains, utilities) = controller.getGameState
 
-    // Update game status text
-    val sb = new StringBuilder
-    sb.append("Current Player Status:\n| Name    | Money | Pos | Jail |\n")
+    // Clear status panel
+    statusPanel.removeAll()
+
+    // Add title
+    val title = new JLabel("Current Player Status:")
+    title.setFont(new Font("Arial", Font.BOLD, 14))
+    statusPanel.add(title)
+
+    // Header row panel
+    val header = new JPanel(new GridLayout(1, 4))
+    header.add(new JLabel("Name"))
+    header.add(new JLabel("Money"))
+    header.add(new JLabel("Position"))
+    header.add(new JLabel("In Jail"))
+    statusPanel.add(header)
+
+    // Player rows
     for (player <- players) {
-      sb.append(f"| ${player.color}%-8s|${player.money}%6d |  ${player.position}%2d | ${player.inJail}%5s|\n")
+      val row = new JPanel(new GridLayout(1, 4))
+      val nameLabel = new JLabel(player.color)
+      nameLabel.setForeground(getColorForName(player.color))
+      row.add(nameLabel)
+      row.add(new JLabel(f"${player.money}%,d"))
+      row.add(new JLabel(player.position.toString))
+      row.add(new JLabel(player.inJail.toString))
+      statusPanel.add(row)
     }
 
-    sb.append("\nCurrent Game Board Status:\n| Nr | Field                 | Owner   | House | Hotel | Players on field\n")
-    for ((fieldNr, fieldName) <- Board) {
-      val owner = streets.find(_.name == fieldName).flatMap(_.owner).getOrElse(
-        trains.find(_.name == fieldName).flatMap(_.owner).getOrElse(
-          utilities.find(_.name == fieldName).flatMap(_.owner).getOrElse("")
-        )
-      )
-      val houses = streets.find(_.name == fieldName).map(_.buildings).getOrElse(0)
-      val hotels = streets.find(_.name == fieldName).map(_.hotels).getOrElse(0)
-      val playersOnField = players.filter(_.position == fieldNr).map(_.color)
-      val playersString = if (playersOnField.isEmpty) "" else playersOnField.mkString(", ")
-      sb.append(f"| ${fieldNr}%2d | ${fieldName}%-22s| ${owner}%-8s|   ${houses}%1d   |   ${hotels}%1d   | ${playersString}%-7s\n")
-    }
+    // Refresh status panel UI
+    statusPanel.revalidate()
+    statusPanel.repaint()
 
-    sb.append("\nUndo steps: " + controller.undoManager.undoStack.size + "\n")
-    sb.append("Redo steps: " + controller.undoManager.redoStack.size + "\n")
-    sb.append("\n" + controller.state.toString())
-
-    statusTextArea.setText(sb.toString())
+    // Repaint the board panel to show current game state graphically
+    boardPanel.repaint()
 
     val currentPlayer = controller.currentPlayer
     if (currentPlayer.strategy.isDefined) {
-      // Disable buttons to prevent human input during AI turn
       setButtonsEnabled(false)
-
       println(s"\n${currentPlayer.color}'s turn (AI):")
       println("Calculating move...")
 
       controller.performAITurn()
       controller.state.endTurn(controller)
 
-      // After AI turn is done, enable buttons and update UI again
       setButtonsEnabled(true)
       update
     } else {
-      // Human player - enable buttons
       setButtonsEnabled(true)
     }
   })
-}
-
 }
