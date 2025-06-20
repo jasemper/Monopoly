@@ -1,14 +1,14 @@
 package de.htwg.monopoly.view.gui
 
-import de.htwg.monopoly.controller.Controller
+import de.htwg.monopoly.controller.api._
 import de.htwg.monopoly.model.Board
-import de.htwg.monopoly.model
+import de.htwg.monopoly.model._
 
 import java.awt._
 import javax.swing.JPanel
 import scala.collection.mutable
 
-class BoardPanel(controller: Controller) extends JPanel {
+class BoardPanel(controller: IController) extends JPanel {
 
   private val gridSize = 11
   private val fieldSize = 60
@@ -116,11 +116,9 @@ class BoardPanel(controller: Controller) extends JPanel {
   }
 
   private def drawBuildings(g2: Graphics2D, fieldNum: Int, x: Int, y: Int): Unit = {
-    val (streets, _, _) = controller.getGameState._2 match {
-      case streets => (controller.getGameState._2, controller.getGameState._3, controller.getGameState._4)
-    }
+    val (_, streets, _, _) = controller.getGameState
     streets.find(_.name == Board(fieldNum)._2) match {
-      case Some(street) =>
+      case Some(street) => {
         val houses = street.buildings
         val hotels = street.hotels
         g2.setColor(Color.ORANGE)
@@ -133,9 +131,11 @@ class BoardPanel(controller: Controller) extends JPanel {
           g2.setColor(new Color(128, 0, 128))
           g2.fillRect(baseX + houses * 12, baseY, 10, 10)
         }
-      case None =>
+      }
+      case None => // do nothing if no street found
     }
   }
+
 
   private def drawPlayerToken(g2: Graphics2D, x: Int, y: Int, colorName: String): Unit = {
     val color = playerColors.getOrElse(colorName, Color.BLACK)

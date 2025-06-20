@@ -1,0 +1,79 @@
+src
+├── comment_remover.py
+├── main
+│   └── scala
+│       └── de.htwg.monopoly
+│           ├── Main.scala
+│           ├── Main.worksheet.sc
+│           ├── controller
+│           │   ├── api
+│           │   │   ├── GameResult.scala
+│           │   │   ├── GameState.scala
+│           │   │   └── IController.scala
+│           │   └── impl
+│           │       ├── Controller.scala
+│           │       ├── helper.scala
+│           │       └── state
+│           │           ├── Building.scala
+│           │           ├── Buying.scala
+│           │           ├── InJail.scala
+│           │           ├── Moving.scala
+│           │           ├── TurnEnded.scala
+│           │           └── WaitingForRoll.scala
+│           ├── model
+│           │   ├── GameSnapshot.scala
+│           │   ├── GameStateEnum.scala
+│           │   ├── data.scala
+│           │   ├── factory
+│           │   │   └── PLayerFactory.scala
+│           │   ├── model.scala
+│           │   └── strategy
+│           │       ├── AgressiveStrategy.scala
+│           │       ├── DefensiveStrategy.scala
+│           │       ├── PlayerStrategy.scala
+│           │       └── RandomStrategy.scala
+│           ├── util
+│           │   ├── GameSnapshotCommand.scala
+│           │   ├── Observable.scala
+│           │   └── UndoManager.scala
+│           └── view
+│               ├── gui
+│               │   ├── BoardPanel.scala
+│               │   └── GUI.scala
+│               └── tui
+│                   └── TUI.scala
+└── test
+    └── scala
+        └── de.htwg.monopoly
+            ├── MonopolyTester.scala
+            ├── controller
+            │   ├── ControllerSpec.scala
+            │   ├── helperSpec.scala
+            │   └── state
+            │       ├── BuildingSpec.scala
+            │       ├── BuyingSpec.scala
+            │       ├── GameStateSpec.scala
+            │       ├── InJailSpec.scala
+            │       ├── MovingSpec.scala
+            │       ├── TurnEndedSpec.scala
+            │       └── WaitingForRollSpec.scala
+            ├── model
+            │   ├── GameSnapshotSpec.scala
+            │   ├── dataSpec.scala
+            │   ├── factory
+            │   │   └── playerFactorySpec.scala
+            │   ├── modelSpec.scala
+            │   └── strategy
+            │       ├── agressiveSpec.scala
+            │       ├── defensiveSpec.scala
+            │       ├── randomSpec.scala
+            │       └── strategySpec.scala
+            ├── util
+            │   ├── GameSnapshotCommandSpec.scala
+            │   ├── ObservableSpec.scala
+            │   └── UndoManagerSpec.scala
+            └── view
+                ├── TUISpec.scala
+                └── gui
+                    ├── BoardPanelSpec.scala
+                    └── GUISpec.scala

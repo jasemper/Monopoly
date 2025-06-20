@@ -1,20 +1,20 @@
 package de.htwg.monopoly.model.strategy
-import de.htwg.monopoly.controller.Controller
+import de.htwg.monopoly.controller.api._
 import de.htwg.monopoly.model.{Board, Player}
-//import de.htwg.monopoly.model
 
 import scala.util.Random
 
 class RandomStrategy extends PlayerStrategy {
-  override def decideBuy(player: Player, controller: Controller): Boolean = {
+  override def decideBuy(player: Player, controller: IController): Boolean = {
     if (getRandom(controller)) {
       return true
     }
     false
   }
 
-  override def decideBuildHouse(player: Player, controller: Controller): Boolean = {
-    val ownedStreets = controller.streets.zipWithIndex.filter {
+  override def decideBuildHouse(player: Player, controller: IController): Boolean = {
+    val streets = controller.getGameState._2
+    val ownedStreets = streets.zipWithIndex.filter {
       case (street, _) => street.owner.contains(player.color)
     }
 
@@ -26,8 +26,9 @@ class RandomStrategy extends PlayerStrategy {
     }
     false
   }
-  override def decideBuildHotel(player: Player, controller: Controller): Boolean = {
-    val ownedStreets = controller.streets.zipWithIndex.filter {
+  override def decideBuildHotel(player: Player, controller: IController): Boolean = {
+    val streets = controller.getGameState._2
+    val ownedStreets = streets.zipWithIndex.filter {
       case (street, _) => street.owner.contains(player.color)
     }
 
@@ -40,18 +41,18 @@ class RandomStrategy extends PlayerStrategy {
     false
   }
 
-  override def decideJail(player: Player, controller: Controller): Boolean = {
+  override def decideJail(player: Player, controller: IController): Boolean = {
     if (player.inJail && getRandom(controller)) {
       return true
     }
     false
   }
 
-  def getRandom(controller: Controller): Boolean = {
-  controller.tilt match {
-    case controller.Tilt.Yes    => true
-    case controller.Tilt.No     => false
-    case controller.Tilt.Random => scala.util.Random.nextBoolean()
+  def getRandom(controller: IController): Boolean = {
+  controller.getTilt match {
+    case Tilt.Yes    => true
+    case Tilt.No     => false
+    case Tilt.Random => scala.util.Random.nextBoolean()
   }
 }
 

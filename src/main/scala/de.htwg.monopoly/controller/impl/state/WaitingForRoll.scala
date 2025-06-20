@@ -1,11 +1,11 @@
-package de.htwg.monopoly.controller.state
-import de.htwg.monopoly.controller.Controller
+package de.htwg.monopoly.controller.impl.state
+import de.htwg.monopoly.controller.api._
 import de.htwg.monopoly.model.GameStateEnum
 
 class WaitingForRoll extends GameState {
 
   override def getState: GameStateEnum = GameStateEnum.WaitingForRoll
-  override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = {
+  override def rollDice(controller: IController, dice1: Option[Int], dice2: Option[Int]): GameResult = {
     val (d1, d2) = (dice1, dice2) match {
       case (Some(d1), Some(d2)) => (d1, d2)
       case (Some(d1), None)     => (d1, 0)
@@ -21,18 +21,18 @@ class WaitingForRoll extends GameState {
   }
 
 
-  override def move(controller: Controller, spaces: Int): GameResult =
+  override def move(controller: IController, spaces: Int): GameResult =
     Error("You must roll the dice before moving.")
 
-  override def buy(controller: Controller): GameResult =
+  override def buy(controller: IController): GameResult =
     Error("You can't buy anything before moving.")
 
-  override def buildHouse(controller: Controller, fieldNr: Int): GameResult =
+  override def buildHouse(controller: IController, fieldNr: Int): GameResult =
     Error("You must finish your move before building.")
 
-  override def buildHotel(controller: Controller, fieldNr: Int): GameResult =
+  override def buildHotel(controller: IController, fieldNr: Int): GameResult =
     Error("You must finish your move before building.")
 
-  override def endTurn(controller: Controller): GameResult =
+  override def endTurn(controller: IController): GameResult =
     Error("You must roll and move first.")
 }

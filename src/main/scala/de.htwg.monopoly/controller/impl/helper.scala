@@ -1,9 +1,9 @@
-package de.htwg.monopoly.controller
+package de.htwg.monopoly.controller.impl
 
 import de.htwg.monopoly.model
-import de.htwg.monopoly.controller.state.GameState
+import de.htwg.monopoly.controller.api.GameState
 import de.htwg.monopoly.model.{Board, Player, Street, Train, Utility}
-import de.htwg.monopoly.controller.state._
+import de.htwg.monopoly.controller.impl.state._
 
 def getOwner(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Train], Utilities: Vector[Utility]): String = {
     if (fieldNr < 0 || fieldNr >= Board.length) return ""

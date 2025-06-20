@@ -1,14 +1,14 @@
 package de.htwg.monopoly.view.tui
 
-import de.htwg.monopoly.controller.Controller
+import de.htwg.monopoly.controller.api._
+import de.htwg.monopoly.controller.impl.Controller
 import de.htwg.monopoly.util.Observer
-import de.htwg.monopoly.controller.state.{GameState, GameResult, Success, Error}
 import de.htwg.monopoly.model.Board
 
 import scala.io.StdIn.readLine
 import scala.util.{Try, Failure}
 
-class Tui(controller: Controller) extends Observer {
+class Tui(controller: IController) extends Observer {
   controller.add(this)
 
   def devPlay(): Unit = {
@@ -34,6 +34,8 @@ class Tui(controller: Controller) extends Observer {
               controller.state.rollDice(controller) match {
                 case Success(Some(spaces)) =>
                   controller.state.move(controller, spaces)
+                case Success(None) =>
+                  println("No movement this turn.")
                 case Error(msg) =>
                   println(s"Roll failed: $msg")
               }
@@ -44,6 +46,8 @@ class Tui(controller: Controller) extends Observer {
                   controller.state.rollDice(controller, Some(die1)) match {
                     case Success(Some(spaces)) =>
                       controller.state.move(controller, spaces)
+                    case Success(None) =>
+                      println("No movement this turn.")
                     case Error(msg) =>
                       println(s"Roll failed: $msg")
                   }
@@ -62,6 +66,8 @@ class Tui(controller: Controller) extends Observer {
                   controller.state.rollDice(controller, Some(die1), Some(die2)) match {
                     case Success(Some(spaces)) =>
                       controller.state.move(controller, spaces)
+                    case Success(None) =>
+                      println("No movement this turn.")
                     case Error(msg) =>
                       println(s"Roll failed: $msg")
                   }
@@ -115,8 +121,8 @@ class Tui(controller: Controller) extends Observer {
       strOut += f"| ${fieldNr}%2d | ${fieldName}%-22s| ${owner}%-8s|   ${houses}%1d   |   ${hotels}%1d   | ${playersString}%-7s\n"
     }
     strOut += "\n" +
-      controller.undoManager.undoStack.size + " undo steps available\n" +
-      controller.undoManager.redoStack.size + " redo steps available\n"
+      controller.undoStepsAvailable + " undo steps available\n" +
+      controller.redoStepsAvailable + " redo steps available\n"
     strOut
   }
 

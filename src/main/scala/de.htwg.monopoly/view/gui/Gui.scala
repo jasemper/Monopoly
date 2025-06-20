@@ -1,14 +1,14 @@
 package de.htwg.monopoly.view.gui
 
 import de.htwg.monopoly.util.Observer
-import de.htwg.monopoly.controller.Controller
-import de.htwg.monopoly.controller.state.{GameState, GameResult, Success, Error}
+import de.htwg.monopoly.controller.api._
+import de.htwg.monopoly.controller.impl.Controller
 
 import javax.swing._
 import java.awt._
 import javax.swing.SwingUtilities
 
-class Gui(controller: Controller) extends Observer {
+class Gui(controller: IController) extends Observer {
 
   private val frame = new JFrame("Monopoly GUI")
 

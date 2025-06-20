@@ -1,0 +1,448 @@
+[info] welcome to sbt 1.10.11 (Oracle Corporation Java 24.0.1)
+[info] loading settings for project monopoly-build-build-build from metals.sbt...
+[info] loading project definition from /home/jannik/htwg/SE/monopoly/project/project/project
+[info] loading settings for project monopoly-build-build from metals.sbt...
+[info] loading project definition from /home/jannik/htwg/SE/monopoly/project/project
+[success] Generated .bloop/monopoly-build-build.json
+[success] Total time: 1 s, completed Jun 20, 2025, 2:46:03 AM
+[info] loading settings for project monopoly-build from metals.sbt, plugins.sbt...
+[info] loading project definition from /home/jannik/htwg/SE/monopoly/project
+[success] Generated .bloop/monopoly-build.json
+[success] Total time: 0 s, completed Jun 20, 2025, 2:46:03 AM
+[info] loading settings for project root from build.sbt...
+[info] set current project to Monopoly (in build file:/home/jannik/htwg/SE/monopoly/)
+[info] compiling 27 Scala sources to /home/jannik/htwg/SE/monopoly/target/scala-3.6.4/classes ...
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/Main.scala:21:18 
+[error] 21 |    val tui = new TUI(controller)
+[error]    |                  ^^^
+[error]    |                  Not found: type TUI
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/view/gui/GUI.scala:10:22 
+[error] 10 |class Gui(controller: Controller) extends Observer {
+[error]    |                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/api/IController.scala:6:21 
+[error] 6 |  def currentPlayer: IPlayer
+[error]   |                     ^^^^^^^
+[error]   |                     Not found: type IPlayer - did you mean Player?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/PlayerStrategy.scala:6:44 
+[error] 6 |  def decideBuy(player: Player, controller: Controller): Boolean
+[error]   |                                            ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/PlayerStrategy.scala:7:51 
+[error] 7 |  def decideBuildHouse(player: Player, controller: Controller): Boolean
+[error]   |                                                   ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/PlayerStrategy.scala:8:51 
+[error] 8 |  def decideBuildHotel(player: Player, controller: Controller): Boolean
+[error]   |                                                   ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/PlayerStrategy.scala:9:45 
+[error] 9 |  def decideJail(player: Player, controller: Controller): Boolean
+[error]   |                                             ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/util/GameSnapshotCommand.scala:6:38 
+[error] 6 |class GameSnapshotCommand(controller: Controller, val before: GameSnapshot) extends Command {
+[error]   |                                      ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E008] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/helper.scala:4:46 
+[error] 4 |import de.htwg.monopoly.controller.impl.state.GameState
+[error]   |                                              ^^^^^^^^^
+[error]   | value GameState is not a member of de.htwg.monopoly.controller.impl.state
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Building.scala:9:36 
+[error] 9 |  override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = 
+[error]   |                                    ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Building.scala:12:32 
+[error] 12 |  override def move(controller: Controller, spaces: Int): GameResult =
+[error]    |                                ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Building.scala:15:31 
+[error] 15 |  override def buy(controller: Controller): GameResult =
+[error]    |                               ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Building.scala:18:38 
+[error] 18 |  override def buildHouse(controller: Controller, fieldNr: Int): GameResult = {
+[error]    |                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Building.scala:23:38 
+[error] 23 |  override def buildHotel(controller: Controller, fieldNr: Int): GameResult = {
+[error]    |                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Building.scala:28:35 
+[error] 28 |  override def endTurn(controller: Controller): GameResult = {
+[error]    |                                   ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Buying.scala:9:36 
+[error] 9 |  override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = 
+[error]   |                                    ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Buying.scala:12:32 
+[error] 12 |  override def move(controller: Controller, spaces: Int): GameResult =
+[error]    |                                ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Buying.scala:15:31 
+[error] 15 |  override def buy(controller: Controller): GameResult = {
+[error]    |                               ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Buying.scala:21:38 
+[error] 21 |  override def buildHouse(controller: Controller, fieldNr: Int): GameResult = {
+[error]    |                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Buying.scala:27:38 
+[error] 27 |  override def buildHotel(controller: Controller, fieldNr: Int): GameResult = {
+[error]    |                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Buying.scala:33:35 
+[error] 33 |  override def endTurn(controller: Controller): GameResult = {
+[error]    |                                   ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/InJail.scala:9:36 
+[error] 9 |  override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = {
+[error]   |                                    ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/InJail.scala:36:32 
+[error] 36 |  override def move(controller: Controller, spaces: Int): GameResult =
+[error]    |                                ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/InJail.scala:39:31 
+[error] 39 |  override def buy(controller: Controller): GameResult =
+[error]    |                               ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/InJail.scala:42:38 
+[error] 42 |  override def buildHouse(controller: Controller, fieldNr: Int): GameResult =
+[error]    |                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/InJail.scala:45:38 
+[error] 45 |  override def buildHotel(controller: Controller, fieldNr: Int): GameResult =
+[error]    |                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/InJail.scala:48:35 
+[error] 48 |  override def endTurn(controller: Controller): GameResult = {
+[error]    |                                   ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Moving.scala:9:36 
+[error] 9 |  override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = 
+[error]   |                                    ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Moving.scala:12:32 
+[error] 12 |  override def move(controller: Controller, spaces: Int): GameResult =
+[error]    |                                ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Moving.scala:17:31 
+[error] 17 |  override def buy(controller: Controller): GameResult = {
+[error]    |                               ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Moving.scala:21:38 
+[error] 21 |  override def buildHouse(controller: Controller, fieldNr: Int): GameResult =
+[error]    |                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Moving.scala:24:38 
+[error] 24 |  override def buildHotel(controller: Controller, fieldNr: Int): GameResult =
+[error]    |                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/Moving.scala:27:35 
+[error] 27 |  override def endTurn(controller: Controller): GameResult = {
+[error]    |                                   ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/TurnEnded.scala:8:36 
+[error] 8 |  override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = 
+[error]   |                                    ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/TurnEnded.scala:11:32 
+[error] 11 |  override def move(controller: Controller, spaces: Int): GameResult =
+[error]    |                                ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/TurnEnded.scala:14:31 
+[error] 14 |  override def buy(controller: Controller): GameResult =
+[error]    |                               ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/TurnEnded.scala:17:38 
+[error] 17 |  override def buildHouse(controller: Controller, fieldNr: Int): GameResult =
+[error]    |                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/TurnEnded.scala:20:38 
+[error] 20 |  override def buildHotel(controller: Controller, fieldNr: Int): GameResult =
+[error]    |                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/TurnEnded.scala:23:35 
+[error] 23 |  override def endTurn(controller: Controller): GameResult = {
+[error]    |                                   ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/WaitingForRoll.scala:8:36 
+[error] 8 |  override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = {
+[error]   |                                    ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/WaitingForRoll.scala:24:32 
+[error] 24 |  override def move(controller: Controller, spaces: Int): GameResult =
+[error]    |                                ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/WaitingForRoll.scala:27:31 
+[error] 27 |  override def buy(controller: Controller): GameResult =
+[error]    |                               ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/WaitingForRoll.scala:30:38 
+[error] 30 |  override def buildHouse(controller: Controller, fieldNr: Int): GameResult =
+[error]    |                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/WaitingForRoll.scala:33:38 
+[error] 33 |  override def buildHotel(controller: Controller, fieldNr: Int): GameResult =
+[error]    |                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/controller/impl/state/WaitingForRoll.scala:36:35 
+[error] 36 |  override def endTurn(controller: Controller): GameResult =
+[error]    |                                   ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/AgressiveStrategy.scala:6:53 
+[error] 6 |  override def decideBuy(player: Player, controller: Controller): Boolean = {
+[error]   |                                                     ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/AgressiveStrategy.scala:10:60 
+[error] 10 |  override def decideBuildHouse(player: Player, controller: Controller): Boolean = {
+[error]    |                                                            ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/AgressiveStrategy.scala:14:29 
+[error] 14 |        case Some(street) if street.buildings < 4 =>
+[error]    |                             ^^^^^^
+[error]    |                             Not found: street
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/AgressiveStrategy.scala:21:60 
+[error] 21 |  override def decideBuildHotel(player: Player, controller: Controller): Boolean = {
+[error]    |                                                            ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/AgressiveStrategy.scala:25:29 
+[error] 25 |        case Some(street) if street.buildings >= 4 =>
+[error]    |                             ^^^^^^
+[error]    |                             Not found: street
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/AgressiveStrategy.scala:32:54 
+[error] 32 |  override def decideJail(player: Player, controller: Controller): Boolean = {
+[error]    |                                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/DefensiveStrategy.scala:8:53 
+[error] 8 |  override def decideBuy(player: Player, controller: Controller): Boolean = {
+[error]   |                                                     ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/DefensiveStrategy.scala:15:60 
+[error] 15 |  override def decideBuildHouse(player: Player, controller: Controller): Boolean = {
+[error]    |                                                            ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/DefensiveStrategy.scala:30:60 
+[error] 30 |  override def decideBuildHotel(player: Player, controller: Controller): Boolean = {
+[error]    |                                                            ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/DefensiveStrategy.scala:46:54 
+[error] 46 |  override def decideJail(player: Player, controller: Controller): Boolean = {
+[error]    |                                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/DefensiveStrategy.scala:50:55 
+[error] 50 |  def streetIndexToFieldNumber(index: Int, controller: Controller): Int = Board.indexWhere(_._2 == controller.streets(index).name)
+[error]    |                                                       ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/RandomStrategy.scala:9:53 
+[error] 9 |  override def decideBuy(player: Player, controller: Controller): Boolean = {
+[error]   |                                                     ^^^^^^^^^^
+[error]   |                    Not found: type Controller - did you mean IController?
+[error]   |
+[error]   | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/RandomStrategy.scala:50:28 
+[error] 50 |  def getRandom(controller: Controller): Boolean = {
+[error]    |                            ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/RandomStrategy.scala:16:60 
+[error] 16 |  override def decideBuildHouse(player: Player, controller: Controller): Boolean = {
+[error]    |                                                            ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/RandomStrategy.scala:29:60 
+[error] 29 |  override def decideBuildHotel(player: Player, controller: Controller): Boolean = {
+[error]    |                                                            ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/model/strategy/RandomStrategy.scala:43:54 
+[error] 43 |  override def decideJail(player: Player, controller: Controller): Boolean = {
+[error]    |                                                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/view/gui/BoardPanel.scala:11:29 
+[error] 11 |class BoardPanel(controller: Controller) extends JPanel {
+[error]    |                             ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E007] Type Mismatch Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/view/gui/BoardPanel.scala:110:23 
+[error] 110 |    val ownerNameOpt = streets.find(_.name == Board(fieldNum)._2).flatMap(_.owner)
+[error]     |                       ^^^^^^^
+[error]     |Found:    (streets : Nothing)
+[error]     |Required: ?{ find: ? }
+[error]     |Note that implicit conversions were not tried because the result of an implicit conversion
+[error]     |must be more specific than ?{ find: [applied to (_$1 => _$1.name == Board(fieldNum)._2) returning ?{
+[error]     |  flatMap: [applied to (_$2 => _$2.owner) returning ?{ orElse: [applied to (
+[error]     |  controller.getGameState._3.find(_$3 => _$3.name == Board(fieldNum)._2).flatMap
+[error]     |    (_$4 => _$4.owner)
+[error]     |) returning ?{ orElse: [applied to (
+[error]     |  controller.getGameState._4.find(_$5 => _$5.name == Board(fieldNum)._2).flatMap
+[error]     |    (_$6 => _$6.owner)
+[error]     |) returning ?{ getOrElse: [applied to ("") returning <?>] }] }] }] }] }
+[error]     |
+[error]     | longer explanation available when compiling with `-explain`
+[error] -- [E007] Type Mismatch Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/view/gui/BoardPanel.scala:122:4 
+[error] 122 |    streets.find(_.name == Board(fieldNum)._2) match {
+[error]     |    ^^^^^^^
+[error]     |Found:    (streets : Nothing)
+[error]     |Required: ?{ find: ? }
+[error]     |Note that implicit conversions were not tried because the result of an implicit conversion
+[error]     |must be more specific than ?{ find: [applied to (_$7 => _$7.name == Board(fieldNum)._2) returning <?>] }
+[error]     |
+[error]     | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/view/gui/BoardPanel.scala:124:21 
+[error] 124 |        val houses = street.buildings
+[error]     |                     ^^^^^^
+[error]     |                     Not found: street - did you mean streets?
+[error]     |
+[error]     | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/view/gui/BoardPanel.scala:125:21 
+[error] 125 |        val hotels = street.hotels
+[error]     |                     ^^^^^^
+[error]     |                     Not found: street - did you mean streets?
+[error]     |
+[error]     | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/view/tui/TUI.scala:10:22 
+[error] 10 |class Tui(controller: Controller) extends Observer {
+[error]    |                      ^^^^^^^^^^
+[error]    |                  Not found: type Controller - did you mean IController?
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/view/tui/TUI.scala:37:42 
+[error] 37 |                  println(s"Roll failed: $msg")
+[error]    |                                          ^^^
+[error]    |                                          Not found: msg
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/view/tui/TUI.scala:47:46 
+[error] 47 |                      println(s"Roll failed: $msg")
+[error]    |                                              ^^^
+[error]    |                                              Not found: msg
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] -- [E006] Not Found Error: /home/jannik/htwg/SE/monopoly/src/main/scala/de.htwg.monopoly/view/tui/TUI.scala:65:46 
+[error] 65 |                      println(s"Roll failed: $msg")
+[error]    |                                              ^^^
+[error]    |                                              Not found: msg
+[error]    |
+[error]    | longer explanation available when compiling with `-explain`
+[error] 70 errors found
+[error] (Compile / compileIncremental) Compilation failed
+[error] Total time: 4 s, completed Jun 20, 2025, 2:46:07 AM

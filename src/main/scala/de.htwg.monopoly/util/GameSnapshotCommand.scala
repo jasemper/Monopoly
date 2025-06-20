@@ -1,9 +1,9 @@
 package de.htwg.monopoly.util
 
-import de.htwg.monopoly.controller.Controller
+import de.htwg.monopoly.controller.api._
 import de.htwg.monopoly.model.GameSnapshot
 
-class GameSnapshotCommand(controller: Controller, val before: GameSnapshot) extends Command {
+class GameSnapshotCommand(controller: IController, val before: GameSnapshot) extends Command {
   private var after: Option[GameSnapshot] = None
 
   override def doStep(): Unit = {

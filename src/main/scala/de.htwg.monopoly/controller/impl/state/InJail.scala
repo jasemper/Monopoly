@@ -1,12 +1,12 @@
-package de.htwg.monopoly.controller.state
-import de.htwg.monopoly.controller.Controller
+package de.htwg.monopoly.controller.impl.state
+import de.htwg.monopoly.controller.api._
 import de.htwg.monopoly.model.GameStateEnum
 
 class InJail extends GameState {
 
   override def getState: GameStateEnum = GameStateEnum.InJail
   
-  override def rollDice(controller: Controller, dice1: Option[Int], dice2: Option[Int]): GameResult = {
+  override def rollDice(controller: IController, dice1: Option[Int], dice2: Option[Int]): GameResult = {
     val (d1, d2) = (dice1, dice2) match {
       case (Some(d1), Some(d2)) => (d1, d2)
       case (Some(d1), None)     => (d1, 0)
@@ -18,10 +18,10 @@ class InJail extends GameState {
     }
     val spaces = controller.rollDice(d1, d2)
     if (controller.currentPlayer.pasch > 0) {
-      controller.players = controller.players.updated(
+      controller.updatePlayers(controller.players.updated(
         controller.currentPlayerIndex,
         controller.currentPlayer.copy(inJail = false)
-      )
+      ))
       controller.moveCurrentPlayer(spaces)
       controller.setState(new Buying)
       Success(Some(spaces))
@@ -33,19 +33,19 @@ class InJail extends GameState {
     
   }
 
-  override def move(controller: Controller, spaces: Int): GameResult =
+  override def move(controller: IController, spaces: Int): GameResult =
     Error("You're in jail. Roll a double to get out.")
 
-  override def buy(controller: Controller): GameResult =
+  override def buy(controller: IController): GameResult =
     Error("You're in jail.")
 
-  override def buildHouse(controller: Controller, fieldNr: Int): GameResult =
+  override def buildHouse(controller: IController, fieldNr: Int): GameResult =
     Error("You're in jail. Can't build now.")
 
-  override def buildHotel(controller: Controller, fieldNr: Int): GameResult =
+  override def buildHotel(controller: IController, fieldNr: Int): GameResult =
     Error("You're in jail. Can't build now.")
 
-  override def endTurn(controller: Controller): GameResult = {
+  override def endTurn(controller: IController): GameResult = {
     controller.nextTurn()
     if (controller.currentPlayer.inJail)
       controller.setState(new InJail)

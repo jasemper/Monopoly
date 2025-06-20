@@ -1,11 +1,11 @@
-package de.htwg.monopoly.controller
+package de.htwg.monopoly.controller.impl
 
 import de.htwg.monopoly.model._
 import de.htwg.monopoly.util.UndoManager
 import de.htwg.monopoly.util.GameSnapshotCommand
 import de.htwg.monopoly.util.Observable
-import de.htwg.monopoly.controller.state._
-import de.htwg.monopoly.controller.state.GameState
+import de.htwg.monopoly.controller.impl.state._
+import de.htwg.monopoly.controller.api._
 
 class Controller(
     var players: Vector[Player] = InitPlayers,
@@ -13,17 +13,18 @@ class Controller(
     var trains: Vector[Train] = InitTrains,
     var utilities: Vector[Utility] = InitUtilities,
     var currentPlayerIndex: Int = 0,
-    var state: GameState = new WaitingForRoll) extends Observable{
-
-  enum Tilt: 
-    case Yes, No, Random
+    var state: GameState = new WaitingForRoll) extends Observable with IController{
 
   val undoManager = new UndoManager()
   var undoAllowed: Boolean = false
 
+  def updatePlayers(newPlayers: Vector[Player]): Unit = {
+    players = newPlayers
+  }
 
   def currentPlayer: Player = players(currentPlayerIndex)
   var tilt: Tilt = Tilt.Random
+  override def getTilt: Tilt = (tilt)
 
   def rollDice(dice1: Int = scala.util.Random.nextInt(6) + 1, dice2: Int = scala.util.Random.nextInt(6) + 1): Int = {
     val total = dice1 + dice2
@@ -181,7 +182,7 @@ class Controller(
   def markUndoPoint(): Unit = {
     if (undoAllowed) {
       val snapshot = createSnapshot()
-      undoManager.doStep(new GameSnapshotCommand(this, snapshot))
+      undoManager.doStep(new GameSnapshotCommand(this: IController, snapshot))
     }
   }
 
@@ -221,4 +222,7 @@ class Controller(
     undoAllowed = false
     undoManager.clear()
   }
+
+  override def undoStepsAvailable: Int = undoManager.undoStack.size
+  override def redoStepsAvailable: Int = undoManager.redoStack.size
 }
