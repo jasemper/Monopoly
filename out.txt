@@ -7,7 +7,6 @@ src
 │           ├── Main.worksheet.sc
 │           ├── controller
 │           │   ├── api
-│           │   │   ├── GameResult.scala
 │           │   │   ├── GameState.scala
 │           │   │   └── IController.scala
 │           │   └── impl
@@ -39,9 +38,9 @@ src
 │           └── view
 │               ├── gui
 │               │   ├── BoardPanel.scala
-│               │   └── GUI.scala
+│               │   └── Gui.scala
 │               └── tui
-│                   └── TUI.scala
+│                   └── Tui.scala
 └── test
     └── scala
         └── de.htwg.monopoly

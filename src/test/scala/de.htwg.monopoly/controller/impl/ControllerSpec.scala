@@ -5,6 +5,20 @@ import de.htwg.monopoly
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
+import de.htwg.monopoly.controller.impl.Controller
+import de.htwg.monopoly.model.Player
+import de.htwg.monopoly.model.strategy._
+import de.htwg.monopoly.controller.impl.state.Buying
+import de.htwg.monopoly.model.Street
+import de.htwg.monopoly.model.Train
+import de.htwg.monopoly.model.Utility
+import de.htwg.monopoly.model.data._
+import de.htwg.monopoly.util.UndoManager
+import de.htwg.monopoly.util.Observable
+import de.htwg.monopoly.util.GameSnapshotCommand
+import de.htwg.monopoly.controller.api.IController
+import de.htwg.monopoly.controller.api.GameState
+
 class ControllerSpec extends AnyWordSpec {
   "rolldice" should {
     "roll the dice correctly" in {
@@ -204,7 +218,7 @@ class ControllerSpec extends AnyWordSpec {
     "decide on building a house false" in {
       val player = Player("Blue", position = 1, strategy = Some(RandomStrategy()))
       val controller = new Controller(players = Vector(player))
-      controller.tilt = controller.Tilt.No
+      controller.tilt = IController.Tilt.No
       controller.buyCurrentProperty()
       controller.getCurrentOwner should be("Blue")
       controller.performAITurn(0, 0)
@@ -213,7 +227,7 @@ class ControllerSpec extends AnyWordSpec {
     "decide on building a house true" in {
       val player = Player("Blue", position = 1, strategy = Some(RandomStrategy()))
       val controller = new Controller(players = Vector(player))
-      controller.tilt = controller.Tilt.Yes
+      controller.tilt = IController.Tilt.Yes
       controller.buyCurrentProperty()
       controller.getCurrentOwner should be("Blue")
       controller.performAITurn(0, 0)
@@ -222,7 +236,7 @@ class ControllerSpec extends AnyWordSpec {
     "decide on building a hotel false" in {
       val player = Player("Blue", position = 1, strategy = Some(RandomStrategy()))
       val controller = new Controller(players = Vector(player))
-      controller.tilt = controller.Tilt.No
+      controller.tilt = IController.Tilt.No
       controller.buyCurrentProperty()
       controller.getCurrentOwner should be("Blue")
       controller.buildHouse(1)
@@ -234,7 +248,7 @@ class ControllerSpec extends AnyWordSpec {
     "decide on building a hotel true" in {
       val player = Player("Blue", position = 1, strategy = Some(RandomStrategy()))
       val controller = new Controller(players = Vector(player))
-      controller.tilt = controller.Tilt.Yes
+      controller.tilt = IController.Tilt.Yes
       controller.buyCurrentProperty()
       controller.getCurrentOwner should be("Blue")
       controller.buildHouse(1)
@@ -247,7 +261,7 @@ class ControllerSpec extends AnyWordSpec {
       val player = Player("Blue", position = 1, strategy = Some(RandomStrategy()))
       val player2 = Player("Red", position = 1, strategy = Some(RandomStrategy()))
       val controller = new Controller(players = Vector(player, player2))
-      controller.tilt = controller.Tilt.No
+      controller.tilt = IController.Tilt.No
       controller.buyCurrentProperty()
       controller.getCurrentOwner should be("Blue")
       controller.nextTurn()

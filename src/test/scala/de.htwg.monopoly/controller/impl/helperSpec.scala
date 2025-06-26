@@ -4,6 +4,12 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 import java.io.{ByteArrayOutputStream, PrintStream}
 
+import de.htwg.monopoly.controller.impl.Controller
+import de.htwg.monopoly.controller.impl.helper._
+import de.htwg.monopoly.model._
+import de.htwg.monopoly.model.data._
+import de.htwg.monopoly.controller.impl.state._
+
 class helperSpec extends AnyWordSpec {
   "helper" should {
     "be returned as owner" in {

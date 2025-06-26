@@ -3,7 +3,7 @@ package de.htwg.monopoly.view.tui
 import de.htwg.monopoly.controller.api._
 import de.htwg.monopoly.controller.impl.Controller
 import de.htwg.monopoly.util.Observer
-import de.htwg.monopoly.model.Board
+import de.htwg.monopoly.model.data.Board
 
 import scala.io.StdIn.readLine
 import scala.util.{Try, Failure}

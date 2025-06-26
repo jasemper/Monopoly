@@ -3,6 +3,8 @@ package de.htwg.monopoly
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
+import de.htwg.monopoly.model.{Player, Property, Street, Train, Utility}
+
 class modelSpec extends AnyWordSpec {
     "model" should {
         "have a player with pasch 0" in {

@@ -1,6 +1,7 @@
 package de.htwg.monopoly.model.strategy
-import de.htwg.monopoly.controller.api._
-import de.htwg.monopoly.model.{Board, Player}
+import de.htwg.monopoly.controller.api.IController
+import de.htwg.monopoly.model.{Player}
+import de.htwg.monopoly.model.data.Board
 
 import scala.compiletime.ops.boolean
 

@@ -4,6 +4,8 @@ package de.htwg.monopoly
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
+import de.htwg.monopoly.util.UndoManager
+
 class UndoManagerSpec extends AnyWordSpec {
     "undoStep" should {
       "do nothing on empty" in {

@@ -1,6 +1,7 @@
 package de.htwg.monopoly.model
 
-val InitPlayers: Vector[Player] = Vector(
+object data {
+  val InitPlayers: Vector[Player] = Vector(
     Player("Blue"),
     Player("Green"),
     Player("Yellow"),
@@ -111,3 +112,4 @@ val InitPlayers: Vector[Player] = Vector(
     38 -> "Luxury Tax",
     39 -> InitStreets(21).name
   )
+}

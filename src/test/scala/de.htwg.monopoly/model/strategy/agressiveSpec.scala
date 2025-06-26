@@ -5,6 +5,10 @@ import de.htwg.monopoly
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
+import de.htwg.monopoly.controller.impl.Controller
+import de.htwg.monopoly.model.Player
+import de.htwg.monopoly.model.strategy.AggressiveStrategy
+
 class agressiveSpec extends AnyWordSpec {
     "agressiveAI" should {
         "buy a property" in {

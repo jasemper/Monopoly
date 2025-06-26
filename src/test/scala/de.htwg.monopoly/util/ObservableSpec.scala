@@ -3,6 +3,8 @@ package de.htwg.monopoly
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
+import de.htwg.monopoly.util.{Observable, Observer}
+
 class ObservableSpec extends AnyWordSpec {
   
     "Observable" should {

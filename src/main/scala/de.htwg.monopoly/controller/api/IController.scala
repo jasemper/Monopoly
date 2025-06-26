@@ -32,9 +32,18 @@ trait IController {
 
   def undoStepsAvailable: Int
   def redoStepsAvailable: Int
-  def getTilt: Tilt
+  def getTilt: IController.Tilt
 
   //states
   def state: GameState
   def rollDice(dice1: Int, dice2: Int): Int
+}
+
+sealed trait GameResult
+case class Success(spacesMoved: Option[Int] = None) extends GameResult
+case class Error(message: String) extends GameResult
+
+object IController {
+  enum Tilt:
+    case Yes, No, Random
 }

@@ -3,40 +3,45 @@ package de.htwg.monopoly
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
-class BuyingSpec extends AnyWordSpec {
+import de.htwg.monopoly.controller.api._
+import de.htwg.monopoly.controller.impl._
+import de.htwg.monopoly.controller.impl.state._
+import de.htwg.monopoly.model.factory._
+import de.htwg.monopoly.model._
+
+class BuildingSpec extends AnyWordSpec {
 
   "rollDice" should {
-    "return Error indicating dice already rolled this turn" in {
+    "return Error indicating already moved and bought" in {
       val controller = new Controller
-      val state = new Buying
+      val state = new Building
       val result = state.rollDice(controller, Some(1), Some(2))
-      result shouldBe Error("You already rolled this turn.")
+      result shouldBe Error("You already moved and bought.")
     }
   }
 
   "move" should {
-    "return Error indicating already moved this turn" in {
+    "return Error indicating already moved" in {
       val controller = new Controller
-      val state = new Buying
+      val state = new Building
       val result = state.move(controller, 1)
-      result shouldBe Error("You already moved this turn.")
+      result shouldBe Error("You already moved.")
     }
   }
 
   "buy" should {
-    "return Success after buying property and change state to Building" in {
+    "return Error indicating already bought or skipped" in {
       val controller = new Controller
-      val state = new Buying
+      val state = new Building
       val result = state.buy(controller)
-      result shouldBe Success()
-      controller.state shouldBe a [Building]
+      result shouldBe Error("You already bought or skipped buying.")
     }
   }
 
   "buildHouse" should {
     "return Success after building house" in {
       val controller = new Controller
-      val state = new Buying
+      val state = new Building
       val result = state.buildHouse(controller, 1)
       result shouldBe Success()
     }
@@ -45,7 +50,7 @@ class BuyingSpec extends AnyWordSpec {
   "buildHotel" should {
     "return Success after building hotel" in {
       val controller = new Controller
-      val state = new Buying
+      val state = new Building
       val result = state.buildHotel(controller, 1)
       result shouldBe Success()
     }
@@ -56,7 +61,7 @@ class BuyingSpec extends AnyWordSpec {
       val player1 = Player("Blue")
       val player2 = Player("Red", inJail = true)
       val controller = new Controller(players = Vector(player1, player2))
-      val state = new Buying
+      val state = new Building
 
       val result = state.endTurn(controller)
       result shouldBe Success()
@@ -67,7 +72,7 @@ class BuyingSpec extends AnyWordSpec {
       val player1 = Player("Blue")
       val player2 = Player("Red")
       val controller = new Controller(players = Vector(player1, player2))
-      val state = new Buying
+      val state = new Building
 
       val result = state.endTurn(controller)
       result shouldBe Success()

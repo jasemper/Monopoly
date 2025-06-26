@@ -1,11 +1,14 @@
 package de.htwg.monopoly.controller.impl
 
 import de.htwg.monopoly.model._
+import de.htwg.monopoly.model.data._
 import de.htwg.monopoly.util.UndoManager
 import de.htwg.monopoly.util.GameSnapshotCommand
 import de.htwg.monopoly.util.Observable
+import de.htwg.monopoly.controller.impl.helper._
 import de.htwg.monopoly.controller.impl.state._
-import de.htwg.monopoly.controller.api._
+import de.htwg.monopoly.controller.api.IController
+import de.htwg.monopoly.controller.api.GameState
 
 class Controller(
     var players: Vector[Player] = InitPlayers,
@@ -23,8 +26,8 @@ class Controller(
   }
 
   def currentPlayer: Player = players(currentPlayerIndex)
-  var tilt: Tilt = Tilt.Random
-  override def getTilt: Tilt = (tilt)
+  var tilt: IController.Tilt = IController.Tilt.Random
+  override def getTilt: IController.Tilt = (tilt)
 
   def rollDice(dice1: Int = scala.util.Random.nextInt(6) + 1, dice2: Int = scala.util.Random.nextInt(6) + 1): Int = {
     val total = dice1 + dice2

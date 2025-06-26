@@ -5,6 +5,13 @@ import org.scalatest.matchers.should.Matchers._
 import java.io.{ByteArrayOutputStream, PrintStream}
 import java.io.ByteArrayInputStream
 
+import de.htwg.monopoly.controller.api.IController
+import de.htwg.monopoly.controller.impl.Controller
+import de.htwg.monopoly.view.tui._
+import de.htwg.monopoly.model.Player
+import de.htwg.monopoly.model.{Street, Train, Utility}
+import de.htwg.monopoly.model.strategy.AggressiveStrategy
+
 class TUISpec extends AnyWordSpec {
     "TUI" should {
         "start a game in console" in {

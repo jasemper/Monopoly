@@ -3,50 +3,57 @@ package de.htwg.monopoly
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
-class MovingSpec extends AnyWordSpec {
+import de.htwg.monopoly.controller.api._
+import de.htwg.monopoly.controller.impl._
+import de.htwg.monopoly.controller.impl.state._
+import de.htwg.monopoly.model.factory._
+import de.htwg.monopoly.model._
+
+class BuyingSpec extends AnyWordSpec {
 
   "rollDice" should {
-    "return Error because you can't roll while moving" in {
+    "return Error indicating dice already rolled this turn" in {
       val controller = new Controller
-      val state = new Moving
+      val state = new Buying
       val result = state.rollDice(controller, Some(1), Some(2))
       result shouldBe Error("You already rolled this turn.")
     }
   }
 
   "move" should {
-    "return Success when movement is done" in {
+    "return Error indicating already moved this turn" in {
       val controller = new Controller
-      val state = new Moving
+      val state = new Buying
       val result = state.move(controller, 1)
-      result shouldBe Success()
+      result shouldBe Error("You already moved this turn.")
     }
   }
 
   "buy" should {
-    "return Error because you need to finish moving first" in {
+    "return Success after buying property and change state to Building" in {
       val controller = new Controller
-      val state = new Moving
+      val state = new Buying
       val result = state.buy(controller)
-      result shouldBe Error("You first need to move this turn.")
+      result shouldBe Success()
+      controller.state shouldBe a [Building]
     }
   }
 
   "buildHouse" should {
-    "return Error because you need to finish moving first" in {
+    "return Success after building house" in {
       val controller = new Controller
-      val state = new Moving
+      val state = new Buying
       val result = state.buildHouse(controller, 1)
-      result shouldBe Error("You must finish your move before building.")
+      result shouldBe Success()
     }
   }
 
   "buildHotel" should {
-    "return Error because you need to finish moving first" in {
+    "return Success after building hotel" in {
       val controller = new Controller
-      val state = new Moving
+      val state = new Buying
       val result = state.buildHotel(controller, 1)
-      result shouldBe Error("You must finish your move before building.")
+      result shouldBe Success()
     }
   }
 
@@ -55,7 +62,7 @@ class MovingSpec extends AnyWordSpec {
       val player1 = Player("Blue")
       val player2 = Player("Red", inJail = true)
       val controller = new Controller(players = Vector(player1, player2))
-      val state = new Moving
+      val state = new Buying
 
       val result = state.endTurn(controller)
       result shouldBe Success()
@@ -66,7 +73,7 @@ class MovingSpec extends AnyWordSpec {
       val player1 = Player("Blue")
       val player2 = Player("Red")
       val controller = new Controller(players = Vector(player1, player2))
-      val state = new Moving
+      val state = new Buying
 
       val result = state.endTurn(controller)
       result shouldBe Success()

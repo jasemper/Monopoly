@@ -3,50 +3,56 @@ package de.htwg.monopoly
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
-class TurnEndedSpec extends AnyWordSpec {
+import de.htwg.monopoly.controller.api._
+import de.htwg.monopoly.controller.impl._
+import de.htwg.monopoly.controller.impl.state._
+import de.htwg.monopoly.model.factory._
+import de.htwg.monopoly.model._
+
+class MovingSpec extends AnyWordSpec {
 
   "rollDice" should {
-    "return Error indicating turn has ended" in {
+    "return Error because you can't roll while moving" in {
       val controller = new Controller
-      val state = new TurnEnded
+      val state = new Moving
       val result = state.rollDice(controller, Some(1), Some(2))
-      result shouldBe Error("Wait for your next turn.")
+      result shouldBe Error("You already rolled this turn.")
     }
   }
 
   "move" should {
-    "return Error indicating turn has ended" in {
+    "return Success when movement is done" in {
       val controller = new Controller
-      val state = new TurnEnded
+      val state = new Moving
       val result = state.move(controller, 1)
-      result shouldBe Error("Wait for your next turn.")
+      result shouldBe Success()
     }
   }
 
   "buy" should {
-    "return Error indicating turn has ended" in {
+    "return Error because you need to finish moving first" in {
       val controller = new Controller
-      val state = new TurnEnded
+      val state = new Moving
       val result = state.buy(controller)
-      result shouldBe Error("Wait for your next turn.")
+      result shouldBe Error("You first need to move this turn.")
     }
   }
 
   "buildHouse" should {
-    "return Error indicating turn has ended" in {
+    "return Error because you need to finish moving first" in {
       val controller = new Controller
-      val state = new TurnEnded
+      val state = new Moving
       val result = state.buildHouse(controller, 1)
-      result shouldBe Error("Wait for your next turn.")
+      result shouldBe Error("You must finish your move before building.")
     }
   }
 
   "buildHotel" should {
-    "return Error indicating turn has ended" in {
+    "return Error because you need to finish moving first" in {
       val controller = new Controller
-      val state = new TurnEnded
+      val state = new Moving
       val result = state.buildHotel(controller, 1)
-      result shouldBe Error("Wait for your next turn.")
+      result shouldBe Error("You must finish your move before building.")
     }
   }
 
@@ -55,7 +61,7 @@ class TurnEndedSpec extends AnyWordSpec {
       val player1 = Player("Blue")
       val player2 = Player("Red", inJail = true)
       val controller = new Controller(players = Vector(player1, player2))
-      val state = new TurnEnded
+      val state = new Moving
 
       val result = state.endTurn(controller)
       result shouldBe Success()
@@ -66,7 +72,7 @@ class TurnEndedSpec extends AnyWordSpec {
       val player1 = Player("Blue")
       val player2 = Player("Red")
       val controller = new Controller(players = Vector(player1, player2))
-      val state = new TurnEnded
+      val state = new Moving
 
       val result = state.endTurn(controller)
       result shouldBe Success()

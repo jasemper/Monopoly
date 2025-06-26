@@ -1,7 +1,7 @@
 package de.htwg.monopoly.view.gui
 
 import de.htwg.monopoly.controller.api._
-import de.htwg.monopoly.model.Board
+import de.htwg.monopoly.model.data.Board
 import de.htwg.monopoly.model._
 
 import java.awt._

@@ -1,6 +1,7 @@
 package de.htwg.monopoly.model.strategy
-import de.htwg.monopoly.controller.api._
-import de.htwg.monopoly.model.{Board, Player}
+import de.htwg.monopoly.controller.api.IController
+import de.htwg.monopoly.model.{Player}
+import de.htwg.monopoly.model.data.Board
 
 import scala.util.Random
 
@@ -50,9 +51,9 @@ class RandomStrategy extends PlayerStrategy {
 
   def getRandom(controller: IController): Boolean = {
   controller.getTilt match {
-    case Tilt.Yes    => true
-    case Tilt.No     => false
-    case Tilt.Random => scala.util.Random.nextBoolean()
+    case IController.Tilt.Yes    => true
+    case IController.Tilt.No     => false
+    case IController.Tilt.Random => scala.util.Random.nextBoolean()
   }
 }
 

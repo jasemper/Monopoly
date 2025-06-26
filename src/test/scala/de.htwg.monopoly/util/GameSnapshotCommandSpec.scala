@@ -3,6 +3,10 @@ package de.htwg.monopoly
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
+import de.htwg.monopoly.controller.impl.Controller
+import de.htwg.monopoly.model.GameSnapshot
+import de.htwg.monopoly.util.GameSnapshotCommand
+
 class GameSnapshotCommandSpec extends AnyWordSpec {
     "redoStep" should {
         "restore the game state to the snapshot" in {

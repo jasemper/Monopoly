@@ -1,11 +1,13 @@
 package de.htwg.monopoly.controller.impl
 
 import de.htwg.monopoly.model
+import de.htwg.monopoly.model.data._
 import de.htwg.monopoly.controller.api.GameState
-import de.htwg.monopoly.model.{Board, Player, Street, Train, Utility}
+import de.htwg.monopoly.model.{Player, Street, Train, Utility}
 import de.htwg.monopoly.controller.impl.state._
 
-def getOwner(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Train], Utilities: Vector[Utility]): String = {
+object helper {
+  def getOwner(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Train], Utilities: Vector[Utility]): String = {
     if (fieldNr < 0 || fieldNr >= Board.length) return ""
 
     val fieldName = Board(fieldNr)._2
@@ -96,3 +98,4 @@ def getOwner(fieldNr: Int, Streets: Vector[Street], Trains: Vector[Train], Utili
       case _ => ""
     }
   }
+}
