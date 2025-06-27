@@ -1,5 +1,4 @@
 src
-├── comment_remover.py
 ├── main
 │   └── scala
 │       └── de.htwg.monopoly

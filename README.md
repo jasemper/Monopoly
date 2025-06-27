@@ -3,6 +3,8 @@
 
 coverage is no longer working, as github wants to run a graphic in headless mode, thus the coverage test always fails to complete
 
+I commented out the Gui part from main, so the docker works. coverage should work now too, as both are headless
+
 # Monopoly written in Scala 3
 
 # ToDo:
