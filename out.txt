@@ -67,6 +67,9 @@ src
             │   ├── dataSpec.scala
             │   ├── factory
             │   │   └── playerFactorySpec.scala
+            │   ├── fileio
+            │   │   ├── FileIOJsonImplSpec.scala
+            │   │   └── FileIOXmlImplSpec.scala
             │   ├── modelSpec.scala
             │   └── strategy
             │       ├── agressiveSpec.scala
