@@ -1,6 +1,8 @@
 [![Coverage Status](https://coveralls.io/repos/github/jasemper/Monopoly/badge.svg?branch=master)](https://coveralls.io/github/jasemper/Monopoly?branch=master)
 ![GitHub last commit](https://img.shields.io/github/last-commit/jasemper/Monopoly)
 
+coverage is no longer working, as github wants to run a graphic in headless mode, thus the coverage test always fails to complete
+
 # Monopoly written in Scala 3
 
 # ToDo:
