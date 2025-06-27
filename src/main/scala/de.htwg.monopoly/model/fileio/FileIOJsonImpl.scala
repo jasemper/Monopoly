@@ -58,7 +58,19 @@ implicit val playerStrategyFormat: Format[Option[PlayerStrategy]] = new Format[O
   }
 }
 
-implicit val propertyFormat: OFormat[Property] = Json.format[Property]
+//implicit val propertyFormat: OFormat[Property] = Json.format[Property]
+implicit val propertyFormat: OFormat[Property] = new OFormat[Property] {
+  def reads(json: JsValue): JsResult[Property] = json match {
+    case null | JsNull => JsError("Cannot deserialize null Property")
+    case _ => JsError("Property deserialization not supported")
+  }
+
+  def writes(p: Property): JsObject = p match {
+    case null => Json.obj() // or throw, or log
+    case _ => throw new UnsupportedOperationException("Property serialization not supported")
+  }
+}
+
 implicit val streetFormat: OFormat[Street] = Json.format[Street]
 implicit val trainFormat: OFormat[Train] = Json.format[Train]
 implicit val utilityFormat: OFormat[Utility] = Json.format[Utility]

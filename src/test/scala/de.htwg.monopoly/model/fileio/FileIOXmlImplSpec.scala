@@ -16,7 +16,6 @@ class FileIOXmlImplSpec extends AnyWordSpec {
     "correctly save and load a game snapshot" in {
       val fileIO = new FileIOXmlImpl()
 
-      // Prepare a sample GameSnapshot
       val snapshot = GameSnapshot(
         players = InitPlayers,
         streets = InitStreets,
@@ -26,18 +25,14 @@ class FileIOXmlImplSpec extends AnyWordSpec {
         gameState = de.htwg.monopoly.model.GameStateEnum.WaitingForRoll
       )
 
-      // Create a temporary file
       val tempFile = Files.createTempFile("monopoly_xml_test", ".xml").toFile
       val filename = tempFile.getAbsolutePath
 
       try {
-        // Save the snapshot to XML
         fileIO.save(snapshot, filename)
 
-        // Load the snapshot back
         val loadedSnapshot = fileIO.load(filename)
 
-        // Assertions to verify that saved and loaded data are the same
         loadedSnapshot.players shouldBe snapshot.players
         loadedSnapshot.streets shouldBe snapshot.streets
         loadedSnapshot.trains shouldBe snapshot.trains
