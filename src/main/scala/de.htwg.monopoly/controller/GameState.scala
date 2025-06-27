@@ -1,4 +1,4 @@
-package de.htwg.monopoly.controller.api
+package de.htwg.monopoly.controller
 
 import de.htwg.monopoly.model.GameStateEnum
 

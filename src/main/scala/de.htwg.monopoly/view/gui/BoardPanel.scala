@@ -1,6 +1,6 @@
 package de.htwg.monopoly.view.gui
 
-import de.htwg.monopoly.controller.api._
+import de.htwg.monopoly.controller._
 import de.htwg.monopoly.model.data.Board
 import de.htwg.monopoly.model._
 

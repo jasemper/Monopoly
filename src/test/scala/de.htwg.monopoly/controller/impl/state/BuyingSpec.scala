@@ -3,7 +3,7 @@ package de.htwg.monopoly
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._
 
-import de.htwg.monopoly.controller.api._
+import de.htwg.monopoly.controller._
 import de.htwg.monopoly.controller.impl._
 import de.htwg.monopoly.controller.impl.state._
 import de.htwg.monopoly.model.factory._

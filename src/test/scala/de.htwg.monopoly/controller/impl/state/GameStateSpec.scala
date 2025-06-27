@@ -1,4 +1,4 @@
-package de.htwg.monopoly.controller.api
+package de.htwg.monopoly.controller
 
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers._

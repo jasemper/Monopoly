@@ -8,7 +8,7 @@ import de.htwg.monopoly.model.{Player, Street, Train, Utility}
 import de.htwg.monopoly.model.GameSnapshot
 import de.htwg.monopoly.model.GameStateEnum
 import de.htwg.monopoly.controller.impl.state._
-import de.htwg.monopoly.controller.api.GameState
+import de.htwg.monopoly.controller.GameState
 
 class GameSnapshotSpec extends AnyWordSpec {
 

@@ -7,8 +7,8 @@ import de.htwg.monopoly.util.GameSnapshotCommand
 import de.htwg.monopoly.util.Observable
 import de.htwg.monopoly.controller.impl.helper._
 import de.htwg.monopoly.controller.impl.state._
-import de.htwg.monopoly.controller.api.IController
-import de.htwg.monopoly.controller.api.GameState
+import de.htwg.monopoly.controller.IController
+import de.htwg.monopoly.controller.GameState
 import de.htwg.monopoly.model.fileio._
 
 class Controller(

@@ -1,6 +1,6 @@
 package de.htwg.monopoly.util
 
-import de.htwg.monopoly.controller.api.IController
+import de.htwg.monopoly.controller.IController
 import de.htwg.monopoly.model.GameSnapshot
 
 class GameSnapshotCommand(controller: IController, val before: GameSnapshot) extends Command {

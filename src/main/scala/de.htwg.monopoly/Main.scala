@@ -1,6 +1,6 @@
 package de.htwg.monopoly
 
-import de.htwg.monopoly.controller.api._
+import de.htwg.monopoly.controller._
 import de.htwg.monopoly.controller.impl.Controller  // explicitly import Controller impl as I create an object
 import de.htwg.monopoly.model.factory._
 import de.htwg.monopoly.view.tui.Tui

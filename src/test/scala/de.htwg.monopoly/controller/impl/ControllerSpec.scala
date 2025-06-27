@@ -16,8 +16,7 @@ import de.htwg.monopoly.model.data._
 import de.htwg.monopoly.util.UndoManager
 import de.htwg.monopoly.util.Observable
 import de.htwg.monopoly.util.GameSnapshotCommand
-import de.htwg.monopoly.controller.api.IController
-import de.htwg.monopoly.controller.api.GameState
+import de.htwg.monopoly.controller._
 
 class ControllerSpec extends AnyWordSpec {
   "rolldice" should {

@@ -1,7 +1,7 @@
 package de.htwg.monopoly.view.gui
 
 import de.htwg.monopoly.util.Observer
-import de.htwg.monopoly.controller.api._
+import de.htwg.monopoly.controller._
 import de.htwg.monopoly.controller.impl.Controller
 
 import javax.swing._

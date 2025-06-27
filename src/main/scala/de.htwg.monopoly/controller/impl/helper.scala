@@ -2,7 +2,7 @@ package de.htwg.monopoly.controller.impl
 
 import de.htwg.monopoly.model
 import de.htwg.monopoly.model.data._
-import de.htwg.monopoly.controller.api.GameState
+import de.htwg.monopoly.controller.GameState
 import de.htwg.monopoly.model.{Player, Street, Train, Utility}
 import de.htwg.monopoly.controller.impl.state._
 

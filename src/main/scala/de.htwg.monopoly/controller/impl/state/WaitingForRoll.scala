@@ -1,5 +1,5 @@
 package de.htwg.monopoly.controller.impl.state
-import de.htwg.monopoly.controller.api._
+import de.htwg.monopoly.controller._
 import de.htwg.monopoly.model.GameStateEnum
 
 class WaitingForRoll extends GameState {

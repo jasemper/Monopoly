@@ -1,5 +1,5 @@
 package de.htwg.monopoly.model.strategy
-import de.htwg.monopoly.controller.api.IController
+import de.htwg.monopoly.controller.IController
 import de.htwg.monopoly.model.{Player}
 import de.htwg.monopoly.model.data.Board
 
