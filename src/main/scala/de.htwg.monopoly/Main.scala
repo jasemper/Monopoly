@@ -17,6 +17,13 @@ object MonopolyGame {
       RandomAI("Yellow")
     )
 
+
+    val controller = new Controller(players)
+    val tui = new Tui(controller)
+    controller.add(tui)
+    tui.devPlay()
+    
+/*
     val controller = new Controller(players)
     val tui = new Tui(controller)
     val gui = new Gui(controller)
@@ -32,6 +39,6 @@ object MonopolyGame {
     })
     tuiThread.setDaemon(true)
     tuiThread.start()
-    tuiThread.join()
+    tuiThread.join()*/
   }
 }

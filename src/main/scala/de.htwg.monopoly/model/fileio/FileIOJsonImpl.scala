@@ -5,7 +5,6 @@ import play.api.libs.functional.syntax._
 import de.htwg.monopoly.model._
 import de.htwg.monopoly.model.strategy._
 
-// --- JSON Format for your enum GameStateEnum ---
 implicit val gameStateEnumFormat: Format[GameStateEnum] = new Format[GameStateEnum] {
   def writes(state: GameStateEnum): JsValue = state match {
     case GameStateEnum.WaitingForRoll => JsString("WaitingForRoll")
@@ -27,7 +26,6 @@ implicit val gameStateEnumFormat: Format[GameStateEnum] = new Format[GameStateEn
   }
 }
 
-// --- PlayerStrategy formats, you can't auto-derive because they're traits ---
 implicit val aggressiveStrategyFormat: Format[AggressiveStrategy] = Format(
   Reads(_ => JsSuccess(new AggressiveStrategy)),
   Writes(_ => JsString("AggressiveStrategy"))
@@ -43,7 +41,6 @@ implicit val randomStrategyFormat: Format[RandomStrategy] = Format(
   Writes(_ => JsString("RandomStrategy"))
 )
 
-// Option[PlayerStrategy] format discriminating on type
 implicit val playerStrategyFormat: Format[Option[PlayerStrategy]] = new Format[Option[PlayerStrategy]] {
   def writes(opt: Option[PlayerStrategy]): JsValue = opt match {
     case Some(_: AggressiveStrategy) => JsString("AggressiveStrategy")
@@ -61,13 +58,11 @@ implicit val playerStrategyFormat: Format[Option[PlayerStrategy]] = new Format[O
   }
 }
 
-// --- Property and subclasses formats ---
 implicit val propertyFormat: OFormat[Property] = Json.format[Property]
 implicit val streetFormat: OFormat[Street] = Json.format[Street]
 implicit val trainFormat: OFormat[Train] = Json.format[Train]
 implicit val utilityFormat: OFormat[Utility] = Json.format[Utility]
 
-// --- Vector formats explicitly to avoid ambiguity ---
 implicit def vectorFormat[A](implicit fmt: Format[A]): Format[Vector[A]] = Format(
   Reads.seq[A](fmt).map(_.toVector),
   Writes[Vector[A]](v => Writes.seq(fmt).writes(v.toSeq))
@@ -78,7 +73,6 @@ implicit val streetVectorFormat: Format[Vector[Street]] = vectorFormat(streetFor
 implicit val trainVectorFormat: Format[Vector[Train]] = vectorFormat(trainFormat)
 implicit val utilityVectorFormat: Format[Vector[Utility]] = vectorFormat(utilityFormat)
 
-// --- Player and GameSnapshot formats ---
 implicit val playerFormat: OFormat[Player] = (
   (__ \ "color").format[String] and
   (__ \ "money").format[Int] and
