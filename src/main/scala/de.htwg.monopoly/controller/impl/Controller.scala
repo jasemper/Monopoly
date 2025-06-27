@@ -9,6 +9,7 @@ import de.htwg.monopoly.controller.impl.helper._
 import de.htwg.monopoly.controller.impl.state._
 import de.htwg.monopoly.controller.api.IController
 import de.htwg.monopoly.controller.api.GameState
+import de.htwg.monopoly.model.fileio._
 
 class Controller(
     var players: Vector[Player] = InitPlayers,
@@ -20,6 +21,7 @@ class Controller(
 
   val undoManager = new UndoManager()
   var undoAllowed: Boolean = false
+  val fileIO: FileIOInterface = new FileIOJsonImpl()
 
   def updatePlayers(newPlayers: Vector[Player]): Unit = {
     players = newPlayers
@@ -228,4 +230,13 @@ class Controller(
 
   override def undoStepsAvailable: Int = undoManager.undoStack.size
   override def redoStepsAvailable: Int = undoManager.redoStack.size
+
+  def saveGame(filename: String): Unit = {
+    val snapshot = createSnapshot()
+    fileIO.save(snapshot, filename)
+  }
+  def loadGame(filename: String): Unit = {
+    val snapshot = fileIO.load(filename)
+    restoreSnapshot(snapshot)
+  }
 }

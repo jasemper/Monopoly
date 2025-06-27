@@ -25,6 +25,10 @@ src
 │           │   ├── data.scala
 │           │   ├── factory
 │           │   │   └── PLayerFactory.scala
+│           │   ├── fileio
+│           │   │   ├── FileIOInterface.scala
+│           │   │   ├── FileIOJsonImpl.scala
+│           │   │   └── FileIOXmlImpl.scala
 │           │   ├── model.scala
 │           │   └── strategy
 │           │       ├── AgressiveStrategy.scala
@@ -46,16 +50,18 @@ src
         └── de.htwg.monopoly
             ├── MonopolyTester.scala
             ├── controller
-            │   ├── ControllerSpec.scala
-            │   ├── helperSpec.scala
-            │   └── state
-            │       ├── BuildingSpec.scala
-            │       ├── BuyingSpec.scala
-            │       ├── GameStateSpec.scala
-            │       ├── InJailSpec.scala
-            │       ├── MovingSpec.scala
-            │       ├── TurnEndedSpec.scala
-            │       └── WaitingForRollSpec.scala
+            │   ├── api
+            │   └── impl
+            │       ├── ControllerSpec.scala
+            │       ├── helperSpec.scala
+            │       └── state
+            │           ├── BuildingSpec.scala
+            │           ├── BuyingSpec.scala
+            │           ├── GameStateSpec.scala
+            │           ├── InJailSpec.scala
+            │           ├── MovingSpec.scala
+            │           ├── TurnEndedSpec.scala
+            │           └── WaitingForRollSpec.scala
             ├── model
             │   ├── GameSnapshotSpec.scala
             │   ├── dataSpec.scala
