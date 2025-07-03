@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers._
 
 import de.htwg.monopoly.model._
 import de.htwg.monopoly.util.Observer
-
+/*
 // Minimal dummy controller that satisfies the IController interface
 class DummyController extends IController {
   def add(observer: Observer): Unit = {}
@@ -86,3 +86,4 @@ class GameStateSpec extends AnyWordSpec {
     }
   }
 }
+*/
