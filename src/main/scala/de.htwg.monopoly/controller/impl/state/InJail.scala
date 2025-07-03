@@ -36,8 +36,19 @@ class InJail extends GameState {
   override def move(controller: IController, spaces: Int): GameResult =
     Error("You're in jail. Roll a double to get out.")
 
-  override def buy(controller: IController): GameResult =
-    Error("You're in jail.")
+  override def buy(controller: IController): GameResult = {
+    controller.updatePlayers(controller.players.updated(
+      controller.currentPlayerIndex,
+      controller.currentPlayer.copy(inJail = false)
+    ))
+    controller.payJailFee()
+    val (d1, d2) = (scala.util.Random.nextInt(6) + 1,
+        scala.util.Random.nextInt(6) + 1)
+    val spaces = d1 + d2
+    controller.moveCurrentPlayer(spaces)
+    controller.setState(new Buying)
+    Success(Some(spaces))
+  }
 
   override def buildHouse(controller: IController, fieldNr: Int): GameResult =
     Error("You're in jail. Can't build now.")

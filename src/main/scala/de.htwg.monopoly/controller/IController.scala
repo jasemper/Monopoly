@@ -16,6 +16,10 @@ trait IController {
   def buildHotel(fieldNr: Int): Unit
   def nextTurn(): Unit
   def setState(state: GameState): Unit
+
+  def toJail(): Unit
+  def payJailFee(): Unit
+  def eventCard(): Unit
   
   def getGameState: (Vector[Player], Vector[Street], Vector[Train], Vector[Utility])
   def getWinnerIfAny: Option[String]

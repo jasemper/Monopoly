@@ -1,5 +1,6 @@
 package de.htwg.monopoly.controller.impl
 
+import scala.util.Random
 import de.htwg.monopoly.model._
 import de.htwg.monopoly.model.data._
 import de.htwg.monopoly.util.UndoManager
@@ -65,6 +66,18 @@ class Controller(
       players = players.updated(currentPlayerIndex, currentPlayer.copy(inJail = false))
       moveCurrentPlayer(spaces)
     }
+    if (currentPlayer.position == 30){
+      toJail()
+    }
+    if (currentPlayer.position == 4) {
+      players = players.updated(currentPlayerIndex, currentPlayer.copy(money = currentPlayer.money - 200))
+    }
+    if (currentPlayer.position == 38) {
+      players = players.updated(currentPlayerIndex, currentPlayer.copy(money = currentPlayer.money - 500))
+    }
+    if (currentPlayer.position == 2 || currentPlayer.position == 7 || currentPlayer.position == 17 || currentPlayer.position == 22 || currentPlayer.position == 33 || currentPlayer.position == 36) {
+      eventCard()
+    }
     notifyObservers
   }
 
@@ -92,10 +105,30 @@ class Controller(
   }
 
   def payJailFee(): Unit = {
-    players = players.updated(currentPlayerIndex, currentPlayer.copy(money = currentPlayer.money - 50))
+    players = players.updated(currentPlayerIndex, currentPlayer.copy(money = currentPlayer.money - 500))
     players = players.updated(currentPlayerIndex, currentPlayer.copy(inJail = false))
     notifyObservers
   }
+
+  def eventCard(): Unit = {
+  Random.nextInt(4) match {
+    case 0 =>
+      // Event 1: Lose $200
+      players = players.updated(currentPlayerIndex, currentPlayer.copy(money = currentPlayer.money - 200))
+    case 1 =>
+      // Event 2: Go to jail
+      toJail()
+    case 2 =>
+      // Event 3: Gain $100
+      players = players.updated(currentPlayerIndex, currentPlayer.copy(money = currentPlayer.money + 100))
+    case 3 =>
+      // Event 4: Swap position with another random player
+      val otherIndex = Random.shuffle((0 until players.length).filter(_ != currentPlayerIndex)).head
+      val tempPos = players(otherIndex).position
+      players = players.updated(otherIndex, players(otherIndex).copy(position = currentPlayer.position))
+      players = players.updated(currentPlayerIndex, currentPlayer.copy(position = tempPos))
+  }
+}
 
   def nextTurn(): Unit = {
   players = players.updated(currentPlayerIndex, currentPlayer.copy(pasch = 0))
