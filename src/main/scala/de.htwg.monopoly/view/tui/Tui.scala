@@ -127,7 +127,7 @@ class Tui(controller: IController) extends Observer {
   }
 
   override def update: Unit = println(
-    statusReport() +
-    controller.state.toString()
+    statusReport()// +
+    //controller.state.toString()
   )
 }
