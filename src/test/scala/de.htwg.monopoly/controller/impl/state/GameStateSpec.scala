@@ -5,7 +5,7 @@ import org.scalatest.matchers.should.Matchers._
 
 import de.htwg.monopoly.model._
 import de.htwg.monopoly.util.Observer
-/*
+
 // Minimal dummy controller that satisfies the IController interface
 class DummyController extends IController {
   def add(observer: Observer): Unit = {}
@@ -13,6 +13,9 @@ class DummyController extends IController {
   def buildHotel(fieldNr: Int): Unit = {}
   def buildHouse(fieldNr: Int): Unit = {}
   def buyCurrentProperty(): Unit = {}
+  def toJail(): Unit = {}
+  def payJailFee(): Unit = {}
+  def eventCard(): Unit = {}
   def createSnapshot(): GameSnapshot = 
   GameSnapshot(Vector(), Vector(), Vector(), Vector(), 0, GameStateEnum.InJail)
   def currentPlayer: Player = Player("Dummy")
@@ -86,4 +89,3 @@ class GameStateSpec extends AnyWordSpec {
     }
   }
 }
-*/

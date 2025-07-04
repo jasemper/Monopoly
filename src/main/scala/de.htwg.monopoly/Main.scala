@@ -47,8 +47,8 @@ object MonopolyGame {
     val controller = new Controller(players)
     val tui = new Tui(controller)
     controller.add(tui)
-    tui.devPlay()*/
-    
+    tui.devPlay()
+    */
 
     val controller = new Controller(players)
     val tui = new Tui(controller)
