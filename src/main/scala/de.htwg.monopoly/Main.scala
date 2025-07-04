@@ -1,3 +1,29 @@
+
+/*
+package de.htwg.monopoly
+
+import de.htwg.monopoly.inject.GameModule
+
+import javax.swing.SwingUtilities
+
+object MonopolyGame {
+  @main def startGame(): Unit = {
+    val module = new GameModule()
+
+    SwingUtilities.invokeLater(() => {
+      module.gui.createAndShowGUI()
+    })
+
+    val tuiThread = new Thread(() => {
+      module.tui.devPlay()
+    })
+    tuiThread.setDaemon(true)
+    tuiThread.start()
+    tuiThread.join()
+  }
+}
+
+*/
 package de.htwg.monopoly
 
 import de.htwg.monopoly.controller._

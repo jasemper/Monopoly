@@ -5,9 +5,8 @@ src
 │           ├── Main.scala
 │           ├── Main.worksheet.sc
 │           ├── controller
-│           │   ├── api
-│           │   │   ├── GameState.scala
-│           │   │   └── IController.scala
+│           │   ├── GameState.scala
+│           │   ├── IController.scala
 │           │   └── impl
 │           │       ├── Controller.scala
 │           │       ├── helper.scala
@@ -18,22 +17,26 @@ src
 │           │           ├── Moving.scala
 │           │           ├── TurnEnded.scala
 │           │           └── WaitingForRoll.scala
+│           ├── inject
+│           │   └── GameModule.scala
 │           ├── model
-│           │   ├── GameSnapshot.scala
-│           │   ├── GameStateEnum.scala
-│           │   ├── data.scala
-│           │   ├── factory
-│           │   │   └── PLayerFactory.scala
-│           │   ├── fileio
-│           │   │   ├── FileIOInterface.scala
-│           │   │   ├── FileIOJsonImpl.scala
-│           │   │   └── FileIOXmlImpl.scala
-│           │   ├── model.scala
-│           │   └── strategy
-│           │       ├── AgressiveStrategy.scala
-│           │       ├── DefensiveStrategy.scala
-│           │       ├── PlayerStrategy.scala
-│           │       └── RandomStrategy.scala
+│           │   ├── IModel.scala
+│           │   └── impl
+│           │       ├── GameSnapshot.scala
+│           │       ├── GameStateEnum.scala
+│           │       ├── data.scala
+│           │       ├── factory
+│           │       │   └── PLayerFactory.scala
+│           │       ├── fileio
+│           │       │   ├── FileIOInterface.scala
+│           │       │   ├── FileIOJsonImpl.scala
+│           │       │   └── FileIOXmlImpl.scala
+│           │       ├── model.scala
+│           │       └── strategy
+│           │           ├── AgressiveStrategy.scala
+│           │           ├── DefensiveStrategy.scala
+│           │           ├── PlayerStrategy.scala
+│           │           └── RandomStrategy.scala
 │           ├── util
 │           │   ├── GameSnapshotCommand.scala
 │           │   ├── Observable.scala
@@ -49,7 +52,8 @@ src
         └── de.htwg.monopoly
             ├── MonopolyTester.scala
             ├── controller
-            │   ├── api
+            │   ├── GameStateSpec.scala
+            │   ├── IControllerSpec.scala
             │   └── impl
             │       ├── ControllerSpec.scala
             │       ├── helperSpec.scala
@@ -67,6 +71,7 @@ src
             │   ├── factory
             │   │   └── playerFactorySpec.scala
             │   ├── fileio
+            │   │   ├── FileIOInterfaceSpec.scala
             │   │   ├── FileIOJsonImplSpec.scala
             │   │   └── FileIOXmlImplSpec.scala
             │   ├── modelSpec.scala
